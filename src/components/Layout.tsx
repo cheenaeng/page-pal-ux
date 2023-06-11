@@ -54,6 +54,26 @@ const savedPages: IPage[] = [
     },
     lengthMin: 2,
     link: 'https://medium.com/@cynthia-kreilick/repurposing-our-lives-27dca6502974'
+  },
+  {
+    id: '23423',
+    title: 'How to keep yourself sane',
+    img: {
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      alt: 'Green double couch with wooden legs'
+    },
+    lengthMin: 3,
+    link: 'Fobes.mentalHealth.com'
+  },
+  {
+    id: '23423',
+    title: 'How to keep yourself sane',
+    img: {
+      src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+      alt: 'Green double couch with wooden legs'
+    },
+    lengthMin: 3,
+    link: 'Fobes.mentalHealth.com'
   }
 ]
 
