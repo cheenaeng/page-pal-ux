@@ -17,9 +17,14 @@ interface PageProps {
 
 export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   return (
-    <Card maxW='sm' variant={'elevated'}>
+    <Card maxW='sm' maxH='sm' variant={'elevated'}>
       <CardBody>
-        <Image src={page.img.src} alt={page.img.alt} borderRadius='lg' />
+        <Image
+          maxH='25vh'
+          src={page.img.src}
+          alt={page.img.alt}
+          borderRadius='lg'
+        />
         <VStack mt='2' p='3' align='start' maxW='sm'>
           {/* Title */}
           <Text

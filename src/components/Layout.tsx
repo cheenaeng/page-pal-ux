@@ -20,7 +20,7 @@ export interface IPage {
   title: string
   img: {
     src: string
-    alt: string
+    alt?: string | undefined
   }
   lengthMin: number
   link: string
@@ -45,6 +45,15 @@ const savedPages: IPage[] = [
     },
     lengthMin: 5,
     link: 'medium.articles.techblog.com'
+  },
+  {
+    id: '23425',
+    title: 'Repurposing Our Lives',
+    img: {
+      src: 'https://miro.medium.com/v2/resize:fit:1400/format:webp/1*yUebMx5Df2DafybNNxEtQg.jpeg'
+    },
+    lengthMin: 2,
+    link: 'https://medium.com/@cynthia-kreilick/repurposing-our-lives-27dca6502974'
   }
 ]
 
