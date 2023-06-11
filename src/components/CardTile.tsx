@@ -6,28 +6,54 @@ import {
   Text,
   Divider,
   ButtonGroup,
-  Button
+  Button,
+  Box
 } from '@chakra-ui/react'
 
-export const CardTile = () => {
+import { IPage } from './Layout'
+interface PageProps {
+  page: IPage
+}
+
+export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   return (
     <Card maxW='sm' variant={'elevated'}>
       <CardBody>
-        <Image
-          src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-          alt='Green double couch with wooden legs'
-          borderRadius='lg'
-        />
-        <VStack mt='2' p='2' align='start'>
-          <Heading size='md'>How to keep yourself sane</Heading>
-          <Text align='start' noOfLines={2} fontSize='md'>
+        <Image src={page.img.src} alt={page.img.alt} borderRadius='lg' />
+        <VStack mt='2' p='3' align='start' maxW='sm'>
+          {/* Title */}
+          <Text
+            align='start'
+            fontSize='md'
+            as='b'
+            overflowWrap={'break-word'}
+            noOfLines={1}
+          >
+            {page.title}
+          </Text>
+
+          {/* Glimpse of Content */}
+          {/* <Text align='start' noOfLines={2} fontSize='md'>
             This sofa is perfect for modern tropical spaces, baroque inspired
             spaces, earthy toned spaces and for people who love a chic design
             with a sprinkle of vintage design.
-          </Text>
-          {/* <Text color='blue.600' fontSize='2xl'>
-            $450
           </Text> */}
+
+          {/* Link */}
+          <Text
+            align='start'
+            overflowWrap={'break-word'}
+            noOfLines={1}
+            fontSize='md'
+            as='b'
+            color='gray.500'
+          >
+            {page.link}
+          </Text>
+          {/* Length of article */}
+          <Text align='start' fontSize='md' color='gray.500'>
+            {page.lengthMin} min
+          </Text>
         </VStack>
       </CardBody>
     </Card>

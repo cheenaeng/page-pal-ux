@@ -20,10 +20,10 @@ const menuMap = new Map<string, string>([
 export const Navbar = () => {
   const isDesktop = useBreakpointValue({ base: false, lg: true })
   return (
-    <Box as='section' pb={{ base: '12', md: '24' }}>
+    <Box as='section' pb={{ base: '2', md: '2' }}>
       <Box as='nav' bg='bg.surface' boxShadow='sm'>
-        <Container py={{ base: '4', lg: '5' }}>
-          <HStack spacing='10' justify='space-between'>
+        <Container py={{ base: '2', lg: '2' }}>
+          <HStack spacing='2' justify='space-between'>
             {isDesktop ? (
               <Flex justify='space-between' flex='1'>
                 {/* Menus */}
