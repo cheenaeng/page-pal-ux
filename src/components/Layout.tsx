@@ -54,11 +54,11 @@ export const Layout = () => {
       {/* header section  */}
       <Box width={'100%'}>
         <Flex justifyContent={'space-between'}>
-          <Text align='start' fontSize='lg' as='b' color='gray.800'>
+          <Text align='start' fontSize='lg' as='b'>
             Saves
           </Text>
           <Box>
-            <Text fontSize='lg' as='b' color='gray.800'>
+            <Text fontSize='lg' as='b'>
               Sort
             </Text>
             <Icon as={MdSort} ml='5' />
