@@ -7,30 +7,29 @@ import {
   Divider,
   ButtonGroup,
   Button,
-  Box
+  Box,
 } from '@chakra-ui/react'
-
-import { IPage } from './Layout'
+import { IPage } from '../types/saves'
 interface PageProps {
   page: IPage
 }
 
 export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   return (
-    <Card maxW='sm' maxH='sm' variant={'elevated'}>
+    <Card maxW="sm" maxH="sm" variant={'elevated'}>
       <CardBody>
         <Image
-          maxH='25vh'
+          maxH="25vh"
           src={page.img.src}
           alt={page.img.alt}
-          borderRadius='lg'
+          borderRadius="lg"
         />
-        <VStack mt='2' p='3' align='start' maxW='sm'>
+        <VStack mt="2" p="3" align="start" maxW="sm">
           {/* Title */}
           <Text
-            align='start'
-            fontSize='md'
-            as='b'
+            align="start"
+            fontSize="md"
+            as="b"
             overflowWrap={'break-word'}
             noOfLines={1}
           >
@@ -46,17 +45,17 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
 
           {/* Link */}
           <Text
-            align='start'
+            align="start"
             overflowWrap={'break-word'}
             noOfLines={1}
-            fontSize='md'
-            as='b'
-            color='gray.500'
+            fontSize="md"
+            as="b"
+            color="gray.500"
           >
             {page.link}
           </Text>
           {/* Length of article */}
-          <Text align='start' fontSize='md' color='gray.500'>
+          <Text align="start" fontSize="md" color="gray.500">
             {page.lengthMin} min
           </Text>
         </VStack>
