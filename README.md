@@ -8,3 +8,4 @@ In the project directory, you can run:
 ### `npm start`
 
 ## Preview
+![preview of PagePal](./src/Assets/preview.png "Preview of PagePal")
