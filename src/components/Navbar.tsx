@@ -41,72 +41,57 @@ export const Navbar = () => {
     setShowUrlInput(!showUrlInput)
   }
 
-  const isDesktop = useBreakpointValue({ base: false, lg: true })
+  const isDesktop = useBreakpointValue({
+    base: false,
+    sm: false,
+    md: false,
+    lg: true,
+    xl: true,
+  })
   return (
     <Box as="section" pb={{ base: '2', md: '2' }}>
       <Box as="nav" bg="bg.surface" boxShadow="sm">
         <Box py={{ base: '2', lg: '2' }} width="100%">
           {isDesktop ? (
-            <Grid templateColumns="repeat(12, 1fr)">
+            <HStack minWidth="800px" mx="auto">
               {/* Menus */}
-              <GridItem
-                colSpan={{
-                  base: 1,
-                  lg: 0,
-                  xl: 1,
-                }}
-              />
-              <GridItem
-                colSpan={{
-                  base: 4,
-                  lg: 5,
-                  xl: 5,
+
+              <ButtonGroup
+                mx="auto"
+                variant="text"
+                spacing={{
+                  base: 2,
+                  lg: 2,
+                  xl: 4,
+                  '2xl': 8,
                 }}
               >
-                <ButtonGroup
-                  mx="auto"
-                  variant="text"
-                  spacing={{
-                    base: '2',
-                    xl: '4',
-                    '2xl': '8',
-                  }}
-                >
-                  {NavLinks.map((item) => (
-                    <Button
-                      fontSize={{ base: 'sm', lg: 'md', xl: 'xl' }}
-                      fontWeight="bold"
-                      key={item.name}
-                      as={Link}
-                      to={item.path}
-                      sx={{
-                        '&:hover': {
-                          color: 'brand.main',
-                        },
-                        '&:active': {
-                          color: 'brand.main',
-                        },
-                        '&:focus': {
-                          color: 'brand.main',
-                        },
-                      }}
-                    >
-                      {item.name}
-                    </Button>
-                  ))}
-                </ButtonGroup>
-              </GridItem>
-              <GridItem
-                colSpan={{
-                  base: 3,
-                  lg: 4,
-                  xl: 3,
-                }}
-                display="flex"
-                justifyContent="flex-end"
-              >
+                {NavLinks.map((item) => (
+                  <Button
+                    fontSize="lg"
+                    fontWeight="bold"
+                    key={item.name}
+                    as={Link}
+                    to={item.path}
+                    sx={{
+                      '&:hover': {
+                        color: 'brand.main',
+                      },
+                      '&:active': {
+                        color: 'brand.main',
+                      },
+                      '&:focus': {
+                        color: 'brand.main',
+                      },
+                    }}
+                  >
+                    {item.name}
+                  </Button>
+                ))}
+              </ButtonGroup>
+              <HStack minWidth="40vw" justifyContent="flex-end">
                 {showUrlInput ? (
-                  <HStack justify={'flex-start'}>
+                  <HStack>
                     <InputSave />
                     <IconButton
                       variant="ghost"
@@ -119,33 +104,28 @@ export const Navbar = () => {
                     />
                   </HStack>
                 ) : (
-                  <Button
-                    onClick={showUrl}
-                    variant="fancy"
-                    rightIcon={<AddIcon />}
-                  >
-                    Add url
-                  </Button>
+                  <Box>
+                    <Button
+                      onClick={showUrl}
+                      variant="fancy"
+                      rightIcon={<AddIcon />}
+                    >
+                      Add url
+                    </Button>
+                  </Box>
                 )}
-              </GridItem>
+              </HStack>
 
               {/* Sign in/ up */}
-              <GridItem
-                colSpan={{
-                  base: 4,
-                  lg: 2,
-                  xl: 2,
-                }}
-                justifySelf="flex-end"
-              >
+              <HStack justifySelf="flex-end">
                 <Button fontSize="lg" variant="tertiary">
                   Sign in
                 </Button>
 
                 {/* Light/dark mode */}
                 <ColorModeSwitcher />
-              </GridItem>
-            </Grid>
+              </HStack>
+            </HStack>
           ) : (
             <IconButton
               variant="tertiary"
