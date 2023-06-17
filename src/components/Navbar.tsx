@@ -14,6 +14,10 @@ import { Link } from 'react-router-dom'
 
 const NavLinks = [
   {
+    name: 'Home',
+    path: '/home',
+  },
+  {
     name: 'Saves',
     path: '/saves',
   },

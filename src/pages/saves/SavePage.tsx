@@ -4,14 +4,13 @@ import { CardTiles } from '../../components/CardTiles'
 import { MdSort } from 'react-icons/md'
 import { Flex, Text, Box, Icon, Divider } from '@chakra-ui/react'
 import { savedPages } from '../../data/mock/saves'
+import InputSave from '../../components/common/Form/InputSave'
 
 function SavePage() {
   return (
     <Layout>
+      <InputSave />
       <Flex justifyContent={'space-between'}>
-        <Text align="start" fontSize="lg" as="b">
-          Saves
-        </Text>
         <Box>
           <Text fontSize="lg" as="b">
             Sort
@@ -22,6 +21,7 @@ function SavePage() {
       <Divider />
       {/* card tiles  */}
       <Box maxH="75vh" overflowY={'auto'}>
+        {/* search bar here  */}
         <CardTiles pages={savedPages} />
       </Box>
     </Layout>
