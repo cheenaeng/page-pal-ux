@@ -4,23 +4,29 @@ import { CardTiles } from '../../components/CardTiles'
 import { MdSort } from 'react-icons/md'
 import { Flex, Text, Box, Icon, Divider } from '@chakra-ui/react'
 import { savedPages } from '../../data/mock/saves'
-import InputSave from '../../components/common/Form/InputSave'
 
 function SavePage() {
   return (
     <Layout>
-      <InputSave />
-      <Flex justifyContent={'space-between'}>
+      {/* <Flex justifyContent={'space-between'}>
         <Box>
           <Text fontSize="lg" as="b">
             Sort
           </Text>
           <Icon as={MdSort} ml="5" />
         </Box>
-      </Flex>{' '}
-      <Divider />
+      </Flex>{' '} */}
+      <Divider my={4} />
       {/* card tiles  */}
-      <Box maxH="75vh" overflowY={'auto'}>
+      <Box
+        maxH="80%"
+        overflowY={'auto'}
+        mx="auto"
+        maxWidth={{
+          base: '100%',
+          xl: '80%',
+        }}
+      >
         {/* search bar here  */}
         <CardTiles pages={savedPages} />
       </Box>

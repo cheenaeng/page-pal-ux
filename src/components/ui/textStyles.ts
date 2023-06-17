@@ -30,6 +30,11 @@ const textStyles = {
     fontWeight: FONT_WEIGHT.NORMAL,
     lineHeight: '2.8rem',
   },
+  body1Bold: {
+    fontSize: '2rem',
+    fontWeight: FONT_WEIGHT.BOLD,
+    lineHeight: '2.8rem',
+  },
   body2: {
     fontSize: '1.6rem',
     fontWeight: FONT_WEIGHT.NORMAL,
@@ -49,6 +54,38 @@ const textStyles = {
     fontSize: '1.2em',
     fontWeight: FONT_WEIGHT.BOLD,
     lineheight: '1.4em',
+  },
+  cardTitle: {
+    fontSize: {
+      base: '0.9em',
+      sm: '0.9em',
+      lg: '1.4em',
+    },
+    fontWeight: FONT_WEIGHT.BOLD,
+    lineheight: {
+      base: '1.2em',
+      sm: '1.2em',
+      lg: '1.6em',
+    },
+    _dark: {
+      color: `white`,
+    },
+  },
+  cardBody: {
+    fontSize: {
+      base: '0.8em',
+      sm: '0.8em',
+      lg: '1.4em',
+    },
+    fontWeight: FONT_WEIGHT.NORMAL,
+    lineheight: {
+      base: '1.1em',
+      sm: '1.1em',
+      lg: '1.6em',
+    },
+    _dark: {
+      color: `#f7f7f7`,
+    },
   },
 }
 

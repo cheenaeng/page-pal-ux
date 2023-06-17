@@ -1,8 +1,7 @@
 import React from 'react'
 import { CardTile } from './CardTile'
-import { Wrap, Box, Center, WrapItem, Container } from '@chakra-ui/react'
+import { Wrap, Grid, GridItem } from '@chakra-ui/react'
 import { IPage } from '../types/saves'
-import PropTypes from 'prop-types'
 
 interface PagesProps {
   pages: IPage[]
@@ -10,10 +9,24 @@ interface PagesProps {
 
 export const CardTiles: React.FC<PagesProps> = ({ pages }: PagesProps) => {
   return (
-    <Wrap spacing="30px" justify="start" padding={'10'}>
-      {pages.map((page: IPage) => (
-        <CardTile page={page} />
-      ))}
-    </Wrap>
+    <>
+      <Grid
+        gap={3}
+        templateColumns={{
+          base: 'repeat(1, 1fr)',
+          sm: 'repeat(1, 1fr)',
+          md: 'repeat(2, 1fr)',
+          lg: 'repeat(3, 1fr)',
+          xl: 'repeat(4, 1fr)',
+          '2xl': 'repeat(4, 1fr)',
+        }}
+      >
+        {pages.map((page: IPage) => (
+          <GridItem colSpan={1} key={page.id}>
+            <CardTile page={page} />
+          </GridItem>
+        ))}
+      </Grid>
+    </>
   )
 }
