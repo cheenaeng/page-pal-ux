@@ -11,6 +11,7 @@ import textStyles from './components/ui/textStyles'
 import { inputTheme } from './components/ui/customComponents/input'
 import { cardTheme } from './components/ui/customComponents/card'
 import { buttonTheme } from './components/ui/customComponents/button'
+import HomePage from './pages/home/HomePage'
 
 const theme = extendTheme({
   colors: customColors,
@@ -25,6 +26,7 @@ const theme = extendTheme({
     Input: inputTheme,
     Card: cardTheme,
     Button: buttonTheme,
+    IconButton: buttonTheme,
   },
 })
 
@@ -34,7 +36,7 @@ export const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LayoutWithNav />}>
-            <Route path="home" element={<></>} />
+            <Route path="home" element={<HomePage />} />
             <Route path="saves" element={<SavePage />} />
             <Route path="archives" />
             <Route path="stats" />

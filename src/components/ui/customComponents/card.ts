@@ -20,6 +20,12 @@ const variants = {
       boxShadow: 'sm',
       borderRadius: '8px',
     },
+    body: {
+      padding: '0px',
+    },
+    footer: {
+      padding: '0 12px 12px 12px',
+    },
   }),
 }
 
