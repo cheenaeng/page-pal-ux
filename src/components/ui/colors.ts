@@ -1,8 +1,10 @@
 export const customColors = {
   brand: {
     main: '#7c70d2', //dark purple
+    main800: '#7065bf',
     dark: '#1c3177', //dark blue
     light: '#ddd8fe', //light purple
+    dark800: '#101d47',
   },
   neutral: {
     main: '#f8f9fc',

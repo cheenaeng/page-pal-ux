@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChakraProvider, Box, Grid } from '@chakra-ui/react'
+import { ChakraProvider, Box } from '@chakra-ui/react'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import LayoutWithNav from './components/LayoutWithNav'
 import SavePage from './pages/saves/SavePage'
@@ -8,7 +8,10 @@ import { customColors } from './components/ui/colors'
 import customBreakpoints from './components/ui/breakpoints'
 import space from './components/ui/spacing'
 import textStyles from './components/ui/textStyles'
-import { inputTheme } from './components/common/Form/InputSave'
+import { inputTheme } from './components/ui/customComponents/input'
+import { cardTheme } from './components/ui/customComponents/card'
+import { buttonTheme } from './components/ui/customComponents/button'
+import HomePage from './pages/home/HomePage'
 
 const theme = extendTheme({
   colors: customColors,
@@ -21,24 +24,25 @@ const theme = extendTheme({
   },
   components: {
     Input: inputTheme,
+    Card: cardTheme,
+    Button: buttonTheme,
+    IconButton: buttonTheme,
   },
 })
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LayoutWithNav />}>
-              <Route path="home" element={<></>} />
-              <Route path="saves" element={<SavePage />} />
-              <Route path="archives" />
-              <Route path="stats" />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </Grid>
+    <Box height="100vh" mx="auto" p={3} boxSizing="border-box">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LayoutWithNav />}>
+            <Route path="home" element={<HomePage />} />
+            <Route path="saves" element={<SavePage />} />
+            <Route path="archives" />
+            <Route path="stats" />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Box>
   </ChakraProvider>
 )
