@@ -56,7 +56,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               overflow="hidden"
             >
               <Image
-                height="15vh"
+                height="18vh"
                 width="100%"
                 objectFit="cover"
                 src={page.img.src}

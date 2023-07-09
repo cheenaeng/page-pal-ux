@@ -5,15 +5,22 @@ import {
   ButtonGroup,
   HStack,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   useBreakpointValue,
-  Grid,
-  GridItem,
 } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import { Link } from 'react-router-dom'
 import InputSave from './common/Form/InputSave'
 import { AddIcon, CloseIcon } from '@chakra-ui/icons'
+import { useQuery } from '@tanstack/react-query'
+import AuthAPI from '../api/AuthAPI'
 
 const NavLinks = [
   {
@@ -48,6 +55,21 @@ export const Navbar = () => {
     lg: true,
     xl: true,
   })
+
+  const { refetch: getGoogleRedirect } = useQuery(
+    ['googleLogin'],
+    () => {
+      return AuthAPI.loginWithGoogle()
+    },
+    {
+      enabled: false,
+    }
+  )
+
+  const handleLogin = () => {
+    getGoogleRedirect()
+  }
+
   return (
     <Box as="section" pb={{ base: '2', md: '2' }}>
       <Box as="nav" bg="bg.surface" boxShadow="sm">
@@ -118,7 +140,7 @@ export const Navbar = () => {
 
               {/* Sign in/ up */}
               <HStack justifySelf="flex-end">
-                <Button fontSize="lg" variant="tertiary">
+                <Button onClick={handleLogin} fontSize="lg" variant="tertiary">
                   Sign in
                 </Button>
 
@@ -127,11 +149,44 @@ export const Navbar = () => {
               </HStack>
             </HStack>
           ) : (
-            <IconButton
-              variant="tertiary"
-              icon={<FiMenu fontSize="1.25rem" />}
-              aria-label="Open Menu"
-            />
+            <HStack>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  variant="tertiary"
+                  icon={<FiMenu fontSize="1.25rem" />}
+                  aria-label="Open Menu"
+                />
+                <MenuList>
+                  <MenuItem minH="48px" as={Link} to="/home">
+                    Home
+                  </MenuItem>
+                  <MenuItem minH="48px" as={Link} to="/saves">
+                    Saves
+                  </MenuItem>
+                  <MenuItem minH="48px" as={Link} to="/archives">
+                    Archives
+                  </MenuItem>
+                  <MenuItem minH="48px">Login/Logout</MenuItem>
+                </MenuList>
+              </Menu>
+              <HStack justifyContent="flex-end">
+                <Popover>
+                  <PopoverTrigger>
+                    <Button
+                      onClick={showUrl}
+                      variant="fancy"
+                      rightIcon={<AddIcon />}
+                    >
+                      Add url
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <InputSave />
+                  </PopoverContent>
+                </Popover>
+              </HStack>
+            </HStack>
           )}
         </Box>
       </Box>
