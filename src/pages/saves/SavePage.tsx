@@ -14,8 +14,17 @@ import {
   MenuItem,
 } from '@chakra-ui/react'
 import { savedPages } from '../../data/mock/saves'
+import { useQuery } from '@tanstack/react-query'
+import BookmarkAPI from '../../api/BookmarkAPI'
+import AuthAPI from '../../api/AuthAPI'
 
 function SavePage() {
+  const { data } = useQuery(['getAllBookmark'], () => {
+    return BookmarkAPI.getAllBookmark()
+  })
+
+  console.log(data, 'getdata')
+
   return (
     <Layout>
       {/* card tiles  */}
