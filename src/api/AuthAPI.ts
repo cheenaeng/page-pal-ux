@@ -7,6 +7,10 @@ class AuthAPI {
   static loginWithGoogle = async () => {
     return httpGet(`${BASE_BACKEND_URL}/google`, {}, true)
   }
+
+  static getGoogleLoginUrl = () => {
+    return `${BASE_BACKEND_URL}/google`
+  }
 }
 
 export default AuthAPI

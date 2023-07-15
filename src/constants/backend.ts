@@ -20,7 +20,7 @@ class BackendPath implements BackendPathI {
   getBackendPath(): string {
     this.getEnvironment()
     if (this.environment === 'development') {
-      return 'http://localhost:3000'
+      return 'http://localhost:3005'
     } else if (this.environment === 'staging') {
       return 'https://charming-buckle-fawn.cyclic.app'
     } else {
