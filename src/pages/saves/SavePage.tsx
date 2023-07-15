@@ -13,17 +13,17 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react'
-import { savedPages } from '../../data/mock/saves'
 import { useQuery } from '@tanstack/react-query'
 import BookmarkAPI from '../../api/BookmarkAPI'
-import AuthAPI from '../../api/AuthAPI'
 
 function SavePage() {
-  const { data } = useQuery(['getAllBookmark'], () => {
+  const { data: bookmarks } = useQuery(['getAllBookmark'], () => {
     return BookmarkAPI.getAllBookmark()
   })
 
-  console.log(data, 'getdata')
+  // uncomment to show data
+  // console.log('🚀 bookmarks', bookmarks)
+
 
   return (
     <Layout>
@@ -39,7 +39,7 @@ function SavePage() {
       >
         <Flex justifyContent={'space-between'} alignItems={'center'}>
           <Text textStyle="body2Semi" color="brand.main">
-            Articles ({savedPages.length})
+            Articles ({bookmarks?.total_records ?? 0})
           </Text>
           <Box>
             <Menu>
@@ -60,7 +60,7 @@ function SavePage() {
         </Flex>
         <Divider my={4} mx="auto" />
         {/* search bar here  */}
-        <CardTiles pages={savedPages} />
+        <CardTiles pages={bookmarks?.data ?? []} />
       </Box>
     </Layout>
   )

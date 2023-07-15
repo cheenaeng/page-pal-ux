@@ -1,10 +1,10 @@
 export interface IPage {
   id: string
   title: string
-  img: {
+  img?: {
     src: string
     alt?: string | undefined
   }
-  lengthMin: number
+  lengthMin?: number
   link: string
 }

@@ -69,6 +69,10 @@ export const Navbar = () => {
   const handleLogin = () => {
     getGoogleRedirect()
   }
+  
+  const getGoogleLoginUrl = () => {
+    return AuthAPI.getGoogleLoginUrl()
+  }
 
   return (
     <Box as="section" pb={{ base: '2', md: '2' }}>
@@ -139,8 +143,13 @@ export const Navbar = () => {
               </HStack>
 
               {/* Sign in/ up */}
-              <HStack justifySelf="flex-end">
-                <Button onClick={handleLogin} fontSize="lg" variant="tertiary">
+              <HStack justifySelf='flex-end'>
+                <Button
+                  fontSize='lg'
+                  variant='tertiary'
+                  as={Link}
+                  to={getGoogleLoginUrl()}
+                >
                   Sign in
                 </Button>
 
