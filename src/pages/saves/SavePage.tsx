@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../../components/Layout'
 import { CardTiles } from '../../components/CardTiles'
 import { MdSort } from 'react-icons/md'
@@ -18,39 +18,45 @@ import BookmarkAPI from '../../api/BookmarkAPI'
 import { useLocation } from 'react-router-dom'
 import { IAccessToken } from '../../types/index'
 
-function parseTokenFromUrlHash(urlHash: string): IAccessToken | null {
+function parseTokenFromUrl(urlHash: string): IAccessToken | null {
   const fragments = urlHash.substring(urlHash.indexOf('#') + 1)
   const params = new URLSearchParams(fragments)
-  const result: { [key: string]: any } = {}
-  params.forEach((value, key) => {
-    if (key === 'expires_in') {
-      result[key] = Number(value)
-    } else {
-      result[key] = value
-    }
-  })
 
-  return result
+  const token = params.get('access_token')
+  const token_type = params.get('token_type')
+  const expires_in = Number(params.get('expires_in'))
+
+  if (token && expires_in && token_type) {
+    const result: IAccessToken = {
+      accessToken: token,
+      expiresIn: expires_in,
+      tokenType: token_type
+    }
+    return result
+  } else {
+    console.error('insufficient token info')
+    return null
+  }
 }
 
-function parseTokenFromUrlAndStoreInLocalStorage(hashUrl: string) {
-  const parsedToken = parseTokenFromUrlHash(hashUrl)
+function saveTokenFromUrl(hashUrl: string) {
+  const parsedToken = parseTokenFromUrl(hashUrl)
 
-  if (
-    parsedToken?.access_token &&
-    parsedToken.expires_in &&
-    parsedToken.token_type
-  ) {
+  if (parsedToken) {
     const calculatedExpiresAt =
-      Number(Math.round(Date.now() / 1000)) + parsedToken.expires_in
-    parsedToken.expires_at = calculatedExpiresAt
+      Number(Math.round(Date.now() / 1000)) + parsedToken.expiresIn
+    parsedToken.expiresAt = calculatedExpiresAt
     localStorage.setItem('token', JSON.stringify(parsedToken))
   }
 }
 
 function SavePage() {
-  const location = useLocation()
-  parseTokenFromUrlAndStoreInLocalStorage(location.hash)
+  const urlHash = useLocation().hash
+  // retrieve token from url if url fragment '#' is present
+  if (urlHash) {
+    saveTokenFromUrl(urlHash)
+    window.history.replaceState(null, 'Saves', '/saves')
+  }
 
   const { data: bookmarks } = useQuery(['getAllBookmark'], () => {
     return BookmarkAPI.getAllBookmark()
