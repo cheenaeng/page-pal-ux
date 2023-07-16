@@ -56,16 +56,6 @@ export const Navbar = () => {
     xl: true,
   })
 
-  const { refetch: getGoogleRedirect } = useQuery(
-    ['googleLogin'],
-    () => {
-      return AuthAPI.loginWithGoogle()
-    },
-    {
-      enabled: false,
-    }
-  )
-
   return (
     <BookmarkProvider>
       <Box as="section" pb={{ base: '2', md: '2' }}>
@@ -141,7 +131,7 @@ export const Navbar = () => {
                     fontSize="lg"
                     variant="tertiary"
                     as={Link}
-                    to={getGoogleLoginUrl()}
+                    to={AuthAPI.getGoogleLoginUrl()}
                   >
                     Sign in
                   </Button>

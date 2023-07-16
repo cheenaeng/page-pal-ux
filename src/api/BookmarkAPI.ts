@@ -41,11 +41,17 @@ class BookmarkAPI {
     )
   }
 
-  static archiveBookmark = async ({ id }: { id: string }) => {
+  static archiveBookmark = async ({
+    id,
+    token,
+  }: {
+    id: string
+    token: string
+  }) => {
     return httpPut(
       `${BASE_BACKEND_URL}/bookmark/${id}`,
       {
-        Authorization: `Bearer ${Auth.getAccessToken()}`,
+        Authorization: `Bearer ${token}`,
       },
       true
     )

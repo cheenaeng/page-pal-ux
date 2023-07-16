@@ -26,19 +26,14 @@ export function parseTokenFromUrl(urlHash: string): IAccessToken | null {
   const email = params.get('email')
   const picture = params.get('picture')
 
-  if (token && expires_in && token_type && email && picture) {
-    const result: IAccessToken = {
-      email: email,
-      accessToken: token,
-      expiresIn: expires_in,
-      tokenType: token_type,
-      picture: picture,
-    }
-    return result
-  } else {
-    console.error('insufficient token info')
-    return null
+  const result: IAccessToken = {
+    email: email ?? '',
+    accessToken: token ?? '',
+    expiresIn: expires_in ?? '',
+    tokenType: token_type ?? '',
+    picture: picture ?? '',
   }
+  return result
 }
 
 export function saveTokenFromUrl(hashUrl: string) {
