@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import {
   IconButton,
@@ -11,32 +11,49 @@ import {
 import { AddIcon } from '@chakra-ui/icons'
 import BookmarkAPI from '../../../api/BookmarkAPI'
 import { useMutation } from '@tanstack/react-query'
-import LoadingOverlay from 'react-loading-overlay'
 import toast from 'react-hot-toast'
+import { AuthContext } from '../../../api/context/authContext'
+import { BookmarkContext } from '../../../api/context/bookmarkContext'
 function InputSave() {
+  const { accessToken } = useContext(AuthContext)
+  const bearerToken = accessToken ?? ''
+  const { refetchData } = useContext(BookmarkContext)
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
     BookmarkAPI.addBookmark
   )
   const [inputUrl, setInputUrl] = useState('')
+  const [loadingToastId, setLoadingToastId] = useState('')
 
   const addUrl = () => {
-    toast.promise(BookmarkAPI.addBookmark({ link: inputUrl }), {
-      loading: 'Saving url...',
-      success: 'Url saved!',
-      error: 'Error saving url!',
-    })
-
     addBookmark(
       {
         link: inputUrl,
+        token: bearerToken,
       },
       {
+        onSuccess: () => {
+          toast.success('Url saved!')
+          refetchData()
+        },
+        onError: () => {
+          toast.error('Error saving url!')
+        },
         onSettled: () => {
           setInputUrl('')
         },
       }
     )
   }
+
+  useEffect(() => {
+    if (isAddingLoading) {
+      const loadingToast = toast.loading('Saving url...')
+      setLoadingToastId(loadingToast)
+    } else {
+      toast.dismiss(loadingToastId)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddingLoading])
 
   return (
     <>
@@ -60,7 +77,6 @@ function InputSave() {
           </InputRightElement>
         </InputGroup>
       </Stack>
-      <LoadingOverlay active={isAddingLoading} spinner text="Saving url..." />
     </>
   )
 }

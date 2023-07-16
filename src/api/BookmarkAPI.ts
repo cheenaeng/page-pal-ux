@@ -1,35 +1,41 @@
 import { httpDelete, httpGet, httpPost, httpPut } from '../helpers/http'
 import { BASE_BACKEND_URL } from './AuthAPI'
-import Auth from '../constants/auth'
+
 class BookmarkAPI {
-  static getAllBookmark = async (page = 1, limit = 10) => {
+  static getAllBookmark = async (page = 1, limit = 10, token: string) => {
     return httpGet(
-      `${BASE_BACKEND_URL}/bookmark?page=${page}&limit=${limit}`,
+      `${BASE_BACKEND_URL}/bookmark/?page=${page}&limit=${limit}`,
       {
-        Authorization: `Bearer ${Auth.getAccessToken()}`
+        Authorization: `Bearer ${token}`,
       },
       true
     )
   }
 
-  static addBookmark = async ({ link }: { link: string }) => {
+  static addBookmark = async ({
+    link,
+    token,
+  }: {
+    link: string
+    token: string
+  }) => {
     return httpPost(
       `${BASE_BACKEND_URL}/bookmark`,
       {
-        Authorization: `Bearer ${Auth.getAccessToken()}`
+        Authorization: `Bearer ${token}`,
       },
       {
-        link
+        link,
       },
       true
     )
   }
 
-  static delBookmark = async ({ id }: { id: string }) => {
+  static delBookmark = async ({ id, token }: { id: string; token: string }) => {
     return httpDelete(
       `${BASE_BACKEND_URL}/bookmark/${id}`,
       {
-        Authorization: `Bearer ${Auth.getAccessToken()}`
+        Authorization: `Bearer ${token}`,
       },
       true
     )
@@ -39,7 +45,7 @@ class BookmarkAPI {
     return httpPut(
       `${BASE_BACKEND_URL}/bookmark/${id}`,
       {
-        Authorization: `Bearer ${Auth.getAccessToken()}`
+        Authorization: `Bearer ${Auth.getAccessToken()}`,
       },
       true
     )
