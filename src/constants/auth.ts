@@ -1,17 +1,12 @@
-import { IAccessToken } from '../types/index'
-
-export interface AuthI extends IAccessToken {
-  getToken: () => string | null
-  isTokenValid: () => boolean
-}
-
-class Auth implements AuthI {
+class Auth {
   accessToken!: string
+  email!: string
   expiresIn!: number
   tokenType!: string
   expiresAt!: number
+  picture!: string
 
-  getToken(): string | null {
+  static getAccessToken(): string | null {
     const fetchedToken = localStorage.getItem('token')
     if (fetchedToken) {
       const access_token: string = JSON.parse(fetchedToken).accessToken
@@ -20,7 +15,15 @@ class Auth implements AuthI {
     return null
   }
 
-  isTokenValid(): boolean {
+  static getAuthObj(): { [key: string]: any } | null {
+    const fetchedToken = localStorage.getItem('token')
+    if (fetchedToken) {
+      return JSON.parse(fetchedToken)
+    }
+    return null
+  }
+
+  static isTokenValid(): boolean {
     // TODO: implement me
     return true
   }

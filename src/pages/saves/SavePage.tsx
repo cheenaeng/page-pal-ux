@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import BookmarkAPI from '../../api/BookmarkAPI'
-import { useLocation } from 'react-router-dom'
 import { IAccessToken } from '../../types/index'
 
 function parseTokenFromUrl(urlHash: string): IAccessToken | null {
@@ -25,12 +24,16 @@ function parseTokenFromUrl(urlHash: string): IAccessToken | null {
   const token = params.get('access_token')
   const token_type = params.get('token_type')
   const expires_in = Number(params.get('expires_in'))
+  const email = params.get('email')
+  const picture = params.get('picture')
 
-  if (token && expires_in && token_type) {
+  if (token && expires_in && token_type && email && picture) {
     const result: IAccessToken = {
+      email: email,
       accessToken: token,
       expiresIn: expires_in,
-      tokenType: token_type
+      tokenType: token_type,
+      picture: picture
     }
     return result
   } else {
@@ -51,20 +54,28 @@ function saveTokenFromUrl(hashUrl: string) {
 }
 
 function SavePage() {
-  const urlHash = useLocation().hash
-  // retrieve token from url if url fragment '#' is present
-  if (urlHash) {
-    saveTokenFromUrl(urlHash)
-    window.history.replaceState(null, 'Saves', '/saves')
-  }
+  const [reloadToken, setReloadToken] = useState(false)
 
-  const { data: bookmarks } = useQuery(['getAllBookmark'], () => {
-    return BookmarkAPI.getAllBookmark()
-  })
+  useEffect(() => {
+    const urlHash = window.location.hash
+    if (urlHash) {
+      saveTokenFromUrl(urlHash)
+      window.history.replaceState(null, 'Saves', '/saves')
+    }
+    setReloadToken(true)
+  }, [])
+
+  const { data: bookmarks } = useQuery(
+    ['getAllBookmark'],
+    () => {
+      return BookmarkAPI.getAllBookmark()
+    },
+    // run only after token is refresh
+    { enabled: reloadToken }
+  )
 
   return (
     <Layout>
-      {/* card tiles  */}
       <Box
         maxH='80%'
         overflowY={'auto'}
@@ -96,8 +107,11 @@ function SavePage() {
           </Box>
         </Flex>
         <Divider my={4} mx='auto' />
-        {/* search bar here  */}
-        <CardTiles pages={bookmarks?.data ?? []} />
+
+        {/* Todo: implement search bar here  */}
+
+        {/* bookmarks */}
+        {bookmarks && <CardTiles pages={bookmarks?.data ?? []} />}
       </Box>
     </Layout>
   )

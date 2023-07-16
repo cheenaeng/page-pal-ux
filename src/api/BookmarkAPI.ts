@@ -1,14 +1,12 @@
 import { httpDelete, httpGet, httpPost, httpPut } from '../helpers/http'
 import { BASE_BACKEND_URL } from './AuthAPI'
 import Auth from '../constants/auth'
-
-export const token = new Auth().getToken()
 class BookmarkAPI {
   static getAllBookmark = async (page = 1, limit = 10) => {
     return httpGet(
       `${BASE_BACKEND_URL}/bookmark?page=${page}&limit=${limit}`,
       {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${Auth.getAccessToken()}`
       },
       true
     )
@@ -18,7 +16,7 @@ class BookmarkAPI {
     return httpPost(
       `${BASE_BACKEND_URL}/bookmark`,
       {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${Auth.getAccessToken()}`
       },
       {
         link
@@ -31,7 +29,7 @@ class BookmarkAPI {
     return httpDelete(
       `${BASE_BACKEND_URL}/bookmark/${id}`,
       {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${Auth.getAccessToken()}`
       },
       true
     )
@@ -41,7 +39,7 @@ class BookmarkAPI {
     return httpPut(
       `${BASE_BACKEND_URL}/bookmark/${id}`,
       {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${Auth.getAccessToken()}`
       },
       true
     )
