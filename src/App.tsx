@@ -1,6 +1,12 @@
 import * as React from 'react'
 import { ChakraProvider, Box } from '@chakra-ui/react'
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  Navigate,
+  useSearchParams,
+} from 'react-router-dom'
 import LayoutWithNav from './components/LayoutWithNav'
 import SavePage from './pages/saves/SavePage'
 import { extendTheme } from '@chakra-ui/react'
@@ -13,6 +19,8 @@ import { cardTheme } from './components/ui/customComponents/card'
 import { buttonTheme } from './components/ui/customComponents/button'
 import HomePage from './pages/home/HomePage'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { AuthProvider } from './api/context/authContext'
+import { BookmarkProvider } from './api/context/bookmarkContext'
 
 const theme = extendTheme({
   colors: customColors,
@@ -37,19 +45,28 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
-        <Box height="100vh" mx="auto" p={3} boxSizing="border-box">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<LayoutWithNav />}>
-                <Route index element={<Navigate to="/home" />} />
-                <Route path="home" element={<HomePage />} />
-                <Route path="saves" element={<SavePage />} />
-                <Route path="archives" />
-                <Route path="stats" />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </Box>
+        <AuthProvider>
+          <Box height="100vh" mx="auto" p={3} boxSizing="border-box">
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<LayoutWithNav />}>
+                  <Route index element={<Navigate to="/home" />} />
+                  <Route path="home" element={<HomePage />} />
+                  <Route
+                    path="saves"
+                    element={
+                      <BookmarkProvider>
+                        <SavePage />
+                      </BookmarkProvider>
+                    }
+                  />
+                  <Route path="archives" />
+                  <Route path="stats" />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </Box>
+        </AuthProvider>
       </ChakraProvider>
     </QueryClientProvider>
   )

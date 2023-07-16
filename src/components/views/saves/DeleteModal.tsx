@@ -11,7 +11,11 @@ import {
   Text,
 } from '@chakra-ui/react'
 
-function DeleteModal({ closeModal, isModalOpen }: DeleteModalProps) {
+function DeleteModal({
+  closeModal,
+  isModalOpen,
+  isDeleteModalLoading,
+}: DeleteModalProps) {
   return (
     <Modal onClose={closeModal} isOpen={isModalOpen} isCentered>
       <ModalOverlay />
@@ -26,7 +30,12 @@ function DeleteModal({ closeModal, isModalOpen }: DeleteModalProps) {
           </Text>
         </ModalBody>
         <ModalFooter>
-          <Button fontWeight="bold" variant="primary" onClick={closeModal}>
+          <Button
+            fontWeight="bold"
+            variant="primary"
+            onClick={closeModal}
+            isLoading={isDeleteModalLoading}
+          >
             Confirm
           </Button>
         </ModalFooter>
@@ -40,4 +49,5 @@ export default DeleteModal
 interface DeleteModalProps {
   closeModal: () => void
   isModalOpen: boolean
+  isDeleteModalLoading: boolean
 }
