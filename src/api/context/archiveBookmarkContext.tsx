@@ -14,10 +14,10 @@ export const contextData = {
   refetchData: () => void {},
 }
 
-export const BookmarkContext =
+export const ArchiveBookmarkContext =
   createContext<BookmarkDataContextType>(contextData)
 
-export const BookmarkProvider = ({
+export const ArchiveBookmarkProvider = ({
   children,
 }: {
   children: React.ReactNode
@@ -27,9 +27,9 @@ export const BookmarkProvider = ({
   const [limit] = useState(10)
 
   const { data: bookmarkData, refetch: refetchBookmarkData } = useQuery(
-    ["getAllBookmark"],
+    ["getAllArchivedBookmark"],
     (): Promise<GenericResponseBookmark> => {
-      return BookmarkAPI.getAllBookmark(page, limit, accessToken ?? "")
+      return BookmarkAPI.getAllArchivedBookmark(page, limit, accessToken ?? "")
     },
   )
   const bookmarkMemoisedData = useMemo(() => {
@@ -40,8 +40,8 @@ export const BookmarkProvider = ({
   }, [bookmarkData?.data, refetchBookmarkData])
 
   return (
-    <BookmarkContext.Provider value={bookmarkMemoisedData}>
+    <ArchiveBookmarkContext.Provider value={bookmarkMemoisedData}>
       {children}
-    </BookmarkContext.Provider>
+    </ArchiveBookmarkContext.Provider>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 import {
   Modal,
   ModalOverlay,
@@ -8,13 +8,14 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Text,
-} from '@chakra-ui/react'
+  Text
+} from "@chakra-ui/react"
 
 function DeleteModal({
+  handleDelete,
   closeModal,
   isModalOpen,
-  isDeleteModalLoading,
+  isDeleteModalLoading
 }: DeleteModalProps) {
   return (
     <Modal onClose={closeModal} isOpen={isModalOpen} isCentered>
@@ -23,7 +24,7 @@ function DeleteModal({
         <ModalHeader textStyle="headerBold" color="brand.dark">
           Confirm Delete?
         </ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton onClick={closeModal} />
         <ModalBody>
           <Text textStyle="normal">
             Are you sure you want to delete the article?
@@ -33,7 +34,7 @@ function DeleteModal({
           <Button
             fontWeight="bold"
             variant="primary"
-            onClick={closeModal}
+            onClick={handleDelete}
             isLoading={isDeleteModalLoading}
           >
             Confirm
@@ -47,6 +48,7 @@ function DeleteModal({
 export default DeleteModal
 
 interface DeleteModalProps {
+  handleDelete: () => void
   closeModal: () => void
   isModalOpen: boolean
   isDeleteModalLoading: boolean
