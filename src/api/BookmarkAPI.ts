@@ -1,5 +1,5 @@
-import { httpDelete, httpGet, httpPost, httpPut } from '../helpers/http'
-import { BASE_BACKEND_URL } from './AuthAPI'
+import { httpDelete, httpGet, httpPost, httpPut } from "../helpers/http"
+import { BASE_BACKEND_URL } from "./AuthAPI"
 
 class BookmarkAPI {
   static getAllBookmark = async (page = 1, limit = 10, token: string) => {
@@ -8,7 +8,21 @@ class BookmarkAPI {
       {
         Authorization: `Bearer ${token}`,
       },
-      true
+      true,
+    )
+  }
+
+  static getAllArchivedBookmark = async (
+    page = 1,
+    limit = 10,
+    token: string,
+  ) => {
+    return httpGet(
+      `${BASE_BACKEND_URL}/bookmark/archive?page=${page}&limit=${limit}`,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      true,
     )
   }
 
@@ -27,7 +41,7 @@ class BookmarkAPI {
       {
         link,
       },
-      true
+      true,
     )
   }
 
@@ -37,7 +51,7 @@ class BookmarkAPI {
       {
         Authorization: `Bearer ${token}`,
       },
-      true
+      true,
     )
   }
 
@@ -53,7 +67,7 @@ class BookmarkAPI {
       {
         Authorization: `Bearer ${token}`,
       },
-      true
+      true,
     )
   }
 }
