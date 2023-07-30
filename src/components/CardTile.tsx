@@ -5,17 +5,17 @@ import {
   HStack,
   IconButton,
   useDisclosure,
-} from '@chakra-ui/react'
-import { Image, VStack, Text, Box, Link } from '@chakra-ui/react'
-import { IBookmark } from '../types/saves'
-import { AiOutlineDelete, AiOutlineFolderOpen } from 'react-icons/ai'
-import DeleteModal from './views/saves/DeleteModal'
-import BookmarkAPI from '../api/BookmarkAPI'
-import { useMutation } from '@tanstack/react-query'
-import { useContext } from 'react'
-import { AuthContext } from '../api/context/authContext'
-import toast from 'react-hot-toast'
-import { BookmarkContext } from '../api/context/bookmarkContext'
+} from "@chakra-ui/react"
+import { Image, VStack, Text, Box, Link } from "@chakra-ui/react"
+import { IBookmark } from "../types/saves"
+import { AiOutlineDelete, AiOutlineFolderOpen } from "react-icons/ai"
+import DeleteModal from "./views/saves/DeleteModal"
+import BookmarkAPI from "../api/BookmarkAPI"
+import { useMutation } from "@tanstack/react-query"
+import { useContext } from "react"
+import { AuthContext } from "../api/context/authContext"
+import toast from "react-hot-toast"
+import { BookmarkContext } from "../api/context/bookmarkContext"
 
 interface PageProps {
   page: IBookmark
@@ -32,22 +32,23 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   const { mutate: deleteBookmark, isLoading: isDeleteModalLoading } =
     useMutation(BookmarkAPI.delBookmark)
   const { accessToken } = useContext(AuthContext)
-  const handleCloseDialog = () => {
+
+  const handleDelete = () => {
     deleteBookmark(
       {
         id: page.id,
-        token: accessToken ?? '',
+        token: accessToken ?? "",
       },
       {
         onSuccess: () => {
           closeDeleteModal()
-          toast.success('Url deleted!')
+          toast.success("Url deleted!")
           refetchData()
         },
         onError: () => {
-          toast.error('Error deleting url!')
+          toast.error("Error deleting url!")
         },
-      }
+      },
     )
   }
 
@@ -55,24 +56,25 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
     <>
       {/* DIALOGS HERE */}
       <DeleteModal
+        handleDelete={handleDelete}
+        closeModal={closeDeleteModal}
         isModalOpen={isDeleteModalOpen}
-        closeModal={handleCloseDialog}
         isDeleteModalLoading={isDeleteModalLoading}
       />
       <Card
         variant="custom"
         sx={{
-          width: '100%',
-          mx: 'auto',
+          width: "100%",
+          mx: "auto",
         }}
       >
         <Link
           sx={{
-            textDecoration: 'none',
-            _hover: 'none',
-            _focus: 'none',
-            _active: 'none',
-            _visited: 'none',
+            textDecoration: "none",
+            _hover: "none",
+            _focus: "none",
+            _active: "none",
+            _visited: "none",
           }}
           href={`${page.link}`}
           isExternal
@@ -90,9 +92,9 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 width="100%"
                 objectFit="cover"
                 src={
-                  'https://images.unsplash.com/photo-1548263594-a71ea65a8598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80'
+                  "https://images.unsplash.com/photo-1548263594-a71ea65a8598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80"
                 }
-                alt={'boilerplate-image'}
+                alt={"boilerplate-image"}
                 borderRadius="lg"
               />
               <Box
@@ -110,7 +112,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                textStyle={'body1Semi'}
+                textStyle={"body1Semi"}
               >
                 View article
               </Box>
@@ -122,7 +124,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 textStyle="cardTitle"
                 align="start"
                 as="b"
-                overflowWrap={'break-word'}
+                overflowWrap={"break-word"}
                 noOfLines={1}
                 color="brand.dark"
               >
@@ -131,7 +133,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               <Text
                 textStyle="cardBody"
                 align="start"
-                overflowWrap={'break-word'}
+                overflowWrap={"break-word"}
                 noOfLines={1}
                 as="b"
                 color="brand.main"
@@ -139,9 +141,10 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 {page.link}
               </Text>
               {/* Length of article */}
-              <Text textStyle="cardBody" align="start" color="gray.500">
+              {/* temp comment out hardcoded article length */}
+              {/* <Text textStyle="cardBody" align="start" color="gray.500">
                 15 min
-              </Text>
+              </Text> */}
             </VStack>
           </CardBody>
         </Link>
