@@ -6,12 +6,12 @@ import { AuthContext } from "./authContext"
 
 interface BookmarkDataContextType {
   allData: IBookmark[] | undefined
-  refetchData: () => void
+  refetchBookmarkData: () => void
 }
 
 export const contextData = {
   allData: undefined,
-  refetchData: () => void {},
+  refetchBookmarkData: () => void {},
 }
 
 export const BookmarkContext =
@@ -35,7 +35,7 @@ export const BookmarkProvider = ({
   const bookmarkMemoisedData = useMemo(() => {
     return {
       allData: bookmarkData?.data,
-      refetchData: () => refetchBookmarkData(),
+      refetchBookmarkData: () => refetchBookmarkData(),
     }
   }, [bookmarkData?.data, refetchBookmarkData])
 

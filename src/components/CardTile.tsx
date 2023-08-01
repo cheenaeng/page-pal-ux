@@ -21,6 +21,7 @@ import { useContext } from "react"
 import { AuthContext } from "../api/context/authContext"
 import toast from "react-hot-toast"
 import { BookmarkContext } from "../api/context/bookmarkContext"
+import { ArchiveBookmarkContext } from "../api/context/archiveBookmarkContext"
 
 interface PageProps {
   page: IBookmark
@@ -39,7 +40,8 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
     onClose: closeArchiveModal,
   } = useDisclosure()
 
-  const { refetchData } = useContext(BookmarkContext)
+  const { refetchBookmarkData } = useContext(BookmarkContext)
+  const { refetchArchiveBookmarkData } = useContext(ArchiveBookmarkContext)
   const { mutate: deleteBookmark, isLoading: isDeleteModalLoading } =
     useMutation(BookmarkAPI.delBookmark)
   const { mutate: archiveBookmark, isLoading: isArchiveModalLoading } =
@@ -59,7 +61,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         onSuccess: () => {
           closeDeleteModal()
           toast.success("Url deleted!")
-          refetchData()
+          refetchBookmarkData()
         },
         onError: () => {
           toast.error("Error deleting url!")
@@ -79,7 +81,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           onSuccess: () => {
             closeArchiveModal()
             toast.success("Restored!")
-            refetchData()
+            refetchArchiveBookmarkData()
           },
           onError: () => {
             toast.error("Error restoring bookmark!")
@@ -96,7 +98,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           onSuccess: () => {
             closeArchiveModal()
             toast.success("Archived!")
-            refetchData()
+            refetchBookmarkData()
           },
           onError: () => {
             toast.error("Error archiving bookmark!")
