@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import {
   Box,
   Button,
@@ -13,6 +13,11 @@ import {
   PopoverContent,
   PopoverTrigger,
   useBreakpointValue,
+  Avatar,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
 } from "@chakra-ui/react"
 import { FiMenu } from "react-icons/fi"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
@@ -20,6 +25,7 @@ import { Link } from "react-router-dom"
 import InputSave from "./common/Form/InputSave"
 import { AddIcon, CloseIcon } from "@chakra-ui/icons"
 import AuthAPI from "../api/AuthAPI"
+import { AuthContext } from "../api/context/authContext"
 
 const NavLinks = [
   {
@@ -34,13 +40,18 @@ const NavLinks = [
     name: "Archives",
     path: "/archives",
   },
-  {
-    name: "My Stats",
-    path: "/stats",
-  },
+  // {
+  //   name: "My Stats",
+  //   path: "/stats",
+  // },
 ]
 
 export const Navbar = () => {
+  const {
+    accessToken,
+    picture: userPic,
+    email: userEmail,
+  } = useContext(AuthContext)
   const [showUrlInput, setShowUrlInput] = useState(false)
 
   const showUrl = () => {
@@ -123,20 +134,47 @@ export const Navbar = () => {
                 )}
               </HStack>
 
-              {/* Sign in/ up */}
-              <HStack justifySelf="flex-end">
-                <Button
-                  fontSize="lg"
-                  variant="tertiary"
-                  as={Link}
-                  to={AuthAPI.getGoogleLoginUrl()}
-                >
-                  Sign in
-                </Button>
+              {/* Sign in/ out */}
+              {accessToken ? (
+                <HStack justifySelf="flex-end" marginLeft="1" marginRight="1">
+                  <Popover placement="bottom" closeOnBlur={true}>
+                    <PopoverTrigger>
+                      <Avatar name={userEmail} src={userPic} />
+                    </PopoverTrigger>
 
-                {/* Light/dark mode */}
-                <ColorModeSwitcher />
-              </HStack>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverHeader fontWeight="bold">
+                        {userEmail}
+                      </PopoverHeader>
+                      <PopoverBody>
+                        {/* Are you sure you want to have that milkshake? */}
+                        <Button
+                          sx={{
+                            borderRadius: "5%",
+                          }}
+                        >
+                          Sign Out
+                        </Button>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </HStack>
+              ) : (
+                <HStack justifySelf="flex-end">
+                  <Button
+                    fontSize="lg"
+                    variant="tertiary"
+                    as={Link}
+                    to={AuthAPI.getGoogleLoginUrl()}
+                  >
+                    Sign in
+                  </Button>
+                </HStack>
+              )}
+              {/* Light/dark mode */}
+              <ColorModeSwitcher />
             </HStack>
           ) : (
             <HStack>
