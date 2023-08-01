@@ -1,11 +1,19 @@
 import { createContext, useMemo } from "react"
 import { parseTokenFromUrl, saveTokenFromUrl } from "../../pages/saves/SavePage"
 type AuthDataType = {
-  accessToken: string | null | undefined
+  accessToken: string
+  email: string
+  picture: string
+  expiresIn: number
+  tokenType: string
 }
 
 const allData = {
   accessToken: "",
+  email: "",
+  picture: "",
+  expiresIn: 0,
+  tokenType: "",
 }
 
 export const AuthContext = createContext<AuthDataType>(allData)
@@ -15,20 +23,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const url = window.location.href
     if (url.includes("access_token")) {
       saveTokenFromUrl(url)
-      return parseTokenFromUrl(url)?.accessToken
+      const userData = parseTokenFromUrl(url)
+      return userData
     }
 
     const localStorageTokenRaw = localStorage.getItem("token")
     if (localStorageTokenRaw) {
       // TODO: @sb, add validation + error handling
       const localStorageTokenObj = JSON.parse(localStorageTokenRaw)
-      return localStorageTokenObj.accessToken
+      return localStorageTokenObj
     }
   }, [])
 
   const authData = useMemo(() => {
     return {
-      accessToken: accessToken,
+      accessToken: accessToken.accessToken,
+      email: accessToken.email,
+      picture: accessToken.picture,
+      expiresIn: accessToken.expiresIn,
+      tokenType: accessToken.tokenType,
     }
   }, [accessToken])
 
