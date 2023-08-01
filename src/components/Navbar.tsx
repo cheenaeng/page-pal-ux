@@ -18,6 +18,7 @@ import {
   PopoverCloseButton,
   PopoverHeader,
   PopoverBody,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { FiMenu } from "react-icons/fi"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
@@ -26,6 +27,7 @@ import InputSave from "./common/Form/InputSave"
 import { AddIcon, CloseIcon } from "@chakra-ui/icons"
 import AuthAPI from "../api/AuthAPI"
 import { AuthContext } from "../api/context/authContext"
+import { useNavigate } from "react-router-dom"
 
 const NavLinks = [
   {
@@ -53,6 +55,8 @@ export const Navbar = () => {
     email: userEmail,
   } = useContext(AuthContext)
   const [showUrlInput, setShowUrlInput] = useState(false)
+  const { onOpen, onClose, isOpen } = useDisclosure()
+  let navigate = useNavigate()
 
   const showUrl = () => {
     setShowUrlInput(!showUrlInput)
@@ -65,6 +69,17 @@ export const Navbar = () => {
     lg: true,
     xl: true,
   })
+
+  const handleSignOut = () => {
+    // delete token from local storage
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token")
+    }
+
+    // navigate to home page
+    onClose()
+    navigate("home")
+  }
 
   return (
     <Box as="section" pb={{ base: "2", md: "2" }}>
@@ -137,7 +152,13 @@ export const Navbar = () => {
               {/* Sign in/ out */}
               {accessToken ? (
                 <HStack justifySelf="flex-end" marginLeft="1" marginRight="1">
-                  <Popover placement="bottom" closeOnBlur={true}>
+                  <Popover
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                    closeOnBlur={true}
+                    placement="bottom"
+                  >
                     <PopoverTrigger>
                       <Avatar name={userEmail} src={userPic} />
                     </PopoverTrigger>
@@ -151,6 +172,7 @@ export const Navbar = () => {
                       <PopoverBody>
                         {/* Are you sure you want to have that milkshake? */}
                         <Button
+                          onClick={handleSignOut}
                           sx={{
                             borderRadius: "5%",
                           }}

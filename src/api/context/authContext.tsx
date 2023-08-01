@@ -37,11 +37,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const authData = useMemo(() => {
     return {
-      accessToken: accessToken.accessToken,
-      email: accessToken.email,
-      picture: accessToken.picture,
-      expiresIn: accessToken.expiresIn,
-      tokenType: accessToken.tokenType,
+      accessToken: accessToken?.accessToken || "",
+      email: accessToken?.email || "",
+      picture: accessToken?.picture || "",
+      expiresIn: accessToken?.expiresIn || "",
+      tokenType: accessToken?.tokenType || "",
     }
   }, [accessToken])
 
