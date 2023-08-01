@@ -6,7 +6,7 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightElement,
-  Stack
+  Stack,
 } from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
 import BookmarkAPI from "../../../api/BookmarkAPI"
@@ -17,9 +17,9 @@ import { BookmarkContext } from "../../../api/context/bookmarkContext"
 function InputSave() {
   const { accessToken } = useContext(AuthContext)
   const bearerToken = accessToken ?? ""
-  const { refetchData } = useContext(BookmarkContext)
+  const { refetchBookmarkData } = useContext(BookmarkContext)
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
-    BookmarkAPI.addBookmark
+    BookmarkAPI.addBookmark,
   )
   const [inputUrl, setInputUrl] = useState("")
   const [loadingToastId, setLoadingToastId] = useState("")
@@ -28,20 +28,20 @@ function InputSave() {
     addBookmark(
       {
         link: inputUrl,
-        token: bearerToken
+        token: bearerToken,
       },
       {
         onSuccess: () => {
           toast.success("Url saved!")
-          refetchData()
+          refetchBookmarkData()
         },
         onError: () => {
           toast.error("Error saving url!")
         },
         onSettled: () => {
           setInputUrl("")
-        }
-      }
+        },
+      },
     )
   }
 
@@ -79,7 +79,7 @@ function InputSave() {
           <InputRightElement>
             <IconButton
               sx={{
-                borderRadius: "50%"
+                borderRadius: "50%",
               }}
               onClick={addUrl}
               aria-label="Add url"

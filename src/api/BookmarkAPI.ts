@@ -1,4 +1,4 @@
-import { httpDelete, httpGet, httpPost, httpPut } from "../helpers/http"
+import { httpDelete, httpGet, httpPost, httpPatch } from "../helpers/http"
 import { BASE_BACKEND_URL } from "./AuthAPI"
 
 class BookmarkAPI {
@@ -62,13 +62,25 @@ class BookmarkAPI {
     id: string
     token: string
   }) => {
-    return httpPut(
-      `${BASE_BACKEND_URL}/bookmark/${id}`,
+    return httpPatch(
+      `${BASE_BACKEND_URL}/bookmark/${id}/archive`,
       {
         Authorization: `Bearer ${token}`,
       },
       true,
     )
+  }
+
+  static restoreArchivedBookmark = async ({
+    id,
+    token,
+  }: {
+    id: string
+    token: string
+  }) => {
+    return httpPatch(`${BASE_BACKEND_URL}/bookmark/${id}/unarchive`, {
+      Authorization: `Bearer ${token}`,
+    })
   }
 }
 

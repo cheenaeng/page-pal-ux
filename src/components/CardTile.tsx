@@ -8,14 +8,20 @@ import {
 } from "@chakra-ui/react"
 import { Image, VStack, Text, Box, Link } from "@chakra-ui/react"
 import { IBookmark } from "../types/saves"
-import { AiOutlineDelete, AiOutlineFolderOpen } from "react-icons/ai"
+import {
+  AiOutlineDelete,
+  AiOutlineFolderOpen,
+  AiOutlineUndo,
+} from "react-icons/ai"
 import DeleteModal from "./views/saves/DeleteModal"
+import ArchiveModal from "./views/saves/ArchiveModal"
 import BookmarkAPI from "../api/BookmarkAPI"
 import { useMutation } from "@tanstack/react-query"
 import { useContext } from "react"
 import { AuthContext } from "../api/context/authContext"
 import toast from "react-hot-toast"
 import { BookmarkContext } from "../api/context/bookmarkContext"
+import { ArchiveBookmarkContext } from "../api/context/archiveBookmarkContext"
 
 interface PageProps {
   page: IBookmark
@@ -28,9 +34,21 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
     onClose: closeDeleteModal,
   } = useDisclosure()
 
-  const { refetchData } = useContext(BookmarkContext)
+  const {
+    isOpen: isArchiveModalOpen,
+    onOpen: openArchiveModal,
+    onClose: closeArchiveModal,
+  } = useDisclosure()
+
+  const { refetchBookmarkData } = useContext(BookmarkContext)
+  const { refetchArchiveBookmarkData } = useContext(ArchiveBookmarkContext)
   const { mutate: deleteBookmark, isLoading: isDeleteModalLoading } =
     useMutation(BookmarkAPI.delBookmark)
+  const { mutate: archiveBookmark, isLoading: isArchiveModalLoading } =
+    useMutation(BookmarkAPI.archiveBookmark)
+  const { mutate: restoreArchivedBookmark } = useMutation(
+    BookmarkAPI.restoreArchivedBookmark,
+  )
   const { accessToken } = useContext(AuthContext)
 
   const handleDelete = () => {
@@ -43,13 +61,51 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         onSuccess: () => {
           closeDeleteModal()
           toast.success("Url deleted!")
-          refetchData()
+          refetchBookmarkData()
         },
         onError: () => {
           toast.error("Error deleting url!")
         },
       },
     )
+  }
+
+  const handleArchive = () => {
+    if (page.archived) {
+      restoreArchivedBookmark(
+        {
+          id: page.id,
+          token: accessToken ?? "",
+        },
+        {
+          onSuccess: () => {
+            closeArchiveModal()
+            toast.success("Restored!")
+            refetchArchiveBookmarkData()
+          },
+          onError: () => {
+            toast.error("Error restoring bookmark!")
+          },
+        },
+      )
+    } else {
+      archiveBookmark(
+        {
+          id: page.id,
+          token: accessToken ?? "",
+        },
+        {
+          onSuccess: () => {
+            closeArchiveModal()
+            toast.success("Archived!")
+            refetchBookmarkData()
+          },
+          onError: () => {
+            toast.error("Error archiving bookmark!")
+          },
+        },
+      )
+    }
   }
 
   return (
@@ -61,6 +117,15 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         isModalOpen={isDeleteModalOpen}
         isDeleteModalLoading={isDeleteModalLoading}
       />
+      <ArchiveModal
+        handleArchive={handleArchive}
+        closeModal={closeArchiveModal}
+        isModalOpen={isArchiveModalOpen}
+        isArchiveModalLoading={isArchiveModalLoading}
+        isArticleArchived={page.archived === true}
+      />
+
+      {/* Main component */}
       <Card
         variant="custom"
         sx={{
@@ -152,16 +217,24 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           <HStack>
             <IconButton
               variant="actionIcon"
+              aria-label="archive"
+              icon={
+                page.archived ? (
+                  <AiOutlineUndo size={18} />
+                ) : (
+                  <AiOutlineFolderOpen size={18} />
+                )
+              }
+              name="archive-action"
+              onClick={openArchiveModal}
+            />
+
+            <IconButton
+              variant="actionIcon"
               aria-label="delete article"
               icon={<AiOutlineDelete size={18} />}
               name="delete-action"
               onClick={openDeleteModal}
-            />
-            <IconButton
-              aria-label="archive"
-              variant="actionIcon"
-              icon={<AiOutlineFolderOpen size={18} />}
-              name="archive-action"
             />
           </HStack>
         </CardFooter>
