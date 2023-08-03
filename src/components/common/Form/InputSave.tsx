@@ -14,9 +14,10 @@ import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import { AuthContext } from "../../../api/context/authContext"
 import { BookmarkContext } from "../../../api/context/bookmarkContext"
+
 function InputSave() {
-  const { accessToken } = useContext(AuthContext)
-  const bearerToken = accessToken ?? ""
+  const { authToken } = useContext(AuthContext)
+  const bearerToken = authToken.accessToken ?? ""
   const { refetchBookmarkData } = useContext(BookmarkContext)
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
     BookmarkAPI.addBookmark,

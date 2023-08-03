@@ -49,13 +49,13 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   const { mutate: restoreArchivedBookmark } = useMutation(
     BookmarkAPI.restoreArchivedBookmark,
   )
-  const { accessToken } = useContext(AuthContext)
+  const { authToken } = useContext(AuthContext)
 
   const handleDelete = () => {
     deleteBookmark(
       {
         id: page.id,
-        token: accessToken ?? "",
+        token: authToken.accessToken ?? "",
       },
       {
         onSuccess: () => {
@@ -75,7 +75,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
       restoreArchivedBookmark(
         {
           id: page.id,
-          token: accessToken ?? "",
+          token: authToken.accessToken ?? "",
         },
         {
           onSuccess: () => {
@@ -92,7 +92,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
       archiveBookmark(
         {
           id: page.id,
-          token: accessToken ?? "",
+          token: authToken.accessToken ?? "",
         },
         {
           onSuccess: () => {

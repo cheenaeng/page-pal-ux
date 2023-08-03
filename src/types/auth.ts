@@ -3,6 +3,6 @@ export interface IAccessToken {
   email: string
   expiresIn: number
   tokenType: string
-  expiresAt?: number
-  picture?: string
+  expiresAt: number
+  picture: string
 }

@@ -31,7 +31,7 @@ import { useNavigate } from "react-router-dom"
 
 const NavLinks = [
   {
-    requireAuth: false,
+    requireAuth: true,
     name: "Home",
     path: "/home",
   },
@@ -53,11 +53,7 @@ const NavLinks = [
 ]
 
 export const Navbar = () => {
-  const {
-    accessToken,
-    picture: userPic,
-    email: userEmail,
-  } = useContext(AuthContext)
+  const { authToken, setAuthToken } = useContext(AuthContext)
   const [showUrlInput, setShowUrlInput] = useState(false)
   const { onOpen, onClose, isOpen } = useDisclosure()
   let navigate = useNavigate()
@@ -78,11 +74,20 @@ export const Navbar = () => {
     // delete token from local storage
     if (localStorage.getItem("token")) {
       localStorage.removeItem("token")
+      // reset
+      setAuthToken({
+        accessToken: "",
+        email: "",
+        picture: "",
+        expiresIn: 0,
+        expiresAt: 0,
+        tokenType: "",
+      })
     }
 
     // navigate to home page
     onClose()
-    navigate("home")
+    navigate("/home")
   }
 
   return (
@@ -103,7 +108,7 @@ export const Navbar = () => {
                 }}
               >
                 {NavLinks.map((item) =>
-                  item.requireAuth && !accessToken ? (
+                  item.requireAuth && !authToken.accessToken ? (
                     <></>
                   ) : (
                     <Button
@@ -129,57 +134,61 @@ export const Navbar = () => {
                   ),
                 )}
               </ButtonGroup>
-              <HStack minWidth="40vw" justifyContent="flex-end">
-                {showUrlInput ? (
-                  <HStack>
-                    <InputSave />
-                    <IconButton
-                      variant="ghost"
-                      sx={{
-                        borderRadius: "50%",
-                      }}
-                      aria-label="hide url input"
-                      onClick={showUrl}
-                      icon={<CloseIcon />}
-                    />
-                  </HStack>
-                ) : (
-                  <Box>
-                    <Button
-                      onClick={showUrl}
-                      variant="fancy"
-                      rightIcon={<AddIcon />}
-                    >
-                      Add url
-                    </Button>
-                  </Box>
-                )}
-              </HStack>
+
+              {/* add url input bar */}
+              {authToken.accessToken && (
+                <HStack minWidth="40vw" justifyContent="flex-end">
+                  {showUrlInput ? (
+                    <HStack>
+                      <InputSave />
+                      <IconButton
+                        variant="ghost"
+                        sx={{
+                          borderRadius: "50%",
+                        }}
+                        aria-label="hide url input"
+                        onClick={showUrl}
+                        icon={<CloseIcon />}
+                      />
+                    </HStack>
+                  ) : (
+                    <Box>
+                      <Button
+                        onClick={showUrl}
+                        variant="fancy"
+                        rightIcon={<AddIcon />}
+                      >
+                        Add url
+                      </Button>
+                    </Box>
+                  )}
+                </HStack>
+              )}
 
               {/* Sign in/ out */}
-              {accessToken ? (
+              {authToken.accessToken ? (
                 <HStack justifySelf="flex-end" marginLeft="1" marginRight="1">
                   <Popover
                     isOpen={isOpen}
                     onOpen={onOpen}
                     onClose={onClose}
                     closeOnBlur={true}
-                    placement="bottom"
+                    placement="bottom-start"
                   >
                     <PopoverTrigger>
                       <Avatar
-                        name={userEmail}
-                        src={userPic}
+                        name={authToken.email}
+                        src={authToken.picture}
                         size="sm"
                         cursor="pointer"
                       />
                     </PopoverTrigger>
 
-                    <PopoverContent>
+                    <PopoverContent borderColor="pink">
                       <PopoverArrow />
                       <PopoverCloseButton />
                       <PopoverHeader fontWeight="bold">
-                        {userEmail}
+                        {authToken.email}
                       </PopoverHeader>
                       <PopoverBody>
                         {/* Are you sure you want to have that milkshake? */}
@@ -200,7 +209,7 @@ export const Navbar = () => {
                 <HStack justifySelf="flex-end">
                   <Button
                     fontSize="lg"
-                    variant="tertiary"
+                    variant="ghost"
                     as={Link}
                     to={AuthAPI.getGoogleLoginUrl()}
                   >
@@ -208,6 +217,7 @@ export const Navbar = () => {
                   </Button>
                 </HStack>
               )}
+
               {/* Light/dark mode */}
               <ColorModeSwitcher />
             </HStack>
