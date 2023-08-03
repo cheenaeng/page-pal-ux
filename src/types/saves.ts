@@ -13,6 +13,7 @@ export interface IBookmark {
   archived: boolean
   id: string
   link: string
+  domain: string
   title: string
 }
 export interface GenericResponseBookmark {
