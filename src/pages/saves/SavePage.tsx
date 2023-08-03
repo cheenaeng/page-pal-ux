@@ -22,11 +22,10 @@ function SavePage() {
     <Layout>
       <Box
         maxH="80%"
-        overflowY={"auto"}
         mx="auto"
         maxWidth={{
           base: "100%",
-          "2xl": "80%",
+          "2xl": "70%",
         }}
       >
         <Flex justifyContent={"space-between"} alignItems={"center"}>

@@ -195,15 +195,18 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               >
                 {page.title}
               </Text>
+              {/* domain/link */}
               <Text
                 textStyle="cardBody"
                 align="start"
                 overflowWrap={"break-word"}
                 noOfLines={1}
+                maxWidth="100%"
+                isTruncated={true}
                 as="b"
                 color="brand.main"
               >
-                {page.link}
+                {page.domain ? page.domain : page.link}
               </Text>
               {/* Length of article */}
               {/* temp comment out hardcoded article length */}
