@@ -31,18 +31,22 @@ import { useNavigate } from "react-router-dom"
 
 const NavLinks = [
   {
+    requireAuth: false,
     name: "Home",
     path: "/home",
   },
   {
+    requireAuth: true,
     name: "Saves",
     path: "/saves",
   },
   {
+    requireAuth: true,
     name: "Archives",
     path: "/archives",
   },
   // {
+  // requireAuth: true,
   //   name: "My Stats",
   //   path: "/stats",
   // },
@@ -88,7 +92,6 @@ export const Navbar = () => {
           {isDesktop ? (
             <HStack minWidth="800px" mx="auto">
               {/* Menus */}
-
               <ButtonGroup
                 mx="auto"
                 variant="text"
@@ -99,28 +102,32 @@ export const Navbar = () => {
                   "2xl": 8,
                 }}
               >
-                {NavLinks.map((item) => (
-                  <Button
-                    fontSize="lg"
-                    fontWeight="bold"
-                    key={item.name}
-                    as={Link}
-                    to={item.path}
-                    sx={{
-                      "&:hover": {
-                        color: "brand.main",
-                      },
-                      "&:active": {
-                        color: "brand.main",
-                      },
-                      "&:focus": {
-                        color: "brand.main",
-                      },
-                    }}
-                  >
-                    {item.name}
-                  </Button>
-                ))}
+                {NavLinks.map((item) =>
+                  item.requireAuth && !accessToken ? (
+                    <></>
+                  ) : (
+                    <Button
+                      fontSize="lg"
+                      fontWeight="bold"
+                      key={item.name}
+                      as={Link}
+                      to={item.path}
+                      sx={{
+                        "&:hover": {
+                          color: "brand.main",
+                        },
+                        "&:active": {
+                          color: "brand.main",
+                        },
+                        "&:focus": {
+                          color: "brand.main",
+                        },
+                      }}
+                    >
+                      {item.name}
+                    </Button>
+                  ),
+                )}
               </ButtonGroup>
               <HStack minWidth="40vw" justifyContent="flex-end">
                 {showUrlInput ? (
@@ -160,7 +167,12 @@ export const Navbar = () => {
                     placement="bottom"
                   >
                     <PopoverTrigger>
-                      <Avatar name={userEmail} src={userPic} />
+                      <Avatar
+                        name={userEmail}
+                        src={userPic}
+                        size="sm"
+                        cursor="pointer"
+                      />
                     </PopoverTrigger>
 
                     <PopoverContent>
@@ -173,6 +185,7 @@ export const Navbar = () => {
                         {/* Are you sure you want to have that milkshake? */}
                         <Button
                           onClick={handleSignOut}
+                          colorScheme="pink"
                           sx={{
                             borderRadius: "5%",
                           }}
