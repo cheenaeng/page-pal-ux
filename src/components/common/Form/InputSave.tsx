@@ -15,7 +15,7 @@ import toast from "react-hot-toast"
 import { AuthContext } from "../../../api/context/authContext"
 import { BookmarkContext } from "../../../api/context/bookmarkContext"
 
-function InputSave() {
+function InputSave({ setShowUrlInput }: InputSaveProps) {
   const { authToken } = useContext(AuthContext)
   const bearerToken = authToken.accessToken ?? ""
   const { refetchBookmarkData } = useContext(BookmarkContext)
@@ -52,6 +52,7 @@ function InputSave() {
     }
     if (event.key === "Escape") {
       setInputUrl("")
+      setShowUrlInput(false)
     }
   }
 
@@ -94,3 +95,7 @@ function InputSave() {
 }
 
 export default InputSave
+
+interface InputSaveProps {
+  setShowUrlInput: React.Dispatch<React.SetStateAction<boolean>>
+}

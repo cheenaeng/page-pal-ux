@@ -58,7 +58,7 @@ export const Navbar = () => {
   const { onOpen, onClose, isOpen } = useDisclosure()
   let navigate = useNavigate()
 
-  const showUrl = () => {
+  const toggleUrlInput = () => {
     setShowUrlInput(!showUrlInput)
   }
 
@@ -140,21 +140,21 @@ export const Navbar = () => {
                 <HStack minWidth="40vw" justifyContent="flex-end">
                   {showUrlInput ? (
                     <HStack>
-                      <InputSave />
+                      <InputSave setShowUrlInput={setShowUrlInput} />
                       <IconButton
                         variant="ghost"
                         sx={{
                           borderRadius: "50%",
                         }}
                         aria-label="hide url input"
-                        onClick={showUrl}
+                        onClick={toggleUrlInput}
                         icon={<CloseIcon />}
                       />
                     </HStack>
                   ) : (
                     <Box>
                       <Button
-                        onClick={showUrl}
+                        onClick={toggleUrlInput}
                         variant="fancy"
                         rightIcon={<AddIcon />}
                       >
@@ -247,7 +247,7 @@ export const Navbar = () => {
                 <Popover>
                   <PopoverTrigger>
                     <Button
-                      onClick={showUrl}
+                      onClick={toggleUrlInput}
                       variant="fancy"
                       rightIcon={<AddIcon />}
                     >
@@ -255,7 +255,7 @@ export const Navbar = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent>
-                    <InputSave />
+                    <InputSave setShowUrlInput={setShowUrlInput} />
                   </PopoverContent>
                 </Popover>
               </HStack>
