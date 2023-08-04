@@ -1,5 +1,5 @@
-import { createContext, useMemo, useState } from "react"
-import { IAccessToken } from "../../types/index"
+import { createContext, useMemo, useState } from 'react'
+import { IAccessToken } from '../../types/index'
 
 type AuthDataType = {
   accessToken: string
@@ -11,31 +11,31 @@ type AuthDataType = {
 }
 
 const defaultAuthData: AuthDataType = {
-  accessToken: "",
-  email: "",
-  picture: "",
+  accessToken: '',
+  email: '',
+  picture: '',
   expiresIn: 0,
   expiresAt: 0,
-  tokenType: "",
+  tokenType: '',
 }
 
 export function parseTokenFromUrl(urlHash: string): IAccessToken {
-  const fragments = urlHash.substring(urlHash.indexOf("#") + 1)
+  const fragments = urlHash.substring(urlHash.indexOf('#') + 1)
   const params = new URLSearchParams(fragments)
 
-  const token = params.get("access_token")
-  const token_type = params.get("token_type")
-  const expires_in = Number(params.get("expires_in"))
-  const email = params.get("email")
-  const picture = params.get("picture")
+  const token = params.get('access_token')
+  const token_type = params.get('token_type')
+  const expires_in = Number(params.get('expires_in'))
+  const email = params.get('email')
+  const picture = params.get('picture')
 
   const result: IAccessToken = {
-    email: email ?? "",
-    accessToken: token ?? "",
+    email: email ?? '',
+    accessToken: token ?? '',
     expiresIn: expires_in ?? 0,
     expiresAt: expires_in ?? 0,
-    tokenType: token_type ?? "",
-    picture: picture ?? "",
+    tokenType: token_type ?? '',
+    picture: picture ?? '',
   }
   return result
 }
@@ -47,7 +47,7 @@ export function saveTokenFromUrl(hashUrl: string) {
     const calculatedExpiresAt =
       Number(Math.round(Date.now() / 1000)) + parsedToken.expiresIn
     parsedToken.expiresAt = calculatedExpiresAt
-    localStorage.setItem("token", JSON.stringify(parsedToken))
+    localStorage.setItem('token', JSON.stringify(parsedToken))
   }
 }
 
@@ -61,22 +61,24 @@ export const AuthContext = createContext<{
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [authToken, setAuthToken] = useState<IAccessToken>({
-    accessToken: "",
-    email: "",
-    picture: "",
+    accessToken: '',
+    email: '',
+    picture: '',
     expiresIn: 0,
     expiresAt: 0,
-    tokenType: "",
+    tokenType: '',
   })
 
   useMemo(() => {
     const url = window.location.href
-    if (url.includes("access_token")) {
+    if (url.includes('access_token')) {
       saveTokenFromUrl(url)
       const userData = parseTokenFromUrl(url)
       setAuthToken(userData)
+      // clear local window url
+      window.history.replaceState('', '', '/saves')
     } else {
-      const localStorageTokenRaw = localStorage.getItem("token")
+      const localStorageTokenRaw = localStorage.getItem('token')
       if (localStorageTokenRaw) {
         // TODO: @sb, add validation + error handling
         const localStorageTokenObj = JSON.parse(localStorageTokenRaw)

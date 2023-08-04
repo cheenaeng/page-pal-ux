@@ -1,8 +1,8 @@
-import React, { useContext } from "react"
+import React, { useContext } from 'react'
 
-import { Layout } from "../../components/Layout"
-import { CardTiles } from "../../components/CardTiles"
-import { MdSort } from "react-icons/md"
+import { Layout } from '../../components/Layout'
+import { CardTiles } from '../../components/CardTiles'
+import { MdSort } from 'react-icons/md'
 import {
   Flex,
   Text,
@@ -13,32 +13,32 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-} from "@chakra-ui/react"
-import { ArchiveBookmarkContext } from "../../api/context/archiveBookmarkContext"
+} from '@chakra-ui/react'
+import { ArchiveBookmarkContext } from '../../api/context/archiveBookmarkContext'
 
 function ArchivePage() {
   const { allData } = useContext(ArchiveBookmarkContext)
   return (
     <Layout>
       <Box
-        maxH="80%"
-        mx="auto"
+        maxH='80%'
+        mx='auto'
         maxWidth={{
-          base: "100%",
-          "2xl": "70%",
+          base: '100%',
+          '2xl': '80%',
         }}
       >
-        <Flex justifyContent={"space-between"} alignItems={"center"}>
-          <Text textStyle="body2Semi" color="brand.main">
+        <Flex justifyContent={'space-between'} alignItems={'center'}>
+          <Text textStyle='headerBold' color='brand.main'>
             Articles ({allData?.length ?? 0})
           </Text>
           <Box>
             <Menu>
               <MenuButton
                 as={Button}
-                fontWeight="bold"
-                sx={{ borderRadius: "8px" }}
-                aria-label="sort articles"
+                fontWeight='bold'
+                sx={{ borderRadius: '8px' }}
+                aria-label='sort articles'
                 rightIcon={<MdSort />}
               >
                 Sort
@@ -49,8 +49,7 @@ function ArchivePage() {
             </Menu>
           </Box>
         </Flex>
-        <Divider my={4} mx="auto" />
-        {/* search bar here  */}
+        <Divider my={2} mx='auto' />
         <CardTiles pages={allData} />
       </Box>
     </Layout>
