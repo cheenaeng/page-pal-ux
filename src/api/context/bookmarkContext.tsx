@@ -1,9 +1,9 @@
-import { createContext, useContext, useMemo, useState } from "react"
+import { createContext, useContext, useMemo, useState } from 'react'
 
-import { GenericResponseBookmark, IBookmark } from "../../types/saves"
-import { useQuery } from "@tanstack/react-query"
-import BookmarkAPI from "../BookmarkAPI"
-import { AuthContext } from "./authContext"
+import { GenericResponseBookmark, IBookmark } from '../../types/saves'
+import { useQuery } from '@tanstack/react-query'
+import BookmarkAPI from '../BookmarkAPI'
+import { AuthContext } from './authContext'
 
 interface BookmarkDataContextType {
   allData: IBookmark[] | undefined
@@ -28,12 +28,12 @@ export const BookmarkProvider = ({
   const [limit] = useState(10)
 
   const { data: bookmarkData, refetch: refetchBookmarkData } = useQuery(
-    ["getAllBookmark"],
+    ['getAllBookmark'],
     (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllBookmark(
         page,
         limit,
-        authToken.accessToken ?? "",
+        authToken.accessToken ?? '',
       )
     },
   )
