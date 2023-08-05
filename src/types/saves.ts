@@ -14,6 +14,7 @@ export interface IBookmark {
   id: string
   link: string
   domain: string
+  image: string
   title: string
 }
 export interface GenericResponseBookmark {

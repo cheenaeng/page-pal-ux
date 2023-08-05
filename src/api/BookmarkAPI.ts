@@ -1,5 +1,5 @@
-import { httpDelete, httpGet, httpPost, httpPatch } from "../helpers/http"
-import { BASE_BACKEND_URL } from "./AuthAPI"
+import { httpDelete, httpGet, httpPost, httpPatch } from '../helpers/http'
+import { BASE_BACKEND_URL } from './AuthAPI'
 
 class BookmarkAPI {
   static getAllBookmark = async (page = 1, limit = 10, token: string) => {
@@ -35,6 +35,25 @@ class BookmarkAPI {
   }) => {
     return httpPost(
       `${BASE_BACKEND_URL}/bookmark`,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      {
+        link,
+      },
+      true,
+    )
+  }
+
+  static addBookmarkV2 = async ({
+    link,
+    token,
+  }: {
+    link: string
+    token: string
+  }) => {
+    return httpPost(
+      `${BASE_BACKEND_URL}/bookmark/v2`,
       {
         Authorization: `Bearer ${token}`,
       },
