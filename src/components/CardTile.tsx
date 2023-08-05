@@ -152,18 +152,34 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               borderRadius='md'
               overflow='hidden'
             >
-              <Image
-                height='18vh'
-                width='100%'
-                objectFit='cover'
-                src={
-                  page.image
-                    ? page.image
-                    : 'https://images.unsplash.com/photo-1548263594-a71ea65a8598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80'
-                }
-                alt={'boilerplate-image'}
-                borderRadius='lg'
-              />
+              {page.image ? (
+                <Image
+                  height='18vh'
+                  width='100%'
+                  objectFit='cover'
+                  src={page.image}
+                  alt={'boilerplate-image'}
+                  borderRadius='lg'
+                />
+              ) : (
+                <Box
+                  bg={'#bd88f7'}
+                  w='100%'
+                  h='18vh'
+                  display='flex'
+                  alignItems='center'
+                  pl='5'
+                  pt='10'
+                  color='white'
+                  fontWeight='semibold'
+                  letterSpacing='wide'
+                  fontSize='190'
+                  textTransform='uppercase'
+                >
+                  {page.domain.charAt(0)}
+                </Box>
+              )}
+
               <Box
                 position='absolute'
                 top='0'
