@@ -7,7 +7,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { Image, VStack, Text, Box, Link } from '@chakra-ui/react'
-import { IBookmark } from '../types/saves'
+import { BookmarkStateEnum, IBookmark } from '../types/saves'
 import {
   AiOutlineDelete,
   AiOutlineFolderOpen,
@@ -61,6 +61,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         onSuccess: () => {
           closeDeleteModal()
           toast.success('Url deleted!')
+          // TODO @sb: fix delete not refreshing archive page
           refetchBookmarkData()
         },
         onError: () => {
@@ -71,7 +72,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   }
 
   const handleArchive = () => {
-    if (page.archived) {
+    if (page.state === BookmarkStateEnum.ARCHIVED) {
       restoreArchivedBookmark(
         {
           id: page.id,
@@ -122,7 +123,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         closeModal={closeArchiveModal}
         isModalOpen={isArchiveModalOpen}
         isArchiveModalLoading={isArchiveModalLoading}
-        isArticleArchived={page.archived === true}
+        isArticleArchived={page.state === BookmarkStateEnum.ARCHIVED}
       />
 
       {/* Main component */}
@@ -240,7 +241,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               variant='actionIcon'
               aria-label='archive'
               icon={
-                page.archived ? (
+                page.state === BookmarkStateEnum.ARCHIVED ? (
                   <AiOutlineUndo size={18} />
                 ) : (
                   <AiOutlineFolderOpen size={18} />

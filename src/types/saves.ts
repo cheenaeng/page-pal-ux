@@ -9,8 +9,14 @@ export interface IPage {
   link: string
 }
 
+export enum BookmarkStateEnum {
+  AVAILABLE = 'AVAILABLE',
+  ARCHIVED = 'ARCHIVED',
+  DELETED = 'DELETED',
+}
+
 export interface IBookmark {
-  archived: boolean
+  state: BookmarkStateEnum
   id: string
   link: string
   domain: string
