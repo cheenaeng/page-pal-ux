@@ -223,7 +223,6 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               align='start'
               overflowWrap={'break-word'}
               noOfLines={1}
-              maxWidth='60%'
               color='brand.main'
             >
               {page.domain ? page.domain : page.link}
