@@ -20,7 +20,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
   const bearerToken = authToken.accessToken ?? ''
   const { refetchBookmarkData } = useContext(BookmarkContext)
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
-    BookmarkAPI.addBookmarkV2,
+    BookmarkAPI.addBookmark,
   )
   const [inputUrl, setInputUrl] = useState('')
   const [loadingToastId, setLoadingToastId] = useState('')
@@ -49,8 +49,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       addUrl()
-    }
-    if (event.key === 'Escape') {
+    } else if (event.key === 'Escape') {
       setInputUrl('')
       setShowUrlInput(false)
     }

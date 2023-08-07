@@ -6,3 +6,10 @@ export interface IAccessToken {
   expiresAt: number
   picture: string
 }
+
+export enum AuthStateEnum {
+  UNAUTHENTICATED = 'UNAUTHENTICATED',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  SESSION_EXPIRED = 'SESSION_EXPIRED',
+  AUTHENTICATED = 'AUTHENTICATED',
+}
