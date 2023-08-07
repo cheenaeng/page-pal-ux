@@ -4,6 +4,7 @@ import {
   CardFooter,
   HStack,
   IconButton,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
 import { Image, VStack, Text, Box, Link } from '@chakra-ui/react'
@@ -13,6 +14,7 @@ import {
   AiOutlineFolderOpen,
   AiOutlineUndo,
 } from 'react-icons/ai'
+import { FiExternalLink } from 'react-icons/fi'
 import DeleteModal from './views/saves/DeleteModal'
 import ArchiveModal from './views/saves/ArchiveModal'
 import BookmarkAPI from '../api/BookmarkAPI'
@@ -22,6 +24,7 @@ import { AuthContext } from '../api/context/authContext'
 import toast from 'react-hot-toast'
 import { BookmarkContext } from '../api/context/bookmarkContext'
 import { ArchiveBookmarkContext } from '../api/context/archiveBookmarkContext'
+import { title } from 'process'
 
 interface PageProps {
   page: IBookmark
@@ -134,18 +137,18 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           mx: 'auto',
         }}
       >
-        <Link
-          sx={{
-            textDecoration: 'none',
-            _hover: 'none',
-            _focus: 'none',
-            _active: 'none',
-            _visited: 'none',
-          }}
-          href={`${page.link}`}
-          isExternal
-        >
-          <CardBody>
+        <CardBody>
+          <Link
+            sx={{
+              textDecoration: 'none',
+              _hover: 'none',
+              _focus: 'none',
+              _active: 'none',
+              _visited: 'none',
+            }}
+            href={`${page.link}`}
+            isExternal
+          >
             <Box
               position='relative'
               w='100%'
@@ -180,14 +183,13 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                   {page.domain.charAt(0)}
                 </Box>
               )}
-
-              <Box
+              <HStack
                 position='absolute'
                 top='0'
                 left='0'
                 w='100%'
                 h='100%'
-                bg='rgba(0, 0, 0, 0.5)'
+                bg='rgba(0, 0, 0, 0.7)'
                 opacity='0'
                 transition='opacity 0.3s ease'
                 borderRadius='md'
@@ -198,43 +200,41 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 justifyContent='center'
                 textStyle={'body1Semi'}
               >
-                View article
-              </Box>
+                <Text fontSize='2xl'>View article</Text>
+                <FiExternalLink size={20} />
+              </HStack>
             </Box>
+          </Link>
 
-            <VStack mt='2' p='2' align='start' maxW='sm'>
-              {/* Title */}
-              <Text
-                textStyle='cardTitle'
-                align='start'
-                as='b'
-                overflowWrap={'break-word'}
-                noOfLines={1}
-                color='brand.dark'
-              >
-                {page.title}
-              </Text>
-              {/* domain/link */}
-              <Text
-                textStyle='cardBody'
-                align='start'
-                overflowWrap={'break-word'}
-                noOfLines={1}
-                maxWidth='100%'
-                isTruncated={true}
-                as='b'
-                color='brand.main'
-              >
-                {page.domain ? page.domain : page.link}
-              </Text>
-              {/* Length of article */}
-              {/* temp comment out hardcoded article length */}
-              {/* <Text textStyle="cardBody" align="start" color="gray.500">
+          <VStack mt='2' p='2' align='start' maxW='sm'>
+            {/* Title */}
+            <Text
+              textStyle='cardTitle'
+              align='start'
+              overflowWrap={'break-word'}
+              noOfLines={1}
+              color='brand.dark'
+            >
+              {page.title}
+            </Text>
+            {/* domain/link */}
+            <Text
+              textStyle='cardBody'
+              align='start'
+              overflowWrap={'break-word'}
+              noOfLines={1}
+              color='brand.main'
+            >
+              {page.domain ? page.domain : page.link}
+            </Text>
+            {/* Length of article */}
+            {/* temp comment out hardcoded article length */}
+            {/* <Text textStyle="cardBody" align="start" color="gray.500">
                 15 min
               </Text> */}
-            </VStack>
-          </CardBody>
-        </Link>
+          </VStack>
+        </CardBody>
+
         <CardFooter justifyContent='flex-end'>
           <HStack>
             <IconButton
