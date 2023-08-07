@@ -20,6 +20,7 @@ export interface IBookmark {
   id: string
   link: string
   domain: string
+  color: string
   image: string
   title: string
 }

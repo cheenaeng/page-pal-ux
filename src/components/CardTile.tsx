@@ -164,7 +164,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 />
               ) : (
                 <Box
-                  bg={'#bd88f7'}
+                  bg={page.color ? page.color : '#bd88f7'}
                   w='100%'
                   h='18vh'
                   display='flex'

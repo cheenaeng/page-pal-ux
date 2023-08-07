@@ -20,7 +20,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
   const bearerToken = authToken.accessToken ?? ''
   const { refetchBookmarkData } = useContext(BookmarkContext)
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
-    BookmarkAPI.addBookmark,
+    BookmarkAPI.addBookmarkV2,
   )
   const [inputUrl, setInputUrl] = useState('')
   const [loadingToastId, setLoadingToastId] = useState('')
