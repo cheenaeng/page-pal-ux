@@ -91,179 +91,151 @@ export const Navbar = () => {
   }
 
   return (
-    <Box as='section' pb={{ base: '2', md: '2' }}>
-      <Box as='nav' bg='bg.surface' boxShadow='sm'>
-        <Box py={{ base: '2', lg: '2' }} width='100%'>
-          {isDesktop ? (
-            <HStack minWidth='800px' mx='auto'>
-              {/* Menus */}
-              <ButtonGroup
-                mx='auto'
-                variant='text'
-                spacing={{
-                  base: 2,
-                  lg: 2,
-                  xl: 4,
-                  '2xl': 8,
-                }}
-              >
-                {NavLinks.map((item) =>
-                  item.requireAuth && !authToken.accessToken ? (
-                    <></>
-                  ) : (
-                    <Button
-                      fontSize='lg'
-                      fontWeight='bold'
-                      key={item.name}
-                      as={Link}
-                      to={item.path}
-                      sx={{
-                        '&:hover': {
-                          color: 'brand.main',
-                        },
-                        '&:active': {
-                          color: 'brand.main',
-                        },
-                        '&:focus': {
-                          color: 'brand.main',
-                        },
-                      }}
-                    >
-                      {item.name}
-                    </Button>
-                  ),
-                )}
-              </ButtonGroup>
+    <Box as='section' py={{ base: '2', md: '2' }} boxShadow='sm'>
+      {isDesktop ? (
+        <HStack minWidth='800px'>
+          {/* Menus */}
+          <ButtonGroup
+            variant='text'
+            spacing={{
+              base: 2,
+              lg: 2,
+              xl: 4,
+              '2xl': 8,
+            }}
+            mx='auto'
+          >
+            {/* hide nav menus if they require auth and user is not logged in */}
+            {NavLinks.map((item) =>
+              item.requireAuth && !authToken.accessToken ? (
+                <></>
+              ) : (
+                <Button
+                  fontSize='md'
+                  fontWeight='bold'
+                  key={item.name}
+                  as={Link}
+                  to={item.path}
+                  variant='ghost'
+                >
+                  {item.name}
+                </Button>
+              ),
+            )}
+          </ButtonGroup>
 
-              {/* add url input bar */}
-              {authToken.accessToken && (
-                <HStack minWidth='40vw' justifyContent='flex-end'>
-                  {showUrlInput ? (
-                    <HStack>
-                      <InputSave setShowUrlInput={setShowUrlInput} />
-                      <IconButton
-                        variant='ghost'
-                        sx={{
-                          borderRadius: '50%',
-                        }}
-                        aria-label='hide url input'
-                        onClick={toggleUrlInput}
-                        icon={<CloseIcon />}
-                      />
-                    </HStack>
-                  ) : (
-                    <Box>
-                      <Button
-                        onClick={toggleUrlInput}
-                        variant='fancy'
-                        rightIcon={<AddIcon />}
-                      >
-                        Add url
-                      </Button>
-                    </Box>
-                  )}
-                </HStack>
-              )}
-
-              {/* Sign in/ out */}
-              {authToken.accessToken ? (
-                <HStack justifySelf='flex-end' marginLeft='1' marginRight='1'>
-                  <Popover
-                    isOpen={isOpen}
-                    onOpen={onOpen}
-                    onClose={onClose}
-                    closeOnBlur={true}
-                    placement='bottom-start'
-                  >
-                    <PopoverTrigger>
-                      <Avatar
-                        name={authToken.email}
-                        src={authToken.picture}
-                        size='sm'
-                        cursor='pointer'
-                      />
-                    </PopoverTrigger>
-
-                    <PopoverContent borderColor='pink'>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverHeader fontWeight='bold'>
-                        {authToken.email}
-                      </PopoverHeader>
-                      <PopoverBody>
-                        {/* Are you sure you want to have that milkshake? */}
-                        <Button
-                          onClick={handleSignOut}
-                          colorScheme='pink'
-                          sx={{
-                            borderRadius: '5%',
-                          }}
-                        >
-                          Sign Out
-                        </Button>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
+          {/* add url input bar */}
+          {authToken.accessToken && (
+            <HStack minWidth='40vw' justifyContent='flex-end'>
+              {showUrlInput ? (
+                <HStack>
+                  <InputSave setShowUrlInput={setShowUrlInput} />
+                  <IconButton
+                    variant='ghost'
+                    sx={{
+                      borderRadius: '50%',
+                    }}
+                    aria-label='hide url input'
+                    onClick={toggleUrlInput}
+                    icon={<CloseIcon />}
+                  />
                 </HStack>
               ) : (
-                <HStack justifySelf='flex-end'>
-                  <SignInButton />
-                  {/* <Button
-                    fontSize="lg"
-                    variant="ghost"
-                    as={Link}
-                    to={AuthAPI.getGoogleLoginUrl()}
+                <Box>
+                  <Button
+                    onClick={toggleUrlInput}
+                    variant='fancy'
+                    rightIcon={<AddIcon />}
                   >
-                    Sign in
-                  </Button> */}
-                </HStack>
+                    Add url
+                  </Button>
+                </Box>
               )}
-
-              {/* Light/dark mode */}
-              <ColorModeSwitcher />
-            </HStack>
-          ) : (
-            <HStack>
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  variant='tertiary'
-                  icon={<FiMenu fontSize='1.25rem' />}
-                  aria-label='Open Menu'
-                />
-                <MenuList>
-                  <MenuItem minH='48px' as={Link} to='/home'>
-                    Home
-                  </MenuItem>
-                  <MenuItem minH='48px' as={Link} to='/saves'>
-                    Saves
-                  </MenuItem>
-                  <MenuItem minH='48px' as={Link} to='/archives'>
-                    Archives
-                  </MenuItem>
-                  <MenuItem minH='48px'>Login/Logout</MenuItem>
-                </MenuList>
-              </Menu>
-              <HStack justifyContent='flex-end'>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button
-                      onClick={toggleUrlInput}
-                      variant='fancy'
-                      rightIcon={<AddIcon />}
-                    >
-                      Add url
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <InputSave setShowUrlInput={setShowUrlInput} />
-                  </PopoverContent>
-                </Popover>
-              </HStack>
             </HStack>
           )}
-        </Box>
-      </Box>
+
+          {/* Sign in/ out */}
+          {authToken.accessToken ? (
+            <HStack justifySelf='flex-end' mx='1'>
+              <Popover
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                closeOnBlur={true}
+                placement='bottom-start'
+              >
+                <PopoverTrigger>
+                  <Avatar
+                    name={authToken.email}
+                    src={authToken.picture}
+                    size='sm'
+                    cursor='pointer'
+                  />
+                </PopoverTrigger>
+
+                <PopoverContent boxShadow={'md'}>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <PopoverHeader fontWeight='bold'>
+                    {authToken.email}
+                  </PopoverHeader>
+                  <PopoverBody>
+                    <Button onClick={handleSignOut} colorScheme='pink'>
+                      Sign Out
+                    </Button>
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
+            </HStack>
+          ) : (
+            <HStack justifySelf='flex-end'>
+              <SignInButton />
+            </HStack>
+          )}
+
+          {/* Light/dark mode */}
+          <ColorModeSwitcher />
+        </HStack>
+      ) : (
+        <HStack>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              variant='tertiary'
+              icon={<FiMenu fontSize='1.25rem' />}
+              aria-label='Open Menu'
+            />
+            <MenuList>
+              <MenuItem minH='48px' as={Link} to='/home'>
+                Home
+              </MenuItem>
+              <MenuItem minH='48px' as={Link} to='/saves'>
+                Saves
+              </MenuItem>
+              <MenuItem minH='48px' as={Link} to='/archives'>
+                Archives
+              </MenuItem>
+              <MenuItem minH='48px'>Login/Logout</MenuItem>
+            </MenuList>
+          </Menu>
+          <HStack justifyContent='flex-end'>
+            <Popover>
+              <PopoverTrigger>
+                <Button
+                  onClick={toggleUrlInput}
+                  variant='fancy'
+                  rightIcon={<AddIcon />}
+                >
+                  Add url
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <InputSave setShowUrlInput={setShowUrlInput} />
+              </PopoverContent>
+            </Popover>
+          </HStack>
+        </HStack>
+      )}
     </Box>
   )
 }

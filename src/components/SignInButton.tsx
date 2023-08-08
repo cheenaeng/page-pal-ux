@@ -6,10 +6,7 @@ export const SignInButton = () => {
   return (
     <Button
       colorScheme='purple'
-      fontSize='lg'
-      sx={{
-        borderRadius: '5%',
-      }}
+      variant='primary'
       as={Link}
       to={AuthAPI.getGoogleLoginUrl()}
     >
