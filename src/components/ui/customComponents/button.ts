@@ -49,9 +49,9 @@ const actionIcon = defineStyle(() => {
     },
     _dark: {
       bg: 'rgba(74,93,128,0.3)',
-      color: 'rgba(221,216,254,0.3)',
+      color: '#ffffffbe',
       _hover: {
-        bg: 'rgba(74,93,128,0.5)',
+        bg: '#3e4d69cc',
       },
     },
   }
@@ -60,24 +60,24 @@ const actionIcon = defineStyle(() => {
 const primary = defineStyle(() => {
   return {
     color: '#f7f7f7',
-    borderRadius: '8px',
+    rounded: '8',
     border: 'none',
-    bg: '#7c70d2',
+    bg: 'brand.main',
     _hover: {
-      bg: `brand.main800`,
+      bg: `brand.main400`,
     },
     _dark: {
-      bg: 'rgba(74,93,128,0.3)',
-      color: 'rgba(221,216,254,0.5)',
+      bg: 'f7f7f7',
+      color: '#f7f7f7',
       _hover: {
-        bg: 'rgba(74,93,128,0.5)',
+        bg: 'brand.main800',
       },
     },
   }
 })
 
 export const buttonTheme = defineStyleConfig({
-  baseStyle,
+  baseStyle: { rounded: '8' },
   variants: {
     fancy: fancy,
     actionIcon: actionIcon,

@@ -69,7 +69,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
     <>
       <Stack>
         <InputGroup variant='custom' colorScheme='brand'>
-          <InputLeftAddon>Save URL:</InputLeftAddon>
+          <InputLeftAddon> URL:</InputLeftAddon>
           <Input
             autoFocus={true}
             value={inputUrl}
@@ -79,12 +79,13 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
           />
           <InputRightElement>
             <IconButton
+              variant='primary'
               sx={{
                 borderRadius: '50%',
               }}
               onClick={addUrl}
               aria-label='Add url'
-              icon={<AddIcon color='brand.main' />}
+              icon={<AddIcon color='neutral.main' />}
             />
           </InputRightElement>
         </InputGroup>
