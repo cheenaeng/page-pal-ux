@@ -9,8 +9,9 @@ import {
   PopoverCloseButton,
   PopoverHeader,
   PopoverBody,
-  Button,
   useDisclosure,
+  Portal,
+  Button,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
@@ -60,17 +61,18 @@ export function ProfileManagementIcon() {
               cursor='pointer'
             />
           </PopoverTrigger>
-
-          <PopoverContent boxShadow={'md'}>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader fontWeight='bold'>{authToken.email}</PopoverHeader>
-            <PopoverBody>
-              <Button onClick={handleSignOut} colorScheme='pink'>
-                Sign Out
-              </Button>
-            </PopoverBody>
-          </PopoverContent>
+          <Portal>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverHeader fontWeight='bold'>{authToken.email}</PopoverHeader>
+              <PopoverCloseButton />
+              <PopoverBody>
+                <Button onClick={handleSignOut} variant='primary'>
+                  Sign Out
+                </Button>
+              </PopoverBody>
+            </PopoverContent>
+          </Portal>
         </Popover>
       ) : (
         <SignInButton />
