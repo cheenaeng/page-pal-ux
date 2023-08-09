@@ -5,7 +5,6 @@ import {
   IconButton,
   IconButtonProps,
 } from '@chakra-ui/react'
-// import { FaMoon, FaSun } from 'react-icons/fa'
 import { HiOutlineSun, HiMoon } from 'react-icons/hi'
 
 type ColorModeSwitcherProps = Omit<IconButtonProps, 'aria-label'>

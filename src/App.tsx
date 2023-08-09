@@ -51,7 +51,7 @@ export const App = () => {
         <AuthProvider>
           {/* as inputSave component in navbar uses bookmark context */}
           <BookmarkProvider>
-            <Box height='100vh' mx='auto' p={3} boxSizing='border-box'>
+            <Box height='100vh' mx='auto' p={1} boxSizing='border-box'>
               <BrowserRouter>
                 <AuthGlobalModal />
                 <Routes>

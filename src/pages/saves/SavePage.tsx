@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Layout } from '../../components/Layout'
 import { CardTiles } from '../../components/CardTiles'
 import { MdSort } from 'react-icons/md'
@@ -13,7 +13,6 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react'
-import { IAccessToken } from '../../types/index'
 import { BookmarkContext } from '../../api/context/bookmarkContext'
 
 function SavePage() {
