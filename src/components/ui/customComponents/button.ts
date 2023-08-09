@@ -14,25 +14,25 @@ const fancy = defineStyle(() => {
     borderRadius: '3xl',
     transition: 'transform 0.15s ease-out, background 0.15s ease-out',
     _dark: {
-      bg: `brand.light`,
-      color: 'gray.800',
+      bg: `brand.main`,
+      color: 'gray.100',
     },
 
     _hover: {
       transform: 'scale(1.05, 1.05)',
-      bg: `brand.main800`,
+      bg: `brand.main400`,
 
       _dark: {
-        bg: `brand.light`,
+        bg: `brand.main800`,
       },
     },
 
     _active: {
-      bg: `brand.main800`,
+      bg: `brand.main400`,
       transform: 'scale(1, 1)',
 
       _dark: {
-        bg: `brand.400`,
+        bg: `brand.800`,
       },
     },
   }

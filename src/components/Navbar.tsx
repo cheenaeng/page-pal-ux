@@ -13,12 +13,8 @@ import {
   PopoverContent,
   PopoverTrigger,
   useBreakpointValue,
-  Avatar,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-  useDisclosure,
+  Flex,
+  Spacer,
 } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
@@ -27,7 +23,7 @@ import InputSave from './common/Form/InputSave'
 import { AddIcon, CloseIcon } from '@chakra-ui/icons'
 import { AuthContext } from '../api/context/authContext'
 import { useNavigate } from 'react-router-dom'
-import { SignInButton } from './SignInButton'
+import { ProfileManagementIcon } from './ProfileManagementIcon'
 
 const NavLinks = [
   {
@@ -53,10 +49,8 @@ const NavLinks = [
 ]
 
 export const Navbar = () => {
-  const { authToken, setAuthToken } = useContext(AuthContext)
+  const { authToken } = useContext(AuthContext)
   const [showUrlInput, setShowUrlInput] = useState(false)
-  const { onOpen, onClose, isOpen } = useDisclosure()
-  let navigate = useNavigate()
 
   const toggleUrlInput = () => {
     setShowUrlInput(!showUrlInput)
@@ -70,31 +64,12 @@ export const Navbar = () => {
     xl: true,
   })
 
-  const handleSignOut = () => {
-    // delete token from local storage
-    if (localStorage.getItem('token')) {
-      localStorage.removeItem('token')
-      // reset
-      setAuthToken({
-        accessToken: '',
-        email: '',
-        picture: '',
-        expiresIn: 0,
-        expiresAt: 0,
-        tokenType: '',
-      })
-    }
-
-    // navigate to home page
-    onClose()
-    navigate('/home')
-  }
-
   return (
-    <Box as='section' py={{ base: '2', md: '2' }} boxShadow='sm'>
+    <Box as='nav' py={{ base: '1', md: '1' }} boxShadow='sm'>
+      {/* Desktop View */}
       {isDesktop ? (
-        <HStack minWidth='800px'>
-          {/* Menus */}
+        <Flex width='80%' mx='auto'>
+          {/* First button group: Menus */}
           <ButtonGroup
             variant='text'
             spacing={{
@@ -103,7 +78,6 @@ export const Navbar = () => {
               xl: 4,
               '2xl': 8,
             }}
-            mx='auto'
           >
             {/* hide nav menus if they require auth and user is not logged in */}
             {NavLinks.map((item) =>
@@ -124,79 +98,49 @@ export const Navbar = () => {
             )}
           </ButtonGroup>
 
-          {/* add url input bar */}
-          {authToken.accessToken && (
-            <HStack minWidth='40vw' justifyContent='flex-end'>
-              {showUrlInput ? (
-                <HStack>
-                  <InputSave setShowUrlInput={setShowUrlInput} />
-                  <IconButton
-                    variant='ghost'
-                    sx={{
-                      borderRadius: '50%',
-                    }}
-                    aria-label='hide url input'
-                    onClick={toggleUrlInput}
-                    icon={<CloseIcon />}
-                  />
-                </HStack>
-              ) : (
-                <Box>
-                  <Button
-                    onClick={toggleUrlInput}
-                    variant='fancy'
-                    rightIcon={<AddIcon />}
-                  >
-                    Add url
-                  </Button>
-                </Box>
-              )}
-            </HStack>
-          )}
+          <Spacer />
 
-          {/* Sign in/ out */}
-          {authToken.accessToken ? (
-            <HStack justifySelf='flex-end' mx='1'>
-              <Popover
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onClose={onClose}
-                closeOnBlur={true}
-                placement='bottom-start'
-              >
-                <PopoverTrigger>
-                  <Avatar
-                    name={authToken.email}
-                    src={authToken.picture}
-                    size='sm'
-                    cursor='pointer'
-                  />
-                </PopoverTrigger>
-
-                <PopoverContent boxShadow={'md'}>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader fontWeight='bold'>
-                    {authToken.email}
-                  </PopoverHeader>
-                  <PopoverBody>
-                    <Button onClick={handleSignOut} colorScheme='pink'>
-                      Sign Out
+          {/* Second button group: add url/ log in buttons */}
+          <ButtonGroup variant='text' spacing={'4'}>
+            {/* add url input bar */}
+            {authToken.accessToken && (
+              <Box>
+                {showUrlInput ? (
+                  <HStack>
+                    <InputSave setShowUrlInput={setShowUrlInput} />
+                    <IconButton
+                      variant='ghost'
+                      sx={{
+                        borderRadius: '50%',
+                      }}
+                      aria-label='hide url input'
+                      onClick={toggleUrlInput}
+                      icon={<CloseIcon />}
+                    />
+                  </HStack>
+                ) : (
+                  <Box>
+                    <Button
+                      onClick={toggleUrlInput}
+                      variant='fancy'
+                      rightIcon={<AddIcon />}
+                    >
+                      Add url
                     </Button>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-            </HStack>
-          ) : (
-            <HStack justifySelf='flex-end'>
-              <SignInButton />
-            </HStack>
-          )}
+                  </Box>
+                )}
+              </Box>
+            )}
 
-          {/* Light/dark mode */}
-          <ColorModeSwitcher />
-        </HStack>
+            {/* Sign in/ out */}
+            <ProfileManagementIcon />
+
+            {/* Light/dark mode */}
+            <ColorModeSwitcher />
+          </ButtonGroup>
+        </Flex>
       ) : (
+        // Mobile View
         <HStack>
           <Menu>
             <MenuButton
