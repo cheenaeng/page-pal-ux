@@ -10,6 +10,7 @@ import {
 import LayoutWithNav from './components/LayoutWithNav'
 import SavePage from './pages/saves/SavePage'
 import ArchivePage from './pages/archives/ArchivePage'
+import EditorPage from './pages/editor/EditorPage'
 import { extendTheme } from '@chakra-ui/react'
 import { customColors } from './components/ui/colors'
 import customBreakpoints from './components/ui/breakpoints'
@@ -59,6 +60,7 @@ export const App = () => {
                     <Route index element={<Navigate to='/home' />} />
                     <Route path='home' element={<HomePage />} />
                     <Route path='saves' element={<SavePage />} />
+                    <Route path=':id/note' element={<EditorPage />} />
                     <Route
                       path='archives'
                       element={
