@@ -8,9 +8,10 @@ import Document from '@tiptap/extension-document'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import CharacterCount from '@tiptap/extension-character-count'
-
+import Placeholder from '@tiptap/extension-placeholder'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+
 import React, { useEffect, useState } from 'react'
 import {
   Button,
@@ -440,7 +441,12 @@ export default () => {
       CharacterCount.configure({
         limit: charLimit,
       }),
+      Placeholder.configure({
+        // Use a placeholder:
+        placeholder: 'Write something...',
+      }),
     ],
+
     injectCSS: false,
     onUpdate: ({ editor }) => {
       const data = editor.getJSON()
@@ -453,15 +459,17 @@ export default () => {
   }, [editor])
 
   return (
-    <Box padding={'10'}>
+    <Box padding={'5'}>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} color='red' />
+      <Box my={'2'}>
+        <EditorContent editor={editor} />
+      </Box>
       {editor && (
-        <div className='character-count'>
+        <Box>
           {editor.storage.characterCount.characters()}/{charLimit} characters
           <br />
           {editor.storage.characterCount.words()} words
-        </div>
+        </Box>
       )}
     </Box>
   )
