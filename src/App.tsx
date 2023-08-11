@@ -25,7 +25,10 @@ import { BookmarkProvider } from './api/context/bookmarkContext'
 import { ArchiveBookmarkProvider } from './api/context/archiveBookmarkContext'
 import AuthGlobalModal from './components/AuthGlobalModal'
 
+import { editorStyles } from './styles/editor.styles'
+
 const theme = extendTheme({
+  styles: editorStyles,
   colors: customColors,
   breakpoints: customBreakpoints,
   space: space,
