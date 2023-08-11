@@ -27,7 +27,7 @@ export const initialData = {
       type: 'heading',
       attrs: {
         textAlign: 'left',
-        level: 2,
+        level: 1,
       },
       content: [
         {

@@ -43,9 +43,7 @@ import {
   MdRedo,
 } from 'react-icons/md'
 import { GoListOrdered, GoListUnordered } from 'react-icons/go'
-
 import { BsFileEarmarkBreak } from 'react-icons/bs'
-
 import { HiOutlineCode } from 'react-icons/hi'
 import { BiParagraph } from 'react-icons/bi'
 import { initialData } from '../data/mock/editorDefault'

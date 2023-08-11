@@ -5,10 +5,9 @@ export const editorStyles = {
     body: {
       color: mode('gray.700', 'whiteAlpha.900')(props),
       fontFamily: 'body',
-      // color: mode("gray.800", "whiteAlpha.900")(props),
-      fontSize: 'sm',
+      fontSize: 'md',
       '.main-container': {
-        minH: '100vh',
+        minHeight: '100vh',
       },
       a: {
         color: 'blue.500',
@@ -23,11 +22,10 @@ export const editorStyles = {
         clear: 'both',
       },
       '.ProseMirror': {
-        mt: 4,
+        marginTop: '2rem',
         '> * + *': {
           marginTop: '0.75em',
         },
-        // @see https://github.com/jesster2k10/guava-cards/blob/5d5c283eb720bf503258f4e17bce3865d35fd8d3/packages/website/src/bundles/editor/ContentEditor.tsx#L86
         'p.is-editor-empty:first-child::before': {
           content: 'attr(data-placeholder)',
           color: 'gray.500',
@@ -36,18 +34,31 @@ export const editorStyles = {
           height: 0,
         },
         '&:focus': {
-          outline: 'none',
+          border: '1px solid rgb(229, 228, 226, 0.2)',
+          padding: '1px',
+          borderRadius: '6px',
+        },
+        '&:hover': {
+          background: 'rgb(229, 228, 226, 0.2)',
+          padding: '1px',
+          borderRadius: '6px',
         },
         h1: {
-          fontSize: '1.25rem',
+          fontSize: '2rem',
         },
         h2: {
-          fontSize: '1.15rem',
+          fontSize: '1.75rem',
         },
         h3: {
+          fontSize: '1.5rem',
+        },
+        h4: {
+          fontSize: '1.25rem',
+        },
+        h5: {
           fontSize: '1rem',
         },
-        'h1, h2, h3, h4,  h5, h6 ': {
+        'h1, h2, h3, h4, h5': {
           lineHeight: '1.1',
           fontWeight: '700',
         },
@@ -55,75 +66,68 @@ export const editorStyles = {
           padding: '0 1.2rem',
         },
         code: {
-          bg: 'rgba(#616161, 0.1)',
+          backgroundColor: 'rgba(97, 97, 97, 0.1)',
           color: '#616161',
+          borderRadius: '5px',
+          padding: '2px',
         },
         pre: {
           fontFamily: "JetBrainsMono, 'Courier New', Courier, monospace",
           background: mode('gray.900', 'blue.200')(props),
           color: mode('white', 'gray.900')(props),
           padding: '0.75rem 1rem',
-          rounded: 'lg',
+          borderRadius: 'lg',
           whiteSpace: 'pre-wrap',
           code: {
             color: 'inherit',
-            p: 0,
+            padding: 0,
             background: 'none',
             fontSize: '0.8rem',
           },
-
           '.hljs-comment, .hljs-quote': {
             color: '#616161',
           },
-
-          '.hljs-variable, .hljs-template-variable,  .hljs-attribute, .hljs-tag, .hljs-name, .hljs-regexp, .hljs-link, .hljs-name, .hljs-selector-id, .hljs-selector-class':
+          '.hljs-variable, .hljs-template-variable, .hljs-attribute, .hljs-tag, .hljs-name, .hljs-regexp, .hljs-link, .hljs-name, .hljs-selector-id, .hljs-selector-class':
             {
               color: '#F98181',
             },
-
-          '.hljs-number,  .hljs-meta, .hljs-built_in, .hljs-builtin-name, .hljs-literal,  .hljs-type, .hljs-params':
+          '.hljs-number, .hljs-meta, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params':
             {
               color: '#FBBC88',
             },
-
           '.hljs-string, .hljs-symbol, .hljs-bullet': {
             color: '#B9F18D',
           },
-
           '.hljs-title, .hljs-section': {
             color: '#FAF594',
           },
-
           '.hljs-keyword, .hljs-selector-tag': {
             color: '#70CFF8',
           },
-
           '.hljs-emphasis': {
             fontStyle: 'italic',
           },
-
           '.hljs-strong': {
             fontWeight: 700,
           },
         },
         blockquote: {
-          pl: 4,
-          borderLeft: '2px solid rgba(13, 13, 13, 0.1)',
+          paddingLeft: '1rem',
+          borderLeft: '4px solid rgba(13, 13, 13, 0.3)',
           borderLeftColor: mode(undefined, 'whiteAlpha.500')(props),
         },
         'span[data-spoiler]': {
-          bg: mode('gray.900', 'gray.100')(props),
+          backgroundColor: mode('gray.900', 'gray.100')(props),
           _hover: {
-            bg: 'transparent',
+            backgroundColor: 'transparent',
           },
-          // @apply dark:bg-gray-100 bg-gray-900 dark:hover:bg-transparent hover:bg-transparent;
         },
         img: {
-          maxW: 'full',
-          h: 'auto',
+          maxWidth: '80%',
+          height: 'auto',
         },
         mark: {
-          bg: '#FAF594',
+          backgroundColor: '#FAF594',
         },
         hr: {
           border: 'none',
