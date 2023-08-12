@@ -362,6 +362,31 @@ export const initialData = {
                 },
               ],
             },
+            {
+              type: 'taskList',
+              content: [
+                {
+                  type: 'taskItem',
+                  attrs: {
+                    checked: false,
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      attrs: {
+                        textAlign: 'left',
+                      },
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'nested item',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
           ],
         },
       ],
@@ -405,19 +430,11 @@ export const initialData = {
               type: 'bold',
             },
           ],
-          text: 'Lorem Ipsum',
+          text: 'Lorem Ipsum ',
         },
         {
           type: 'text',
-          marks: [
-            {
-              type: 'textStyle',
-              attrs: {
-                color: 'rgb(0, 0, 0)',
-              },
-            },
-          ],
-          text: " is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essential",
+          text: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         },
       ],
     },
@@ -511,12 +528,59 @@ export const initialData = {
     {
       type: 'codeBlock',
       attrs: {
-        language: null,
+        language: 'null',
       },
       content: [
         {
           type: 'text',
           text: 'This is some code block',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'bold',
+            },
+          ],
+          text: 'CodeBlock with language support',
+        },
+      ],
+    },
+    {
+      type: 'codeBlock',
+      attrs: {
+        language: 'typescript',
+      },
+      content: [
+        {
+          type: 'text',
+          text: '// comments\nfor (var i=1; i <= 20; i++)\n{\n  if (i % 15 == 0)\n    console.log("FizzBuzz");\n  else if (i % 3 == 0)\n    console.log("Fizz");\n  else if (i % 5 == 0)\n    console.log("Buzz");\n  else\n    console.log(i);\n}',
+        },
+      ],
+    },
+    {
+      type: 'codeBlock',
+      attrs: {
+        language: 'go',
+      },
+      content: [
+        {
+          type: 'text',
+          text: '\ntype RedisCache struct {\n\tAddr        string   `mapstructure:"addr"`\n\tSentinels   []string `mapstructure:"sentinels"`\n\tClusterName string   `mapstructure:"cluster_name"`\n\tAuthKey     string   `mapstructure:"auth_key"`\n\tPoolSize    int      `mapstructure:"pool_size"`\n\tDB          int      `mapstructure:"db"`\n}',
         },
       ],
     },

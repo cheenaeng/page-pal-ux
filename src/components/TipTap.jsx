@@ -1,4 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
+import StarterKit from '@tiptap/starter-kit'
+
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
@@ -9,26 +11,28 @@ import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import CharacterCount from '@tiptap/extension-character-count'
 import Placeholder from '@tiptap/extension-placeholder'
-import { EditorContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
+import { EditorContent, ReactNodeViewRenderer, useEditor } from '@tiptap/react'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
 
-import React, { useEffect, useState } from 'react'
+import { lowlight } from 'lowlight'
+import { useEffect } from 'react'
 import {
   Button,
   Box,
   IconButton,
   Wrap,
-  Stack,
-  Select,
-  Text,
   HStack,
   Tooltip,
+  Text,
 } from '@chakra-ui/react'
 import {
   AiOutlineBold,
   AiOutlineItalic,
   AiOutlineStrikethrough,
-  AiOutlineCode,
   AiOutlineLine,
   AiOutlineUnderline,
   AiOutlineCheckSquare,
@@ -38,7 +42,6 @@ import {
   MdFormatAlignRight,
   MdFormatAlignCenter,
   MdFormatAlignJustify,
-  MdBorderHorizontal,
   MdFormatQuote,
   MdUndo,
   MdRedo,
@@ -48,10 +51,18 @@ import { BsFileEarmarkBreak } from 'react-icons/bs'
 import { HiOutlineCode } from 'react-icons/hi'
 import { BiParagraph } from 'react-icons/bi'
 import { initialData } from '../data/mock/editorDefault'
-import { BiSolidQuoteAltRight, BiCodeBlock } from 'react-icons/bi'
+import { BiCodeBlock } from 'react-icons/bi'
+
+import CodeBlockComponent from './CodeBlockComponent'
 
 // config
 const charLimit = 10000
+
+// code block languages (alias)
+lowlight.registerLanguage('html', html)
+lowlight.registerLanguage('css', css)
+lowlight.registerLanguage('javascript', js)
+lowlight.registerLanguage('typescript', ts)
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -445,6 +456,11 @@ export default () => {
         // Use a placeholder:
         placeholder: 'Write something...',
       }),
+      CodeBlockLowlight.extend({
+        addNodeView() {
+          return ReactNodeViewRenderer(CodeBlockComponent)
+        },
+      }).configure({ lowlight }),
     ],
 
     injectCSS: false,

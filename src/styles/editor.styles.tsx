@@ -28,20 +28,23 @@ export const editorStyles = {
         },
         'p.is-editor-empty:first-child::before': {
           content: 'attr(data-placeholder)',
-          color: 'gray.500',
+          color: 'black.500',
           float: 'left',
           pointerEvents: 'none',
           height: 0,
         },
+        p: {
+          margin: '1px 1px 1px 1px',
+        },
         '&:focus': {
-          border: '1px solid rgb(229, 228, 226, 0.2)',
-          padding: '1px',
-          borderRadius: '6px',
+          // border: '1px solid rgb(229, 228, 226, 0.2)',
+          padding: '0px',
+          // borderRadius: '6px',
         },
         '&:hover': {
-          background: 'rgb(229, 228, 226, 0.2)',
-          padding: '1px',
+          padding: '0px',
           borderRadius: '6px',
+          border: '1px solid rgb(229, 228, 226, 0.5)',
         },
         h1: {
           fontSize: '2rem',
@@ -65,6 +68,9 @@ export const editorStyles = {
         'ul, ol': {
           padding: '0 1.2rem',
         },
+        'ul label p': {
+          color: 'red',
+        },
         code: {
           backgroundColor: 'rgba(97, 97, 97, 0.1)',
           color: '#616161',
@@ -73,8 +79,8 @@ export const editorStyles = {
         },
         pre: {
           fontFamily: "JetBrainsMono, 'Courier New', Courier, monospace",
-          background: mode('gray.900', 'blue.200')(props),
-          color: mode('white', 'gray.900')(props),
+          background: mode('gray.900', 'gray.900')(props),
+          color: mode('white', 'white')(props),
           padding: '0.75rem 1rem',
           borderRadius: 'lg',
           whiteSpace: 'pre-wrap',
@@ -134,7 +140,26 @@ export const editorStyles = {
           borderTop: '2px solid rgba(13,13,13,.1)',
           margin: '2rem 0',
         },
-      }, // .ProseMirror
+        // checkbox
+        'ul[data-type="taskList"]': {
+          'list-style': 'none',
+          padding: 0,
+          p: {
+            margin: 0,
+          },
+          li: {
+            display: 'flex',
+            '> label': {
+              flex: '0 0 auto',
+              'margin-right': '0.5rem',
+              'user-select': 'none',
+            },
+            '> div': {
+              flex: '1 1 auto',
+            },
+          },
+        },
+      },
     },
   }),
 }

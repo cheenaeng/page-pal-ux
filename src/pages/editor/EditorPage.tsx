@@ -13,8 +13,8 @@ const EditorPage = () => {
     >
       <Box
         my='2'
-        border='2px'
-        borderColor='gray.300'
+        border='1px'
+        borderColor='gray.200'
         borderRadius={'10'}
         boxShadow='md'
       >
