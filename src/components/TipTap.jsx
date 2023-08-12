@@ -476,16 +476,29 @@ export default () => {
 
   return (
     <Box padding={'5'}>
+      {/* EDITOR */}
       <MenuBar editor={editor} />
       <Box my={'2'}>
         <EditorContent editor={editor} />
       </Box>
+
+      {/* FOOTER */}
       {editor && (
-        <Box>
-          {editor.storage.characterCount.characters()}/{charLimit} characters
-          <br />
-          {editor.storage.characterCount.words()} words
-        </Box>
+        <Wrap spacing='5'>
+          <Box display={'flex'}>
+            Characters:{' '}
+            <Text ml='2' fontWeight='bold'>
+              {editor.storage.characterCount.characters().toLocaleString()}/
+              {charLimit.toLocaleString()}{' '}
+            </Text>
+          </Box>
+          <Box display={'flex'}>
+            Words:{' '}
+            <Text ml='2' fontWeight='bold'>
+              {editor.storage.characterCount.words().toLocaleString()}{' '}
+            </Text>
+          </Box>
+        </Wrap>
       )}
     </Box>
   )
