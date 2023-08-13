@@ -1,4 +1,4 @@
-export const initialData = {
+export const initialDataV1 = {
   type: 'doc',
   content: [
     {
@@ -594,6 +594,454 @@ export const initialData = {
       type: 'paragraph',
       attrs: {
         textAlign: 'left',
+      },
+    },
+  ],
+}
+export const initialDataV2 = {
+  type: 'doc',
+  content: [
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 2,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Hi there,',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'this is a ',
+        },
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'italic',
+            },
+          ],
+          text: 'basic',
+        },
+        {
+          type: 'text',
+          text: ' example of ',
+        },
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'underline',
+            },
+            {
+              type: 'bold',
+            },
+          ],
+          text: 'tiptap',
+        },
+        {
+          type: 'text',
+          text: '. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:',
+        },
+      ],
+    },
+    {
+      type: 'bulletList',
+      content: [
+        {
+          type: 'listItem',
+          attrs: {
+            color: '',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'That’s a bullet list with one …',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          attrs: {
+            color: '',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: '… or two list items.',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Isn’t that great? And all of that is editable. ',
+        },
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'strike',
+            },
+          ],
+          text: 'Thats all for now.',
+        },
+        {
+          type: 'text',
+          text: ' Wait, there’s more. Let’s try a code block:',
+        },
+      ],
+    },
+    {
+      type: 'codeBlock',
+      attrs: {
+        language: 'css',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'body {\n  display: none;\n}',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Code snippet for react component ',
+        },
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'code',
+            },
+          ],
+          text: './PrimaryButton.jsx',
+        },
+      ],
+    },
+    {
+      type: 'codeBlock',
+      attrs: {
+        language: null,
+      },
+      content: [
+        {
+          type: 'text',
+          text: "import React from 'react'\nimport { Button } from '@chakra-ui/react'\n\nfunction PrimaryButton() {\n  return <div>PrimaryButton</div>\n}\n\nexport default PrimaryButton",
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.',
+        },
+      ],
+    },
+    {
+      type: 'blockquote',
+      content: [
+        {
+          type: 'paragraph',
+          attrs: {
+            textAlign: 'left',
+          },
+          content: [
+            {
+              type: 'text',
+              text: 'Wow, that’s amazing. Good work, boy! 👏 ',
+            },
+            {
+              type: 'hardBreak',
+            },
+            {
+              type: 'text',
+              text: '— Mom',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'horizontalRule',
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 2,
+      },
+      content: [
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'bold',
+            },
+          ],
+          text: 'List',
+        },
+      ],
+    },
+    {
+      type: 'bulletList',
+      content: [
+        {
+          type: 'listItem',
+          attrs: {
+            color: null,
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Unordered item 1',
+                },
+              ],
+            },
+            {
+              type: 'bulletList',
+              content: [
+                {
+                  type: 'listItem',
+                  attrs: {
+                    color: null,
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      attrs: {
+                        textAlign: 'left',
+                      },
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'nested item 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          attrs: {
+            color: null,
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Ordered item 1',
+                },
+              ],
+            },
+            {
+              type: 'orderedList',
+              attrs: {
+                start: 1,
+              },
+              content: [
+                {
+                  type: 'listItem',
+                  attrs: {
+                    color: null,
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      attrs: {
+                        textAlign: 'left',
+                      },
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'nested item 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'taskList',
+      content: [
+        {
+          type: 'taskItem',
+          attrs: {
+            checked: false,
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Task item 1',
+                },
+              ],
+            },
+            {
+              type: 'taskList',
+              content: [
+                {
+                  type: 'taskItem',
+                  attrs: {
+                    checked: false,
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      attrs: {
+                        textAlign: 'left',
+                      },
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'nested item 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'horizontalRule',
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 2,
+      },
+      content: [
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'bold',
+            },
+          ],
+          text: 'Indentation',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'right',
+      },
+      content: [
+        {
+          type: 'text',
+          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'right',
       },
     },
   ],

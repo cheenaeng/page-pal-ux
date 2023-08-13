@@ -50,10 +50,10 @@ import { GoListOrdered, GoListUnordered } from 'react-icons/go'
 import { BsFileEarmarkBreak } from 'react-icons/bs'
 import { HiOutlineCode } from 'react-icons/hi'
 import { BiParagraph } from 'react-icons/bi'
-import { initialData } from '../data/mock/editorDefault'
 import { BiCodeBlock } from 'react-icons/bi'
 
 import CodeBlockComponent from './CodeBlockComponent'
+import { initialDataV2 } from '../data/mock/editorDefault'
 
 // config
 const charLimit = 10000
@@ -397,7 +397,7 @@ const MenuBar = ({ editor }) => {
             width={'1'}
             variant='ghost'
             aria-label='heading1'
-            onClick={() => editor?.commands?.setContent(initialData)}
+            onClick={() => editor?.commands?.setContent(initialDataV2)}
           >
             Mock
           </Button>

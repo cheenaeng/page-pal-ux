@@ -72,10 +72,10 @@ export const editorStyles = {
           color: 'red',
         },
         code: {
-          backgroundColor: 'rgba(97, 97, 97, 0.1)',
-          color: '#616161',
+          backgroundColor: mode('gray.200', 'whiteAlpha.300')(props),
+          color: mode('black', 'whiteAlpha.900')(props),
           borderRadius: '5px',
-          padding: '2px',
+          padding: '1px 5px 1px 5px',
         },
         pre: {
           fontFamily: "JetBrainsMono, 'Courier New', Courier, monospace",
@@ -119,6 +119,7 @@ export const editorStyles = {
         },
         blockquote: {
           paddingLeft: '1rem',
+          marginLeft: '1rem',
           borderLeft: '4px solid rgba(13, 13, 13, 0.3)',
           borderLeftColor: mode(undefined, 'whiteAlpha.500')(props),
         },
