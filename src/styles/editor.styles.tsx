@@ -22,7 +22,8 @@ export const editorStyles = {
         clear: 'both',
       },
       '.ProseMirror': {
-        marginTop: '2rem',
+        'box-sizing': 'border-box',
+        padding: '10px',
         '> * + *': {
           marginTop: '0.75em',
         },
@@ -37,13 +38,10 @@ export const editorStyles = {
           margin: '1px 1px 1px 1px',
         },
         '&:focus': {
-          // border: '1px solid rgb(229, 228, 226, 0.2)',
-          padding: '0px',
-          // borderRadius: '6px',
+          padding: '10px',
         },
         '&:hover': {
-          padding: '0px',
-          borderRadius: '6px',
+          borderRadius: '5px',
           border: '1px solid rgb(229, 228, 226, 0.5)',
         },
         h1: {
@@ -71,8 +69,10 @@ export const editorStyles = {
         'ul label p': {
           color: 'red',
         },
+        // inline code
         code: {
-          backgroundColor: mode('gray.200', 'whiteAlpha.300')(props),
+          // backgroundColor: mode('gray.200', 'whiteAlpha.300')(props),
+          backgroundColor: mode('brand.light', 'brand.main800')(props),
           color: mode('black', 'whiteAlpha.900')(props),
           borderRadius: '5px',
           padding: '1px 5px 1px 5px',
@@ -84,8 +84,9 @@ export const editorStyles = {
           padding: '0.75rem 1rem',
           borderRadius: 'lg',
           whiteSpace: 'pre-wrap',
+          // code in codeblock
           code: {
-            color: 'inherit',
+            color: 'rblueed',
             padding: 0,
             background: 'none',
             fontSize: '0.8rem',
@@ -121,7 +122,7 @@ export const editorStyles = {
           paddingLeft: '1rem',
           marginLeft: '1rem',
           borderLeft: '4px solid rgba(13, 13, 13, 0.3)',
-          borderLeftColor: mode(undefined, 'whiteAlpha.500')(props),
+          borderLeftColor: mode('brand.light', 'brand.main')(props),
         },
         'span[data-spoiler]': {
           backgroundColor: mode('gray.900', 'gray.100')(props),
@@ -138,7 +139,10 @@ export const editorStyles = {
         },
         hr: {
           border: 'none',
-          borderTop: '2px solid rgba(13,13,13,.1)',
+          borderTop: mode(
+            '2px solid rgb(80,80,80,0.2)',
+            '2px solid rgb(255,255,255,0.2)',
+          )(props),
           margin: '2rem 0',
         },
         // checkbox

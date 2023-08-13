@@ -463,6 +463,8 @@ export default () => {
       }).configure({ lowlight }),
     ],
 
+    //  config
+    autofocus: true,
     injectCSS: false,
     onUpdate: ({ editor }) => {
       const data = editor.getJSON()
@@ -488,8 +490,8 @@ export default () => {
           <Box display={'flex'}>
             Characters:{' '}
             <Text ml='2' fontWeight='bold'>
-              {editor.storage.characterCount.characters().toLocaleString()}/
-              {charLimit.toLocaleString()}{' '}
+              {editor.storage.characterCount.characters().toLocaleString()} /
+              {charLimit.toLocaleString()}
             </Text>
           </Box>
           <Box display={'flex'}>
