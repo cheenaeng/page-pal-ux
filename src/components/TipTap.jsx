@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
+// tiptap
 import StarterKit from '@tiptap/starter-kit'
-
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
@@ -17,8 +17,13 @@ import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
 import html from 'highlight.js/lib/languages/xml'
-
 import { lowlight } from 'lowlight'
+
+// tiptap (collab)
+import Collaboration from '@tiptap/extension-collaboration'
+import { HocuspocusProvider } from '@hocuspocus/provider'
+
+// react
 import { useEffect } from 'react'
 import {
   Button,
@@ -32,6 +37,8 @@ import {
   Spacer,
   Container,
 } from '@chakra-ui/react'
+
+// icons
 import {
   AiOutlineBold,
   AiOutlineItalic,
@@ -55,6 +62,7 @@ import { HiOutlineCode } from 'react-icons/hi'
 import { BiParagraph } from 'react-icons/bi'
 import { BiCodeBlock } from 'react-icons/bi'
 
+// custom
 import CodeBlockComponent from './CodeBlockComponent'
 import { initialDataV2 } from '../data/mock/editorDefault'
 
@@ -66,6 +74,12 @@ lowlight.registerLanguage('html', html)
 lowlight.registerLanguage('css', css)
 lowlight.registerLanguage('javascript', js)
 lowlight.registerLanguage('typescript', ts)
+
+// Set up the Hocuspocus WebSocket provider
+const provider = new HocuspocusProvider({
+  url: 'ws://127.0.0.1:3338',
+  name: 'example-document',
+})
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -451,6 +465,8 @@ export default () => {
           keepMarks: true,
           keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
         },
+        // The Collaboration extension comes with its own history handling
+        history: false,
       }),
       CharacterCount.configure({
         limit: charLimit,
@@ -464,6 +480,10 @@ export default () => {
           return ReactNodeViewRenderer(CodeBlockComponent)
         },
       }).configure({ lowlight }),
+      // Register the document with Tiptap
+      Collaboration.configure({
+        document: provider.document,
+      }),
     ],
 
     //  config

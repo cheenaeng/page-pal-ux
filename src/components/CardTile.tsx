@@ -4,7 +4,6 @@ import {
   CardFooter,
   HStack,
   IconButton,
-  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
 import { Image, VStack, Text, Box, Link } from '@chakra-ui/react'
@@ -24,7 +23,6 @@ import { AuthContext } from '../api/context/authContext'
 import toast from 'react-hot-toast'
 import { BookmarkContext } from '../api/context/bookmarkContext'
 import { ArchiveBookmarkContext } from '../api/context/archiveBookmarkContext'
-import { title } from 'process'
 
 interface PageProps {
   page: IBookmark
