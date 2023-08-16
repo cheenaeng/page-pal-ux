@@ -28,6 +28,9 @@ import {
   HStack,
   Tooltip,
   Text,
+  Flex,
+  Spacer,
+  Container,
 } from '@chakra-ui/react'
 import {
   AiOutlineBold,
@@ -399,7 +402,7 @@ const MenuBar = ({ editor }) => {
             aria-label='heading1'
             onClick={() => editor?.commands?.setContent(initialDataV2)}
           >
-            Mock
+            Demo
           </Button>
         </Tooltip>
       </Box>
@@ -487,19 +490,22 @@ export default () => {
       {/* FOOTER */}
       {editor && (
         <Wrap spacing='5'>
-          <Box display={'flex'}>
+          <Flex alignItems={'center'}>
             Characters:{' '}
             <Text ml='2' fontWeight='bold'>
               {editor.storage.characterCount.characters().toLocaleString()} /
               {charLimit.toLocaleString()}
             </Text>
-          </Box>
-          <Box display={'flex'}>
+          </Flex>
+          <Flex ml='4' alignItems={'center'}>
             Words:{' '}
             <Text ml='2' fontWeight='bold'>
               {editor.storage.characterCount.words().toLocaleString()}{' '}
             </Text>
-          </Box>
+          </Flex>
+
+          <Spacer />
+          <Button variant='primary'>Save</Button>
         </Wrap>
       )}
     </Box>

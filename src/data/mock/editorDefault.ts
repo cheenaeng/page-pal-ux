@@ -610,7 +610,7 @@ export const initialDataV2 = {
       content: [
         {
           type: 'text',
-          text: 'Hi there,',
+          text: 'Hi there!',
         },
       ],
     },
@@ -635,23 +635,129 @@ export const initialDataV2 = {
         },
         {
           type: 'text',
-          text: ' example of ',
+          text: ' example of tiptap. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:',
         },
+      ],
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 2,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'h2 heading',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 3,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'h3 heading',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 4,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'h4 heading',
+        },
+      ],
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 5,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'h5 heading',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+    },
+    {
+      type: 'heading',
+      attrs: {
+        textAlign: 'left',
+        level: 3,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Emphasis',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
         {
           type: 'text',
           marks: [
             {
-              type: 'underline',
-            },
-            {
               type: 'bold',
             },
           ],
-          text: 'tiptap',
+          text: 'This is a bold text',
         },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
         {
           type: 'text',
-          text: '. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:',
+          marks: [
+            {
+              type: 'italic',
+            },
+          ],
+          text: 'This is italic',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'strike',
+            },
+          ],
+          text: 'Strikethrough',
         },
       ],
     },
@@ -672,7 +778,7 @@ export const initialDataV2 = {
               content: [
                 {
                   type: 'text',
-                  text: 'That’s a bullet list with one …',
+                  text: 'This is a bullet list with one …',
                 },
               ],
             },
@@ -825,7 +931,7 @@ export const initialDataV2 = {
       type: 'heading',
       attrs: {
         textAlign: 'left',
-        level: 2,
+        level: 3,
       },
       content: [
         {
@@ -835,7 +941,19 @@ export const initialDataV2 = {
               type: 'bold',
             },
           ],
-          text: 'List',
+          text: 'Lists',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Unordered',
         },
       ],
     },
@@ -856,7 +974,7 @@ export const initialDataV2 = {
               content: [
                 {
                   type: 'text',
-                  text: 'Unordered item 1',
+                  text: 'Lorem ipsum',
                 },
               ],
             },
@@ -877,7 +995,7 @@ export const initialDataV2 = {
                       content: [
                         {
                           type: 'text',
-                          text: 'nested item 2',
+                          text: 'consectetur adipiscing',
                         },
                       ],
                     },
@@ -901,7 +1019,73 @@ export const initialDataV2 = {
               content: [
                 {
                   type: 'text',
-                  text: 'Ordered item 1',
+                  text: 'dolor sit amet',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          attrs: {
+            color: null,
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Vestibulum ante',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Ordered',
+        },
+      ],
+    },
+    {
+      type: 'orderedList',
+      attrs: {
+        start: 1,
+      },
+      content: [
+        {
+          type: 'listItem',
+          attrs: {
+            color: '',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Lorem ipsum',
                 },
               ],
             },
@@ -914,7 +1098,7 @@ export const initialDataV2 = {
                 {
                   type: 'listItem',
                   attrs: {
-                    color: null,
+                    color: '',
                   },
                   content: [
                     {
@@ -925,7 +1109,7 @@ export const initialDataV2 = {
                       content: [
                         {
                           type: 'text',
-                          text: 'nested item 2',
+                          text: 'consectetur adipiscing',
                         },
                       ],
                     },
@@ -934,6 +1118,61 @@ export const initialDataV2 = {
               ],
             },
           ],
+        },
+        {
+          type: 'listItem',
+          attrs: {
+            color: '',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'dolor sit amet',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'listItem',
+          attrs: {
+            color: '',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              attrs: {
+                textAlign: 'left',
+              },
+              content: [
+                {
+                  type: 'text',
+                  text: 'Vestibulum ante',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textAlign: 'left',
+      },
+      content: [
+        {
+          type: 'hardBreak',
+        },
+        {
+          type: 'text',
+          text: 'Task',
         },
       ],
     },
@@ -954,7 +1193,7 @@ export const initialDataV2 = {
               content: [
                 {
                   type: 'text',
-                  text: 'Task item 1',
+                  text: 'Item 1',
                 },
               ],
             },
@@ -975,7 +1214,7 @@ export const initialDataV2 = {
                       content: [
                         {
                           type: 'text',
-                          text: 'nested item 2',
+                          text: 'Item 2',
                         },
                       ],
                     },
@@ -994,16 +1233,11 @@ export const initialDataV2 = {
       type: 'heading',
       attrs: {
         textAlign: 'left',
-        level: 2,
+        level: 3,
       },
       content: [
         {
           type: 'text',
-          marks: [
-            {
-              type: 'bold',
-            },
-          ],
           text: 'Indentation',
         },
       ],
@@ -1011,30 +1245,12 @@ export const initialDataV2 = {
     {
       type: 'paragraph',
       attrs: {
-        textAlign: 'left',
+        textAlign: 'center',
       },
       content: [
         {
           type: 'text',
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        },
-      ],
-    },
-    {
-      type: 'paragraph',
-      attrs: {
-        textAlign: 'left',
-      },
-    },
-    {
-      type: 'paragraph',
-      attrs: {
-        textAlign: 'right',
-      },
-      content: [
-        {
-          type: 'text',
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent gravida, orci et interdum vehicula, odio augue cursus arcu, id pulvinar nisi urna aliquet orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.',
         },
       ],
     },
