@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { ChakraProvider, Box } from '@chakra-ui/react'
 import {
   Routes,
@@ -10,6 +9,7 @@ import {
 import LayoutWithNav from './components/LayoutWithNav'
 import SavePage from './pages/saves/SavePage'
 import ArchivePage from './pages/archives/ArchivePage'
+import EditorPage from './pages/editor/EditorPage'
 import { extendTheme } from '@chakra-ui/react'
 import { customColors } from './components/ui/colors'
 import customBreakpoints from './components/ui/breakpoints'
@@ -25,7 +25,10 @@ import { BookmarkProvider } from './api/context/bookmarkContext'
 import { ArchiveBookmarkProvider } from './api/context/archiveBookmarkContext'
 import AuthGlobalModal from './components/AuthGlobalModal'
 
+import { editorStyles } from './styles/editor.styles'
+
 const theme = extendTheme({
+  styles: editorStyles,
   colors: customColors,
   breakpoints: customBreakpoints,
   space: space,
@@ -39,6 +42,7 @@ const theme = extendTheme({
     Card: cardTheme,
     Button: buttonTheme,
     IconButton: buttonTheme,
+    EditorPage,
   },
 })
 
@@ -59,6 +63,7 @@ export const App = () => {
                     <Route index element={<Navigate to='/home' />} />
                     <Route path='home' element={<HomePage />} />
                     <Route path='saves' element={<SavePage />} />
+                    <Route path=':id/note' element={<EditorPage />} />
                     <Route
                       path='archives'
                       element={

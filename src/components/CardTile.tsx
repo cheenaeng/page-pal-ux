@@ -180,7 +180,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                   fontSize='190'
                   textTransform='uppercase'
                 >
-                  {page.domain.charAt(0)}
+                  {page?.domain?.charAt(0) || 'P'}
                 </Box>
               )}
               <HStack
