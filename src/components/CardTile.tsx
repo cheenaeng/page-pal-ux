@@ -30,6 +30,7 @@ interface PageProps {
   page: IBookmark
 }
 
+// this component is being used in both 'save' and 'archive' page
 export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
   const {
     isOpen: isDeleteModalOpen,
@@ -64,8 +65,13 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         onSuccess: () => {
           closeDeleteModal()
           toast.success('Url deleted!')
-          // TODO @sb: fix delete not refreshing archive page
-          refetchBookmarkData()
+
+          // TODO @sb: propose a more elegant way to resolve this
+          if (page.state === BookmarkStateEnum.ARCHIVED) {
+            refetchArchiveBookmarkData()
+          } else {
+            refetchBookmarkData()
+          }
         },
         onError: () => {
           toast.error('Error deleting url!')
