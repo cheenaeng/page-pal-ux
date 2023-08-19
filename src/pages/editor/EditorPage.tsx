@@ -1,8 +1,15 @@
 import { Box } from '@chakra-ui/react'
-import React from 'react'
+import { useParams } from 'react-router-dom'
 import Tiptap from '../../components/TipTap'
+import { useEffect, useContext } from 'react'
+import BookmarkAPI from '../../api/BookmarkAPI'
+import { AuthContext } from '../../api/context/authContext'
 
 const EditorPage = () => {
+  const { id } = useParams()
+  const { authToken } = useContext(AuthContext)
+  const bearerToken = authToken.accessToken ?? ''
+
   return (
     <Box
       mx='auto'
@@ -18,7 +25,7 @@ const EditorPage = () => {
         borderRadius={'10'}
         boxShadow='md'
       >
-        <Tiptap />
+        <Tiptap bookmarkId={id} bearerToken={bearerToken} />
       </Box>
     </Box>
   )

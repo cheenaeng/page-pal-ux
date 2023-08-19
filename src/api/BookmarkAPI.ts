@@ -101,6 +101,36 @@ class BookmarkAPI {
       Authorization: `Bearer ${token}`,
     })
   }
+
+  static updateBookMarkNotes = async ({
+    id,
+    token,
+    note,
+  }: {
+    id: string
+    token: string
+    note: string
+  }) => {
+    return httpPatch(
+      `${BASE_BACKEND_URL}/bookmark/${id}/note`,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      { note: note },
+    )
+  }
+
+  static getBookmarkById = async ({
+    id,
+    token,
+  }: {
+    id: string
+    token: string
+  }) => {
+    return httpGet(`${BASE_BACKEND_URL}/bookmark/${id}`, {
+      Authorization: `Bearer ${token}`,
+    })
+  }
 }
 
 export default BookmarkAPI

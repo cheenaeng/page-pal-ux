@@ -63,7 +63,7 @@ export const App = () => {
                     <Route index element={<Navigate to='/home' />} />
                     <Route path='home' element={<HomePage />} />
                     <Route path='saves' element={<SavePage />} />
-                    <Route path=':id/note' element={<EditorPage />} />
+                    <Route path='saves/note/:id' element={<EditorPage />} />
                     <Route
                       path='archives'
                       element={
