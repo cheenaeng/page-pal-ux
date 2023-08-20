@@ -24,15 +24,12 @@ function AuthGlobalModal() {
   const [modalBody, setModalBody] = useState<string>('')
   const [allowModalClose, setAllowModalClose] = useState<boolean>(false)
 
-  console.log('🚀 authState:', authState)
-
   useEffect(() => {
     if (
-      authState === AuthStateEnum.AUTHENTICATED ||
-      whiteListedPathNames.includes(window.location.pathname) // paths whereby auth prompt is not required
+      // if authenticated or at paths whereby auth is not required
+      authState !== AuthStateEnum.AUTHENTICATED ||
+      whiteListedPathNames.includes(window.location.pathname)
     ) {
-      console.log('auth prompt skipped!')
-    } else {
       switch (authState) {
         case AuthStateEnum.SESSION_EXPIRED:
           setModalHeader(AuthStateEnum.SESSION_EXPIRED)

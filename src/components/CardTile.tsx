@@ -4,15 +4,16 @@ import {
   CardFooter,
   HStack,
   IconButton,
-  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
 import { Image, VStack, Text, Box, Link } from '@chakra-ui/react'
 import { BookmarkStateEnum, IBookmark } from '../types/saves'
+import { Link as ReactRouterLink } from 'react-router-dom'
 import {
   AiOutlineDelete,
   AiOutlineFolderOpen,
   AiOutlineUndo,
+  AiOutlineForm,
 } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
 import DeleteModal from './views/saves/DeleteModal'
@@ -24,7 +25,6 @@ import { AuthContext } from '../api/context/authContext'
 import toast from 'react-hot-toast'
 import { BookmarkContext } from '../api/context/bookmarkContext'
 import { ArchiveBookmarkContext } from '../api/context/archiveBookmarkContext'
-import { title } from 'process'
 
 interface PageProps {
   page: IBookmark
@@ -243,6 +243,14 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
 
         <CardFooter justifyContent='flex-end'>
           <HStack>
+            <IconButton
+              as={ReactRouterLink}
+              to={`note/${page.id}`}
+              variant='actionIcon'
+              aria-label='note'
+              icon={<AiOutlineForm size={18} />}
+              name='note-action'
+            />
             <IconButton
               variant='actionIcon'
               aria-label='archive'
