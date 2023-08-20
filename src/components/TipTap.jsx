@@ -17,10 +17,6 @@ import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
 import html from 'highlight.js/lib/languages/xml'
-import { lowlight } from 'lowlight'
-import { useDebounce } from 'use-debounce'
-import toast from 'react-hot-toast'
-import { Spinner } from '@chakra-ui/react'
 
 // TODO @sb: implement collab with tiptap
 // import Collaboration from '@tiptap/extension-collaboration'
@@ -30,8 +26,16 @@ import { Spinner } from '@chakra-ui/react'
 import { useEffect, useContext, useState } from 'react'
 import { Button, Box, Wrap, Text, Flex, Spacer } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+
+// packages
+import { lowlight } from 'lowlight'
+import { useDebounce } from 'use-debounce'
+import toast from 'react-hot-toast'
+import { Spinner } from '@chakra-ui/react'
 
 // custom
+import { IBookmark } from '../types/saves'
 import CodeBlockComponent from './CodeBlockComponent'
 import EditorMenuBar from './EditorMenuBar'
 import BookmarkAPI from '../api/BookmarkAPI'
@@ -104,6 +108,7 @@ export default ({ bookmarkId, bearerToken }) => {
       injectCSS: false,
       onUpdate({ editor }) {
         // The content has changed
+        // will show 'save' button
         setIsSaved(false)
       },
     })
@@ -112,46 +117,56 @@ export default ({ bookmarkId, bearerToken }) => {
   const { mutate: updateBookmarkNotes } = useMutation(
     BookmarkAPI.updateBookMarkNotes,
   )
-  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 5000)
+  // to debounce editor's change and save interval
+  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000)
   const [content, setContent] = useState({})
   const [isFetchedDocLoaded, setIsFetchedDocLoaded] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
 
-  // call API to retrieve bookmark data when bookmarkId is defined
-  useEffect(() => {
-    async function fetchAndSetContent() {
-      console.log('🚀 fetchAndLoadContent')
+  // checks if editor is empty
+  function isEditorEmpty() {
+    const isEmpty = !editor.state.doc.textContent.trim().length
+    return isEmpty
+  }
 
-      const bookmark = await BookmarkAPI.getBookmarkById({
+  // fetch bookmark data query
+  const { data: bookmarkData } = useQuery({
+    queryKey: [bookmarkId], // caching based on key
+    queryFn: () => {
+      console.log('🚀 fetchContent')
+      return BookmarkAPI.getBookmarkById({
         id: bookmarkId,
         token: bearerToken,
       })
+    },
+    enabled: !!bookmarkId, // only when bkmarkId exist
+  })
 
-      // return early if empty string
-      if (bookmark.note === '') {
-        return
-      }
-
-      const content = JSON.parse(bookmark.note)
-      setContent(content)
+  // set 'content' react state (if any)
+  useEffect(() => {
+    // return early if bookmark's content is empty string (i.e. not initialized)
+    // flow terminates here
+    if (!bookmarkData || bookmarkData.note === '') {
+      return
     }
 
-    if (bookmarkId) {
-      fetchAndSetContent()
-    }
-  }, [bookmarkId])
+    // if data is present, set 'content' state
+    const content = JSON.parse(bookmarkData.note)
+    setContent(content)
+  }, [bookmarkData])
 
-  // load fetched doc into editor
+  // load fetched bookmark content (if any) into editor
   useEffect(() => {
     if (editor && Object.keys(content).length !== 0) {
-      console.log('🚀 load editor content')
+      console.log('🚀 loadContent')
+      // note: content may represent an empty node too
       editor?.commands?.setContent(content)
       setIsFetchedDocLoaded(true)
     }
   }, [editor, content])
 
-  // auto-save according to interval defined in useDebounce (i.e. 5 seconds)
+  // auto-save according to interval defined in useDebounce (i.e. 3 seconds)
   useEffect(() => {
     // TODO @sb: enable writing to local storage for offline usage
     // // save
@@ -159,19 +174,25 @@ export default ({ bookmarkId, bearerToken }) => {
     // localStorage.setItem('tiptap', JSON.stringify(data))
     // // fetch
     // editor?.commands?.setContent(JSON.parse(localStorage.getItem('tiptap')))
-    if (editor && isFetchedDocLoaded) {
-      saveContent()
+
+    if (editor) {
+      // prevent save before content is fetched and loaded
+      if (!isFetchedDocLoaded) {
+        return
+      } else {
+        // TODO @sb: prevent repeated save when content is first loaded
+        saveContent()
+      }
     }
-  }, [debouncedEditor, isFetchedDocLoaded])
+  }, [editor, debouncedEditor, isFetchedDocLoaded])
 
   const saveContent = () => {
     // get content from editor
     const stringifiedContent = JSON.stringify(editor?.getJSON())
 
     // return early if nil
-    // TODO @sb: ignore empty tiptap content too
     if (stringifiedContent === '') {
-      return null
+      return
     }
 
     console.log('🚀 saveContent')
@@ -193,7 +214,8 @@ export default ({ bookmarkId, bearerToken }) => {
           setIsSaved(false)
         },
         onSettled: async () => {
-          await new Promise((resolve) => setTimeout(resolve, 1000)) // fake delay of 1s
+          // mock delay to show spinner
+          await new Promise((resolve) => setTimeout(resolve, 1000))
           setIsSaving(false)
         },
       },

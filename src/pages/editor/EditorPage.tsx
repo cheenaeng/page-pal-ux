@@ -1,8 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import Tiptap from '../../components/TipTap'
-import { useEffect, useContext } from 'react'
-import BookmarkAPI from '../../api/BookmarkAPI'
+import { useContext } from 'react'
 import { AuthContext } from '../../api/context/authContext'
 
 const EditorPage = () => {
