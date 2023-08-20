@@ -41,7 +41,7 @@ import EditorMenuBar from './EditorMenuBar'
 import BookmarkAPI from '../api/BookmarkAPI'
 
 // config
-const charLimit = 10000
+const charLimit = 5000
 
 // code block languages (alias)
 lowlight.registerLanguage('html', html)
