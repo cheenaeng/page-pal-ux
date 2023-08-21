@@ -11,7 +11,14 @@ import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import CharacterCount from '@tiptap/extension-character-count'
 import Placeholder from '@tiptap/extension-placeholder'
-import { EditorContent, ReactNodeViewRenderer, useEditor } from '@tiptap/react'
+import {
+  EditorContent,
+  ReactNodeViewRenderer,
+  useEditor,
+  EditorProvider,
+  FloatingMenu,
+  BubbleMenu,
+} from '@tiptap/react'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
@@ -24,7 +31,16 @@ import html from 'highlight.js/lib/languages/xml'
 
 // react
 import { useEffect, useContext, useState } from 'react'
-import { Button, Box, Wrap, Text, Flex, Spacer } from '@chakra-ui/react'
+import {
+  Button,
+  Box,
+  Wrap,
+  Text,
+  Flex,
+  Spacer,
+  SkeletonCircle,
+  SkeletonText,
+} from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 
@@ -43,6 +59,50 @@ import BookmarkAPI from '../api/BookmarkAPI'
 // config
 const charLimit = 5000
 
+// define tiptap extension array
+const extensions = [
+  Document,
+  Underline,
+  Color.configure({ types: [TextStyle.name, ListItem.name] }),
+  TextStyle.configure({ types: [ListItem.name] }),
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
+  }),
+  TaskList,
+  TaskItem.configure({
+    nested: true,
+  }),
+  StarterKit.configure({
+    bulletList: {
+      keepMarks: true,
+      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+    },
+    orderedList: {
+      keepMarks: true,
+      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+    },
+  }),
+  CharacterCount.configure({
+    limit: charLimit,
+  }),
+  Placeholder.configure({
+    // Use a placeholder
+    placeholder: 'Write something ...',
+  }),
+  CodeBlockLowlight.extend({
+    addNodeView() {
+      return ReactNodeViewRenderer(CodeBlockComponent)
+    },
+  }).configure({ lowlight }),
+
+  // TODO @sb: Set up collab
+  // Collaboration.configure({
+  //   document: provider.document,
+  // }),
+  // The Collaboration extension comes with its own history handling
+  // history: false,
+]
+
 // code block languages (alias)
 lowlight.registerLanguage('html', html)
 lowlight.registerLanguage('css', css)
@@ -50,8 +110,19 @@ lowlight.registerLanguage('javascript', js)
 lowlight.registerLanguage('typescript', ts)
 
 export default ({ bookmarkId, bearerToken }) => {
+  // render skeleton if either bookmarkId or token not avail
+  if (!bookmarkId || !bearerToken) {
+    return (
+      <Box padding='6' boxShadow='md' bg='white'>
+        <SkeletonCircle size='20' />
+        <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
+      </Box>
+    )
+  }
+
   let editor
   if (bookmarkId) {
+    console.log('🚀 init bookmarkId')
     // TODO @sb: Set up the Hocuspocus WebSocket provider
     // const provider = new HocuspocusProvider({
     //   url: 'ws://127.0.0.1:3338',
@@ -60,50 +131,7 @@ export default ({ bookmarkId, bearerToken }) => {
     // })
 
     editor = useEditor({
-      extensions: [
-        Document,
-        Underline,
-        Color.configure({ types: [TextStyle.name, ListItem.name] }),
-        TextStyle.configure({ types: [ListItem.name] }),
-        TextAlign.configure({
-          types: ['heading', 'paragraph'],
-        }),
-        TaskList,
-        TaskItem.configure({
-          nested: true,
-        }),
-        StarterKit.configure({
-          bulletList: {
-            keepMarks: true,
-            keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-          },
-          orderedList: {
-            keepMarks: true,
-            keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-          },
-        }),
-        CharacterCount.configure({
-          limit: charLimit,
-        }),
-        Placeholder.configure({
-          // Use a placeholder:
-          placeholder: 'Write something...',
-        }),
-        CodeBlockLowlight.extend({
-          addNodeView() {
-            return ReactNodeViewRenderer(CodeBlockComponent)
-          },
-        }).configure({ lowlight }),
-
-        // TODO @sb: Set up collab
-        // Collaboration.configure({
-        //   document: provider.document,
-        // }),
-        // The Collaboration extension comes with its own history handling
-        // history: false,
-      ],
-
-      // config
+      extensions: extensions,
       autofocus: true,
       injectCSS: false,
       onUpdate({ editor }) {
@@ -113,6 +141,8 @@ export default ({ bookmarkId, bearerToken }) => {
       },
     })
   }
+
+  console.log('🚀 render tiptap')
 
   const { mutate: updateBookmarkNotes } = useMutation(
     BookmarkAPI.updateBookMarkNotes,
@@ -174,6 +204,7 @@ export default ({ bookmarkId, bearerToken }) => {
     // localStorage.setItem('tiptap', JSON.stringify(data))
     // // fetch
     // editor?.commands?.setContent(JSON.parse(localStorage.getItem('tiptap')))
+    console.log('🚀 debouncedEditor useEffect')
 
     if (editor) {
       // prevent save before content is fetched and loaded
@@ -184,7 +215,7 @@ export default ({ bookmarkId, bearerToken }) => {
         saveContent()
       }
     }
-  }, [editor, debouncedEditor, isFetchedDocLoaded])
+  }, [debouncedEditor])
 
   const saveContent = () => {
     // get content from editor
@@ -220,6 +251,10 @@ export default ({ bookmarkId, bearerToken }) => {
         },
       },
     )
+  }
+
+  if (!editor) {
+    return null
   }
 
   return (
