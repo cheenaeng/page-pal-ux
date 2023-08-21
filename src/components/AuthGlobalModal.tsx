@@ -26,9 +26,9 @@ function AuthGlobalModal() {
 
   useEffect(() => {
     if (
-      // if authenticated or at paths whereby auth is not required
-      authState !== AuthStateEnum.AUTHENTICATED ||
-      whiteListedPathNames.includes(window.location.pathname)
+      // prompt user to sign in if not authenticated && at protected routes
+      authState !== AuthStateEnum.AUTHENTICATED &&
+      !whiteListedPathNames.includes(window.location.pathname)
     ) {
       switch (authState) {
         case AuthStateEnum.SESSION_EXPIRED:
