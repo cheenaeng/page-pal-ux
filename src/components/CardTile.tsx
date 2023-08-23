@@ -212,7 +212,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
             </Box>
           </Link>
 
-          <VStack mt='2' p='2' align='start' maxW='sm'>
+          <VStack mt='2' p='2' align='start' maxW='90%'>
             {/* Title */}
             <Text
               textStyle='cardTitle'

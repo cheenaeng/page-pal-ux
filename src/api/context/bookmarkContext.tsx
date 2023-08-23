@@ -27,16 +27,17 @@ export const BookmarkProvider = ({
   const [page] = useState(1)
   const [limit] = useState(10)
 
-  const { data: bookmarkData, refetch: refetchBookmarkData } = useQuery(
-    ['getAllBookmark'],
-    (): Promise<GenericResponseBookmark> => {
+  const { data: bookmarkData, refetch: refetchBookmarkData } = useQuery({
+    queryKey: ['getAllBookmark'],
+    queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllBookmark(
         page,
         limit,
         authToken.accessToken ?? '',
       )
     },
-  )
+    retry: false,
+  })
   const bookmarkMemoisedData = useMemo(() => {
     return {
       allData: bookmarkData?.data,

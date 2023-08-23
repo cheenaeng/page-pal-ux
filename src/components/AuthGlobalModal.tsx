@@ -1,6 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-
-import { AuthContext } from '../api/context/authContext'
 import {
   Button,
   Modal,
@@ -13,11 +11,14 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
+import { AuthContext } from '../api/context/authContext'
 import { AuthStateEnum } from '../types'
 import { SignInButton } from './SignInButton'
+
 const whiteListedPathNames = ['/home', '/']
 
 function AuthGlobalModal() {
+  console.log('🚀 AuthGlobalModal')
   const { authState } = useContext(AuthContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [modalHeader, setModalHeader] = useState<string>('')
