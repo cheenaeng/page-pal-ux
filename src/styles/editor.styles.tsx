@@ -86,10 +86,10 @@ export const editorStyles = {
           whiteSpace: 'pre-wrap',
           // code in codeblock
           code: {
-            color: 'rblueed',
+            color: 'inherit',
             padding: 0,
             background: 'none',
-            fontSize: '0.8rem',
+            fontSize: '0.9rem',
           },
           '.hljs-comment, .hljs-quote': {
             color: '#616161',

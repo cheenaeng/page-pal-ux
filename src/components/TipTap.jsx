@@ -89,6 +89,9 @@ const extensions = [
     // Use a placeholder
     placeholder: 'Write something ...',
   }),
+  // CodeBlockLowlight.configure({
+  //   languageClassPrefix: 'language-',
+  // }),
   CodeBlockLowlight.extend({
     addNodeView() {
       return ReactNodeViewRenderer(CodeBlockComponent)
