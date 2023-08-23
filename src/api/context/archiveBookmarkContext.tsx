@@ -1,9 +1,9 @@
-import { createContext, useContext, useMemo, useState } from "react"
+import { createContext, useContext, useMemo, useState } from 'react'
 
-import { GenericResponseBookmark, IBookmark } from "../../types/saves"
-import { useQuery } from "@tanstack/react-query"
-import BookmarkAPI from "../BookmarkAPI"
-import { AuthContext } from "./authContext"
+import { GenericResponseBookmark, IBookmark } from '../../types/saves'
+import { useQuery } from '@tanstack/react-query'
+import BookmarkAPI from '../BookmarkAPI'
+import { AuthContext } from './authContext'
 
 interface BookmarkDataContextType {
   allData: IBookmark[] | undefined
@@ -27,16 +27,17 @@ export const ArchiveBookmarkProvider = ({
   const [page] = useState(1)
   const [limit] = useState(10)
 
-  const { data: bookmarkData, refetch: refetchBookmarkData } = useQuery(
-    ["getAllArchivedBookmark"],
-    (): Promise<GenericResponseBookmark> => {
+  const { data: bookmarkData, refetch: refetchBookmarkData } = useQuery({
+    queryKey: ['getAllArchivedBookmark'],
+    queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllArchivedBookmark(
         page,
         limit,
-        authToken.accessToken ?? "",
+        authToken.accessToken ?? '',
       )
     },
-  )
+    retry: false,
+  })
   const bookmarkMemoisedData = useMemo(() => {
     return {
       allData: bookmarkData?.data,

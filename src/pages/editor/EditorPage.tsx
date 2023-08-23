@@ -13,7 +13,7 @@ const EditorPage = () => {
     <Box
       mx='auto'
       maxWidth={{
-        base: '100%',
+        base: '90%',
         '2xl': '80%',
       }}
     >

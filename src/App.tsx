@@ -47,7 +47,13 @@ const theme = extendTheme({
 })
 
 export const App = () => {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false, // default: true
+      },
+    },
+  })
 
   return (
     <QueryClientProvider client={queryClient}>
