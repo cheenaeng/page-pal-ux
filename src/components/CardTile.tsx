@@ -220,7 +220,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               borderRadius={4}
               hasArrow
               arrowSize={8}
-              openDelay={500} // 0.2s delay
+              openDelay={300} // 0.3s delay
             >
               <Text
                 textStyle='cardTitle'
