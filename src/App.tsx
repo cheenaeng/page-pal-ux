@@ -1,12 +1,6 @@
 import { ChakraProvider, Box } from '@chakra-ui/react'
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  Navigate,
-  useSearchParams,
-} from 'react-router-dom'
-import { createContext, useState } from 'react'
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { useState } from 'react'
 import LayoutWithNav from './components/LayoutWithNav'
 import SavePage from './pages/saves/SavePage'
 import ArchivePage from './pages/archives/ArchivePage'
