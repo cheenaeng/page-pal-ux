@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Layout } from '../../components/Layout'
 import { CardTiles } from '../../components/CardTiles'
@@ -21,6 +21,7 @@ import { AuthContext } from '../../api/context/authContext'
 import { BookmarkChangeContext } from '../../api/context/bookmarkChangeContext'
 
 function ArchivePage() {
+  const [bookmarkData, setBookmarkData] = useState<GenericResponseBookmark>()
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(12) // default 12 doc per page
 
@@ -28,7 +29,7 @@ function ArchivePage() {
   const { bookmarkChange } = useContext(BookmarkChangeContext)
 
   // fetch data on first render
-  const { data: bookmarkData } = useQuery({
+  const { data: fetchedData } = useQuery({
     queryKey: ['getAllBookmark', page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllArchivedBookmark(
@@ -39,6 +40,12 @@ function ArchivePage() {
     },
     retry: false,
   })
+
+  useEffect(() => {
+    if (fetchedData) {
+      setBookmarkData(fetchedData)
+    }
+  }, [fetchedData])
 
   return (
     <Layout>
