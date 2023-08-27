@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-
+import { useContext, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Layout } from '../../components/Layout'
 import { CardTiles } from '../../components/CardTiles'
 import { MdSort } from 'react-icons/md'
@@ -14,10 +14,32 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react'
-import { ArchiveBookmarkContext } from '../../api/context/archiveBookmarkContext'
+import { GenericResponseBookmark } from '../../types/saves'
+import Pagination from '../../components/Pagination'
+import BookmarkAPI from '../../api/BookmarkAPI'
+import { AuthContext } from '../../api/context/authContext'
+import { BookmarkChangeContext } from '../../api/context/bookmarkChangeContext'
 
 function ArchivePage() {
-  const { allData } = useContext(ArchiveBookmarkContext)
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(12) // default 12 doc per page
+
+  const { authToken } = useContext(AuthContext)
+  const { bookmarkChange } = useContext(BookmarkChangeContext)
+
+  // fetch data on first render
+  const { data: bookmarkData } = useQuery({
+    queryKey: ['getAllBookmark', page, pageSize, bookmarkChange],
+    queryFn: (): Promise<GenericResponseBookmark> => {
+      return BookmarkAPI.getAllArchivedBookmark(
+        page + 1, // library is 0-index, API is 1-index
+        pageSize,
+        authToken.accessToken ?? '',
+      )
+    },
+    retry: false,
+  })
+
   return (
     <Layout>
       <Box
@@ -30,7 +52,7 @@ function ArchivePage() {
       >
         <Flex justifyContent={'space-between'} alignItems={'center'}>
           <Text textStyle='headerBold' color='brand.main'>
-            Articles ({allData?.length ?? 0})
+            Articles ({bookmarkData?.total_records || 0})
           </Text>
           <Box>
             <Menu>
@@ -49,8 +71,23 @@ function ArchivePage() {
             </Menu>
           </Box>
         </Flex>
+
+        {/* search bar here  */}
+
         <Divider my={2} mx='auto' />
-        <CardTiles pages={allData} />
+
+        {/* main card tiles */}
+        <CardTiles pages={bookmarkData?.data} />
+
+        {/* pagination at footer */}
+        <Flex justifyContent={'center'}>
+          <Pagination
+            page={page}
+            setPage={setPage}
+            pageSize={pageSize}
+            count={bookmarkData?.total_records || 0}
+          />
+        </Flex>
       </Box>
     </Layout>
   )

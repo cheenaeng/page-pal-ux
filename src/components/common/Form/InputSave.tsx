@@ -13,12 +13,15 @@ import BookmarkAPI from '../../../api/BookmarkAPI'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { AuthContext } from '../../../api/context/authContext'
-import { BookmarkContext } from '../../../api/context/bookmarkContext'
+import { BookmarkChangeContext } from '../../../api/context/bookmarkChangeContext'
 
 function InputSave({ setShowUrlInput }: InputSaveProps) {
   const { authToken } = useContext(AuthContext)
   const bearerToken = authToken.accessToken ?? ''
-  const { refetchBookmarkData } = useContext(BookmarkContext)
+  const { bookmarkChange, setBookmarkChange } = useContext(
+    BookmarkChangeContext,
+  )
+
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
     BookmarkAPI.addBookmarkV2,
   )
@@ -34,7 +37,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
       {
         onSuccess: () => {
           toast.success('Url saved!')
-          refetchBookmarkData()
+          setBookmarkChange(!bookmarkChange)
         },
         onError: () => {
           toast.error('Error saving url!')

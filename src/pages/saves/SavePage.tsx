@@ -1,38 +1,27 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MdSort } from 'react-icons/md'
-import {
-  Flex,
-  Text,
-  Box,
-  Divider,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from '@chakra-ui/react'
+import { Flex, Text, Box, Divider } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 
-import { BookmarkContext } from '../../api/context/bookmarkContext'
 import Pagination from '../../components/Pagination'
 import { Layout } from '../../components/Layout'
 import { CardTiles } from '../../components/CardTiles'
 import { GenericResponseBookmark } from '../../types/saves'
 import BookmarkAPI from '../../api/BookmarkAPI'
 import { AuthContext } from '../../api/context/authContext'
+import { BookmarkChangeContext } from '../../api/context/bookmarkChangeContext'
 
 function SavePage() {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(12) // default 12 doc per page
 
   const { authToken } = useContext(AuthContext)
-  // const { refetchBookmarkData } = useContext(BookmarkContext)
+  const { bookmarkChange } = useContext(BookmarkChangeContext)
 
   // fetch data on first render
   const { data: bookmarkData } = useQuery({
-    queryKey: ['getAllBookmark', page, pageSize],
+    queryKey: ['getAllBookmark', page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
-      console.log('🚀  useQuery:')
       return BookmarkAPI.getAllBookmark(
         page + 1, // library is 0-index, API is 1-index
         pageSize,

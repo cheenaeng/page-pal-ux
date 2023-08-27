@@ -6,6 +6,7 @@ import {
   Navigate,
   useSearchParams,
 } from 'react-router-dom'
+import { createContext, useState } from 'react'
 import LayoutWithNav from './components/LayoutWithNav'
 import SavePage from './pages/saves/SavePage'
 import ArchivePage from './pages/archives/ArchivePage'
@@ -24,7 +25,7 @@ import { AuthProvider } from './api/context/authContext'
 import { BookmarkProvider } from './api/context/bookmarkContext'
 import { ArchiveBookmarkProvider } from './api/context/archiveBookmarkContext'
 import AuthGlobalModal from './components/AuthGlobalModal'
-
+import { BookmarkChangeContext } from './api/context/bookmarkChangeContext'
 import { editorStyles } from './styles/editor.styles'
 
 const theme = extendTheme({
@@ -47,6 +48,8 @@ const theme = extendTheme({
 })
 
 export const App = () => {
+  const [bookmarkChange, setBookmarkChange] = useState(true)
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -58,33 +61,37 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
-        <AuthProvider>
-          {/* as inputSave component in navbar uses bookmark context */}
-          <BookmarkProvider>
-            <Box height='100vh' mx='auto' p={1} boxSizing='border-box'>
-              <BrowserRouter>
-                <AuthGlobalModal />
-                <Routes>
-                  <Route path='/' element={<LayoutWithNav />}>
-                    <Route index element={<Navigate to='/home' />} />
-                    <Route path='home' element={<HomePage />} />
-                    <Route path=':page/note/:id' element={<EditorPage />} />
-                    <Route path='saves' element={<SavePage />} />
-                    <Route
-                      path='archives'
-                      element={
-                        <ArchiveBookmarkProvider>
-                          <ArchivePage />
-                        </ArchiveBookmarkProvider>
-                      }
-                    />
-                    <Route path='stats' />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </Box>
-          </BookmarkProvider>
-        </AuthProvider>
+        <BookmarkChangeContext.Provider
+          value={{ bookmarkChange, setBookmarkChange }}
+        >
+          <AuthProvider>
+            {/* as inputSave component in navbar uses bookmark context */}
+            <BookmarkProvider>
+              <Box height='100vh' mx='auto' p={1} boxSizing='border-box'>
+                <BrowserRouter>
+                  <AuthGlobalModal />
+                  <Routes>
+                    <Route path='/' element={<LayoutWithNav />}>
+                      <Route index element={<Navigate to='/home' />} />
+                      <Route path='home' element={<HomePage />} />
+                      <Route path=':page/note/:id' element={<EditorPage />} />
+                      <Route path='saves' element={<SavePage />} />
+                      <Route
+                        path='archives'
+                        element={
+                          <ArchiveBookmarkProvider>
+                            <ArchivePage />
+                          </ArchiveBookmarkProvider>
+                        }
+                      />
+                      <Route path='stats' />
+                    </Route>
+                  </Routes>
+                </BrowserRouter>
+              </Box>
+            </BookmarkProvider>
+          </AuthProvider>
+        </BookmarkChangeContext.Provider>
       </ChakraProvider>
     </QueryClientProvider>
   )

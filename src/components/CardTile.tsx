@@ -26,6 +26,7 @@ import { AuthContext } from '../api/context/authContext'
 import toast from 'react-hot-toast'
 import { BookmarkContext } from '../api/context/bookmarkContext'
 import { ArchiveBookmarkContext } from '../api/context/archiveBookmarkContext'
+import { BookmarkChangeContext } from '../api/context/bookmarkChangeContext'
 
 interface PageProps {
   page: IBookmark
@@ -33,6 +34,10 @@ interface PageProps {
 
 // this component is being used in both 'save' and 'archive' page
 export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
+  const { bookmarkChange, setBookmarkChange } = useContext(
+    BookmarkChangeContext,
+  )
+
   const {
     isOpen: isDeleteModalOpen,
     onOpen: openDeleteModal,
@@ -66,13 +71,8 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
         onSuccess: () => {
           closeDeleteModal()
           toast.success('Url deleted!')
-
           // TODO @sb: propose a more elegant way to resolve this
-          if (page.state === BookmarkStateEnum.ARCHIVED) {
-            refetchArchiveBookmarkData()
-          } else {
-            refetchBookmarkData()
-          }
+          setBookmarkChange(!bookmarkChange)
         },
         onError: () => {
           toast.error('Error deleting url!')
@@ -92,7 +92,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           onSuccess: () => {
             closeArchiveModal()
             toast.success('Restored!')
-            refetchArchiveBookmarkData()
+            setBookmarkChange(!bookmarkChange)
           },
           onError: () => {
             toast.error('Error restoring bookmark!')
@@ -109,7 +109,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           onSuccess: () => {
             closeArchiveModal()
             toast.success('Archived!')
-            refetchBookmarkData()
+            setBookmarkChange(!bookmarkChange)
           },
           onError: () => {
             toast.error('Error archiving bookmark!')

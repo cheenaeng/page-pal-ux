@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -9,7 +9,7 @@ import {
   ModalFooter,
   Button,
   Text,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
 function ArchiveModal({
   handleArchive,
@@ -22,21 +22,21 @@ function ArchiveModal({
     <Modal onClose={closeModal} isOpen={isModalOpen} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader textStyle="headerBold" color="brand.dark">
-          {isArticleArchived ? "Confirm?" : "Confirm Archive?"}
+        <ModalHeader textStyle='headerBold' color='brand.dark'>
+          {isArticleArchived ? 'Confirm?' : 'Confirm Archive?'}
         </ModalHeader>
         <ModalCloseButton onClick={closeModal} />
         <ModalBody>
-          <Text textStyle="normal">
+          <Text textStyle='normal'>
             {isArticleArchived
-              ? "Are you sure you want to restore the article?"
-              : "Are you sure you want to archive the article?"}
+              ? 'Are you sure you want to restore the article?'
+              : 'Are you sure you want to archive the article?'}
           </Text>
         </ModalBody>
         <ModalFooter>
           <Button
-            fontWeight="bold"
-            variant="primary"
+            fontWeight='bold'
+            variant='primary'
             onClick={handleArchive}
             isLoading={isArchiveModalLoading}
           >
