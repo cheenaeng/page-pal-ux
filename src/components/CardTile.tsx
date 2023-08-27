@@ -5,6 +5,7 @@ import {
   HStack,
   IconButton,
   useDisclosure,
+  Tooltip,
 } from '@chakra-ui/react'
 import { Image, VStack, Text, Box, Link } from '@chakra-ui/react'
 import { BookmarkStateEnum, IBookmark } from '../types/saves'
@@ -214,15 +215,24 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
 
           <VStack mt='2' p='2' align='start' maxW='90%'>
             {/* Title */}
-            <Text
-              textStyle='cardTitle'
-              align='start'
-              overflowWrap={'break-word'}
-              noOfLines={1}
-              color='brand.dark'
+            <Tooltip
+              label={page.title}
+              borderRadius={4}
+              hasArrow
+              arrowSize={8}
+              openDelay={500} // 0.2s delay
             >
-              {page.title}
-            </Text>
+              <Text
+                textStyle='cardTitle'
+                align='start'
+                overflowWrap={'break-word'}
+                noOfLines={1}
+                color='brand.dark'
+              >
+                {page.title}
+              </Text>
+            </Tooltip>
+
             {/* domain/link */}
             <Text
               textStyle='cardBody'
@@ -243,35 +253,40 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
 
         <CardFooter justifyContent='flex-end'>
           <HStack>
-            <IconButton
-              as={ReactRouterLink}
-              to={`note/${page.id}`}
-              variant='actionIcon'
-              aria-label='note'
-              icon={<AiOutlineForm size={18} />}
-              name='note-action'
-            />
-            <IconButton
-              variant='actionIcon'
-              aria-label='archive'
-              icon={
-                page.state === BookmarkStateEnum.ARCHIVED ? (
-                  <AiOutlineUndo size={18} />
-                ) : (
-                  <AiOutlineFolderOpen size={18} />
-                )
-              }
-              name='archive-action'
-              onClick={openArchiveModal}
-            />
-
-            <IconButton
-              variant='actionIcon'
-              aria-label='delete article'
-              icon={<AiOutlineDelete size={18} />}
-              name='delete-action'
-              onClick={openDeleteModal}
-            />
+            <Tooltip label='Notes' borderRadius={4} hasArrow arrowSize={8}>
+              <IconButton
+                as={ReactRouterLink}
+                to={`note/${page.id}`}
+                variant='actionIcon'
+                aria-label='note'
+                icon={<AiOutlineForm size={18} />}
+                name='note-action'
+              />
+            </Tooltip>
+            <Tooltip label='Archive' borderRadius={4} hasArrow arrowSize={8}>
+              <IconButton
+                variant='actionIcon'
+                aria-label='archive'
+                icon={
+                  page.state === BookmarkStateEnum.ARCHIVED ? (
+                    <AiOutlineUndo size={18} />
+                  ) : (
+                    <AiOutlineFolderOpen size={18} />
+                  )
+                }
+                name='archive-action'
+                onClick={openArchiveModal}
+              />
+            </Tooltip>
+            <Tooltip label='Delete' borderRadius={4} hasArrow arrowSize={8}>
+              <IconButton
+                variant='actionIcon'
+                aria-label='delete article'
+                icon={<AiOutlineDelete size={18} />}
+                name='delete-action'
+                onClick={openDeleteModal}
+              />
+            </Tooltip>
           </HStack>
         </CardFooter>
       </Card>

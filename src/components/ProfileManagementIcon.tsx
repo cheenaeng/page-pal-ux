@@ -12,6 +12,8 @@ import {
   useDisclosure,
   Portal,
   Button,
+  Tooltip,
+  Box,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
@@ -53,14 +55,20 @@ export function ProfileManagementIcon() {
           closeOnBlur={true}
           placement='bottom-start'
         >
-          <PopoverTrigger>
-            <Avatar
-              name={authToken.email}
-              src={authToken.picture}
-              size='sm'
-              cursor='pointer'
-            />
-          </PopoverTrigger>
+          {/* tooltip and popover sharing same DOM workaround: https://github.com/chakra-ui/chakra-ui/issues/2843#issuecomment-748641805 */}
+          <Tooltip label='Profile' borderRadius={4} hasArrow arrowSize={8}>
+            <Box display='inline-block'>
+              <PopoverTrigger>
+                <Avatar
+                  name={authToken.email}
+                  src={authToken.picture}
+                  size='sm'
+                  cursor='pointer'
+                />
+              </PopoverTrigger>
+            </Box>
+          </Tooltip>
+
           <Portal>
             <PopoverContent>
               <PopoverArrow />

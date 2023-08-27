@@ -29,9 +29,9 @@ export const CardTiles: React.FC<PagesProps> = ({ pages }: PagesProps) => {
         templateColumns={{
           base: 'repeat(1, 1fr)',
           sm: 'repeat(1, 1fr)',
-          md: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
           lg: 'repeat(3, 1fr)',
-          '2xl': 'repeat(3, 1fr)',
+          '2xl': 'repeat(4, 1fr)',
         }}
       >
         {pages
