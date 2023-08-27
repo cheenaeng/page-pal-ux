@@ -15,6 +15,7 @@ import {
   useBreakpointValue,
   Flex,
   Spacer,
+  Tooltip,
 } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
@@ -133,6 +134,7 @@ export const Navbar = () => {
             )}
 
             {/* Sign in/ out */}
+
             <ProfileManagementIcon />
 
             {/* Light/dark mode */}

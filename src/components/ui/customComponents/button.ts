@@ -76,11 +76,54 @@ const primary = defineStyle(() => {
   }
 })
 
+const destructiveButton = defineStyle(() => {
+  return {
+    color: '#f7f7f7',
+    rounded: '8',
+    border: 'none',
+    bg: '#da1e37',
+    _hover: {
+      bg: `#bd1f36`,
+    },
+    _dark: {
+      bg: '#b21e35',
+      color: '#f7f7f7',
+      _hover: {
+        bg: '#c71f37',
+      },
+    },
+  }
+})
+
+const selectionButton = defineStyle(() => {
+  return {
+    color: '#000000',
+    rounded: '8',
+    border: 'none',
+    bg: 'neutral.main',
+    _active: {
+      bg: 'black',
+    },
+    _hover: {
+      bg: `brand.main400`,
+    },
+    _dark: {
+      bg: '#2d3748',
+      color: '#f7f7f7',
+      _hover: {
+        bg: 'brand.main800',
+      },
+    },
+  }
+})
+
 export const buttonTheme = defineStyleConfig({
   baseStyle: { rounded: '8' },
   variants: {
     fancy: fancy,
     actionIcon: actionIcon,
     primary: primary,
+    selectionButton: selectionButton,
+    destructiveButton: destructiveButton,
   },
 })
