@@ -24,8 +24,6 @@ import { useMutation } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { AuthContext } from '../api/context/authContext'
 import toast from 'react-hot-toast'
-import { BookmarkContext } from '../api/context/bookmarkContext'
-import { ArchiveBookmarkContext } from '../api/context/archiveBookmarkContext'
 import { BookmarkChangeContext } from '../api/context/bookmarkChangeContext'
 
 interface PageProps {
@@ -50,8 +48,6 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
     onClose: closeArchiveModal,
   } = useDisclosure()
 
-  const { refetchBookmarkData } = useContext(BookmarkContext)
-  const { refetchArchiveBookmarkData } = useContext(ArchiveBookmarkContext)
   const { mutate: deleteBookmark, isLoading: isDeleteModalLoading } =
     useMutation(BookmarkAPI.delBookmark)
   const { mutate: archiveBookmark, isLoading: isArchiveModalLoading } =
