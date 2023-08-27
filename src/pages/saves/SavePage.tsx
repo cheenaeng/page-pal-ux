@@ -14,12 +14,12 @@ import { BookmarkChangeContext } from '../../api/context/bookmarkChangeContext'
 function SavePage() {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(12) // default 12 doc per page
-
+  const [bookmarkData, setBookmarkData] = useState<GenericResponseBookmark>()
   const { authToken } = useContext(AuthContext)
   const { bookmarkChange } = useContext(BookmarkChangeContext)
 
   // fetch data on first render
-  const { data: bookmarkData } = useQuery({
+  const { data: fetchedData } = useQuery({
     queryKey: ['getAllBookmark', page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllBookmark(
@@ -30,6 +30,12 @@ function SavePage() {
     },
     retry: false,
   })
+
+  useEffect(() => {
+    if (fetchedData) {
+      setBookmarkData(fetchedData)
+    }
+  }, [fetchedData])
 
   return (
     <Layout>
