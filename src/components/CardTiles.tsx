@@ -10,7 +10,7 @@ interface PagesProps {
 export const CardTiles: React.FC<PagesProps> = ({ pages }: PagesProps) => {
   const generateSkeletonTiles = () => {
     const tiles = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
       tiles.push(
         <GridItem colSpan={1} key={i}>
           <Skeleton sx={{ borderRadius: '8px' }} height='300px' width='300px' />

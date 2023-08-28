@@ -30,7 +30,7 @@ function ArchivePage() {
 
   // fetch data on first render
   const { data: fetchedData } = useQuery({
-    queryKey: ['getAllBookmark', page, pageSize, bookmarkChange],
+    queryKey: ['getAllArchiveBookmark', page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllArchivedBookmark(
         page + 1, // library is 0-index, API is 1-index
