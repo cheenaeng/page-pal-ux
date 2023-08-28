@@ -1,13 +1,18 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 
 import { Stack } from '@chakra-ui/react'
 import { Paginate } from 'react-paginate-chakra-ui'
+import { BookmarkChangeContext } from '../api/context/bookmarkChangeContext'
 // import 'focus-visible'
 // import './styles.css'
 
 function Pagination(props: IPaginationProps) {
+  const { bookmarkChange, setBookmarkChange } = useContext(
+    BookmarkChangeContext,
+  )
   const handlePageClick = (p: number) => {
     props.setPage(p)
+    setBookmarkChange(!bookmarkChange)
   }
 
   return (
