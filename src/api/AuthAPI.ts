@@ -8,7 +8,7 @@ class AuthAPI {
   }
 
   static getGoogleLoginUrl = () => {
-    return `${BASE_BACKEND_URL}/google`
+    return `${BASE_BACKEND_URL}/login/google`
   }
 }
 
