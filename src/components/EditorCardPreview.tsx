@@ -50,6 +50,7 @@ export const EditorCardPreview: React.FC<PageProps> = ({ page }: PageProps) => {
     xl: true,
   });
 
+  // note: 'md' is the breakpoint beyond which card direction becomes row (vertically stacked)
   return (
     <>
       {/* Main component */}
@@ -62,7 +63,11 @@ export const EditorCardPreview: React.FC<PageProps> = ({ page }: PageProps) => {
           lg: "75%",
           xl: "75%",
         }}
-        maxHeight={"200px"}
+        // maxHeight={"200px"}
+        maxHeight={{
+          base: "350px",
+          md: "200px",
+        }}
         mx="auto"
         my={"2"}
         direction={{ base: "column", md: "row" }}
@@ -74,7 +79,7 @@ export const EditorCardPreview: React.FC<PageProps> = ({ page }: PageProps) => {
           overflow="hidden"
           w={{
             base: "100%",
-            md: "25%",
+            md: "35%",
           }}
         >
           <Link
