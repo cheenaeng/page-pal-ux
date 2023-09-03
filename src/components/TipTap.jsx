@@ -262,8 +262,10 @@ export default ({ bookmarkId, bearerToken }) => {
 
   return (
     <Box padding={'5'}>
-      {/* EDITOR */}
-      <EditorMenuBar editor={editor} />
+      <Flex justifyContent={'center'}>
+        {/* EDITOR */}
+        <EditorMenuBar editor={editor} />
+      </Flex>
       <Box my={'2'}>
         <EditorContent editor={editor} />
       </Box>

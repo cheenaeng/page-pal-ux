@@ -63,6 +63,24 @@ class BookmarkAPI {
       true,
     )
   }
+  static addBookmarkV3 = async ({
+    link,
+    token,
+  }: {
+    link: string
+    token: string
+  }) => {
+    return httpPost(
+      `${BASE_BACKEND_URL}/bookmark/v3`,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      {
+        link,
+      },
+      true,
+    )
+  }
 
   static delBookmark = async ({ id, token }: { id: string; token: string }) => {
     return httpDelete(
@@ -124,9 +142,12 @@ class BookmarkAPI {
     id,
     token,
   }: {
-    id: string
+    id: string | undefined
     token: string
   }) => {
+    if (!id) {
+      return Promise.reject()
+    }
     return httpGet(`${BASE_BACKEND_URL}/bookmark/${id}`, {
       Authorization: `Bearer ${token}`,
     })

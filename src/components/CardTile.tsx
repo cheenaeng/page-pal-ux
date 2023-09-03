@@ -209,7 +209,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
             </Box>
           </Link>
 
-          <VStack mt='2' p='2' align='start' maxW='90%'>
+          <VStack mt='2' p='2' align='start' maxW='100%'>
             {/* Title */}
             <Tooltip
               label={page.title}
@@ -226,6 +226,24 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
                 color='brand.dark'
               >
                 {page.title}
+              </Text>
+            </Tooltip>
+            {/* Description */}
+            <Tooltip
+              label={page.description}
+              borderRadius={4}
+              hasArrow
+              arrowSize={8}
+              openDelay={300} // 0.3s delay
+            >
+              <Text
+                textStyle='cardBody'
+                align='start'
+                overflowWrap={'break-word'}
+                noOfLines={2}
+                color='brand.dark'
+              >
+                {page.description}
               </Text>
             </Tooltip>
 

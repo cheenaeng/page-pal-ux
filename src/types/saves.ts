@@ -23,6 +23,11 @@ export interface IBookmark {
   color: string
   image: string
   title: string
+  createdAt?: string
+  type?: string
+  note?: string
+  description?: string
+  icon?: string
 }
 export interface GenericResponseBookmark {
   data: IBookmark[]

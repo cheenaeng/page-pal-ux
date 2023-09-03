@@ -23,7 +23,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
   )
 
   const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
-    BookmarkAPI.addBookmarkV2,
+    BookmarkAPI.addBookmarkV3,
   )
   const [inputUrl, setInputUrl] = useState('')
   const [loadingToastId, setLoadingToastId] = useState('')
