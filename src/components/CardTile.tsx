@@ -263,8 +263,9 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
               overflowWrap={"break-word"}
               noOfLines={1}
               color="brand.main"
+              _dark={{ color: "whiteAlpha.900" }}
             >
-              {page.domain ? page.domain : page.link}
+              {page.domain || page.link}
             </Text>
             {/* Length of article */}
             {/* temp comment out hardcoded article length */}
