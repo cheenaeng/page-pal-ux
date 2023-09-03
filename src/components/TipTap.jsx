@@ -145,8 +145,6 @@ export default ({ bookmarkId, bearerToken }) => {
     })
   }
 
-  console.log('🚀 render tiptap')
-
   const { mutate: updateBookmarkNotes } = useMutation(
     BookmarkAPI.updateBookMarkNotes,
   )
