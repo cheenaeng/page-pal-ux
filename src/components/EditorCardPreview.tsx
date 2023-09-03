@@ -150,16 +150,15 @@ export const EditorCardPreview: React.FC<PageProps> = ({ page }: PageProps) => {
         </Box>
 
         {/* bookmark data/ metadata */}
-        <CardBody
-        // w={{
-        //   base: "30%",
-        //   lg: "100%",
-        //   xl: "100%",
-        // }}
-        >
+        <CardBody>
           <VStack p="2" align="start" w={"100%"}>
             {/* title */}
-            <Text as="b" overflowWrap={"anywhere"} noOfLines={1}>
+            <Text
+              as="b"
+              overflowWrap={"anywhere"}
+              noOfLines={1}
+              fontSize={"lg"}
+            >
               {page.title}
             </Text>
             {/* description */}
@@ -167,6 +166,9 @@ export const EditorCardPreview: React.FC<PageProps> = ({ page }: PageProps) => {
               overflowWrap={"anywhere"}
               noOfLines={2}
               textColor="blackAlpha.700"
+              _dark={{
+                textColor: "whiteAlpha.800",
+              }}
             >
               {page.description || ""}
             </Text>
