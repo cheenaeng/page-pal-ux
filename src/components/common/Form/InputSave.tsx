@@ -26,6 +26,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
     mutate: addBookmark,
     isLoading: isAddingLoading,
     error: addBookmarkErr,
+    data: addBookmarkData,
   } = useMutation(BookmarkAPI.addBookmarkV3);
   const [inputUrl, setInputUrl] = useState("");
   const [loadingToastId, setLoadingToastId] = useState("");
@@ -67,7 +68,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
     } else {
       toast.dismiss(loadingToastId);
 
-      if (!addBookmarkErr) {
+      if (!addBookmarkErr && addBookmarkData) {
         setShowUrlInput((prev) => !prev); // reset input save bar only if API is successful
       }
     }
