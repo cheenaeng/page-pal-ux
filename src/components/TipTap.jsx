@@ -145,8 +145,6 @@ export default ({ bookmarkId, bearerToken }) => {
     })
   }
 
-  console.log('🚀 render tiptap')
-
   const { mutate: updateBookmarkNotes } = useMutation(
     BookmarkAPI.updateBookMarkNotes,
   )
@@ -262,8 +260,10 @@ export default ({ bookmarkId, bearerToken }) => {
 
   return (
     <Box padding={'5'}>
-      {/* EDITOR */}
-      <EditorMenuBar editor={editor} />
+      <Flex justifyContent={'center'}>
+        {/* EDITOR */}
+        <EditorMenuBar editor={editor} />
+      </Flex>
       <Box my={'2'}>
         <EditorContent editor={editor} />
       </Box>
