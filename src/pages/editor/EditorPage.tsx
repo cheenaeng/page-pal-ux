@@ -10,7 +10,6 @@ import { EditorCardPreview } from "../../components/EditorCardPreview";
 
 const EditorPage = () => {
   const { id } = useParams();
-  console.log("🚀 ~ file: EditorPage.tsx:12 ~ EditorPage ~ id:", id);
   const { authToken } = useContext(AuthContext);
   const [bookmarkData, setbookmarkData] = useState<IBookmark>({
     state: BookmarkStateEnum.AVAILABLE,
@@ -37,10 +36,6 @@ const EditorPage = () => {
 
   useEffect(() => {
     if (fetchedData) {
-      console.log(
-        "🚀 ~ file: EditorPage.tsx:40 ~ useEffect ~ fetchedData:",
-        fetchedData
-      );
       setbookmarkData(fetchedData);
     }
   }, [fetchedData]);

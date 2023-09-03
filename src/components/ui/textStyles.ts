@@ -100,7 +100,6 @@ const textStyles = {
       lg: '1.2em',
     },
     _dark: {
-      // color: `#f7f7f7`,
       color: 'whiteAlpha.700',
     },
   },
