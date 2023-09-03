@@ -22,9 +22,11 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
     BookmarkChangeContext
   );
 
-  const { mutate: addBookmark, isLoading: isAddingLoading } = useMutation(
-    BookmarkAPI.addBookmarkV3
-  );
+  const {
+    mutate: addBookmark,
+    isLoading: isAddingLoading,
+    error: addBookmarkErr,
+  } = useMutation(BookmarkAPI.addBookmarkV3);
   const [inputUrl, setInputUrl] = useState("");
   const [loadingToastId, setLoadingToastId] = useState("");
 
@@ -53,7 +55,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
     if (event.key === "Enter") {
       addUrl();
     } else if (event.key === "Escape") {
-      // setInputUrl("");
+      setInputUrl("");
       setShowUrlInput(false);
     }
   };
@@ -64,7 +66,10 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
       setLoadingToastId(loadingToast);
     } else {
       toast.dismiss(loadingToastId);
-      setShowUrlInput((prev) => !prev); // reset input bar
+
+      if (!addBookmarkErr) {
+        setShowUrlInput((prev) => !prev); // reset input save bar only if API is successful
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddingLoading]);
