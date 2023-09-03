@@ -97,6 +97,7 @@ export const EditorCardPreview: React.FC<PageProps> = ({ page }: PageProps) => {
             {page.image ? (
               <Image
                 height="100%" // stretch image vertically to fit
+                width="100%" // stretch image horizontally to fit
                 objectFit="cover"
                 src={page.image}
                 alt={"boilerplate-image"}
