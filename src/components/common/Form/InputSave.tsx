@@ -68,9 +68,9 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
     } else {
       toast.dismiss(loadingToastId);
 
-      if (!addBookmarkErr && addBookmarkData) {
-        setShowUrlInput((prev) => !prev); // reset input save bar only if API is successful
-      }
+      // if (!addBookmarkErr && addBookmarkData) {
+      //   setShowUrlInput((prev) => !prev); // reset input save bar only if API is successful
+      // }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddingLoading]);
@@ -81,6 +81,8 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
         <InputGroup variant="custom" colorScheme="brand">
           <InputLeftAddon> URL:</InputLeftAddon>
           <Input
+            // samesit="None"
+            id="input"
             autoFocus={true}
             value={inputUrl}
             onKeyDown={handleKeyDown}
