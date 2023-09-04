@@ -148,6 +148,7 @@ export const CardTile: React.FC<PageProps> = ({ page }: PageProps) => {
           width: "100%",
           mx: "auto",
         }}
+        h="100%"
       >
         <CardBody>
           <Link

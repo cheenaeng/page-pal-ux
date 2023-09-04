@@ -33,6 +33,7 @@ export const CardTiles: React.FC<PagesProps> = ({ pages }: PagesProps) => {
           lg: "repeat(3, 1fr)",
           "2xl": "repeat(3, 1fr)",
         }}
+        alignItems={"stretch"}
       >
         {pages
           ? pages.map((page) => (
