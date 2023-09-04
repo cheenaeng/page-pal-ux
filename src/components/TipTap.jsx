@@ -125,7 +125,6 @@ export default ({ bookmarkId, bearerToken }) => {
 
   let editor
   if (bookmarkId) {
-    console.log('🚀 init bookmarkId')
     // TODO @sb: Set up the Hocuspocus WebSocket provider
     // const provider = new HocuspocusProvider({
     //   url: 'ws://127.0.0.1:3338',

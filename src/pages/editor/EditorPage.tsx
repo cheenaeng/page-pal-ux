@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { SkeletonCircle, SkeletonText, HStack } from "@chakra-ui/react";
 import Tiptap from "../../components/TipTap";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../api/context/authContext";
@@ -23,7 +24,7 @@ const EditorPage = () => {
   const bearerToken = authToken.accessToken ?? "";
 
   // get bookmark data
-  const { data: fetchedData } = useQuery({
+  const { data: fetchedData, isLoading } = useQuery({
     queryKey: [id],
     queryFn: (): Promise<IBookmark> => {
       return BookmarkAPI.getBookmarkById({
@@ -39,6 +40,24 @@ const EditorPage = () => {
       setbookmarkData(fetchedData);
     }
   }, [fetchedData]);
+
+  if (isLoading) {
+    return (
+      <Box
+        mx="auto"
+        mt={"2"}
+        maxWidth={{
+          base: "75%",
+          "2xl": "75%",
+        }}
+      >
+        <Box padding="6" boxShadow="md" bg="white" borderRadius={"8"}>
+          <SkeletonCircle size="10" />
+          <SkeletonText mt={"2"} noOfLines={4} spacing="4" skeletonHeight="2" />
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box
