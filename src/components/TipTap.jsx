@@ -17,8 +17,8 @@ import {
   useEditor,
   EditorProvider,
   FloatingMenu,
-  BubbleMenu,
 } from '@tiptap/react'
+import BubbleMenu from '@tiptap/extension-bubble-menu'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
@@ -53,7 +53,8 @@ import { Spinner } from '@chakra-ui/react'
 // custom
 import { IBookmark } from '../types/saves'
 import CodeBlockComponent from './CodeBlockComponent'
-import EditorMenuBar from './EditorMenuBar'
+import EditorMenuBarDemo from './EditorMenuBarDemo'
+import EditorBubbleMenu from './EditorBubbleMenu'
 import BookmarkAPI from '../api/BookmarkAPI'
 
 // config
@@ -97,6 +98,10 @@ const extensions = [
       return ReactNodeViewRenderer(CodeBlockComponent)
     },
   }).configure({ lowlight }),
+  // Bubble Menu
+  BubbleMenu.configure({
+    element: document.querySelector('.menu'),
+  }),
 
   // TODO @sb: Set up collab
   // Collaboration.configure({
@@ -259,9 +264,10 @@ export default ({ bookmarkId, bearerToken }) => {
 
   return (
     <Box padding={'5'}>
-      <Flex justifyContent={'center'}>
+      <Flex justifyContent={'flex-start'}>
         {/* EDITOR */}
-        <EditorMenuBar editor={editor} />
+        <EditorMenuBarDemo editor={editor} />
+        <EditorBubbleMenu editor={editor} />
       </Flex>
       <Box my={'2'}>
         <EditorContent editor={editor} />
