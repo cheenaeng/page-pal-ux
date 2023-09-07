@@ -88,7 +88,7 @@ const extensions = [
   }),
   Placeholder.configure({
     // Use a placeholder
-    placeholder: 'Write something ...',
+    placeholder: 'Write something/ select text for bubble menu',
   }),
   // CodeBlockLowlight.configure({
   //   languageClassPrefix: 'language-',
