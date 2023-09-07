@@ -295,7 +295,7 @@ export default ({ bookmarkId, bearerToken }) => {
           {/* when saving */}
           {isSaving ? (
             <Button variant='solid' width={'10%'} cursor='not-allowed'>
-              <Spinner color='brand.main' />
+              <Spinner color='brand.main'/>
             </Button>
           ) : isSaved ? (
             <Button variant='solid' width={'10%'} cursor='not-allowed'>
