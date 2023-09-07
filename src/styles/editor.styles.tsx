@@ -3,6 +3,9 @@ import { mode } from "@chakra-ui/theme-tools";
 export const editorStyles = {
   global: (props: any) => ({
     body: {
+      ".is-active": {
+        backgroundColor: mode("#E2E8F0", "#4A5568")(props),
+      },
       ".menububble": {
         backgroundColor: mode("rgba(255,255,255, 1)", "#2d3748")(props),
       },
