@@ -57,14 +57,19 @@ const EditorBubbleMenu = ({ editor }: any) => {
   return (
     <BubbleMenu
       editor={editor}
-      tippyOptions={{ duration: 100, maxWidth: "none" }}
+      tippyOptions={{
+        duration: 100,
+        maxWidth: "none",
+        theme: "light",
+      }}
     >
-      <HStack shadow={"md"}>
+      <HStack shadow={"md"} className="menububble">
         <Menu>
           <MenuButton
-            _hover={{ bgColor: "gray" }}
-            fontStyle={"normal"}
-            variant={"unstyled"}
+            // _hover={{ bgColor: "gray" }}
+            // fontStyle={"normal"}
+            // variant={"unstyled"}
+            variant="ghost"
             px={"2"}
             borderRadius={"0"}
             as={Button}
@@ -86,7 +91,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={BiParagraph}
                   />
@@ -106,7 +112,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Text
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     fontSize={"sm"}
                   >
@@ -128,7 +135,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Text
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     fontSize={"sm"}
                   >
@@ -150,7 +158,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Text
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     fontSize={"sm"}
                   >
@@ -172,7 +181,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Text
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     fontSize={"sm"}
                   >
@@ -193,7 +203,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={MdFormatQuote}
                   />
@@ -210,7 +221,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={BiCodeBlock}
                   />
@@ -233,7 +245,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={AiOutlineCheckSquare}
                   />
@@ -251,7 +264,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={GoListUnordered}
                   />
@@ -269,7 +283,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={GoListOrdered}
                   />
@@ -289,7 +304,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
-                    borderRadius={"4"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
                     boxSize={"5"}
                     as={AiOutlineLine}
                   />
@@ -304,8 +320,9 @@ const EditorBubbleMenu = ({ editor }: any) => {
          */}
         <Menu>
           <MenuButton
-            _hover={{ bgColor: "gray" }}
-            variant={"unstyled"}
+            // _hover={{ bgColor: "gray" }}
+            // variant={"unstyled"}
+            variant="ghost"
             px={"2"}
             borderRadius={"0"}
             as={Button}
@@ -327,7 +344,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
               >
                 <Icon
                   border={"1px"}
-                  borderRadius={"4"}
+                  borderColor={"blackAlpha.400"}
+                  borderRadius={"3"}
                   boxSize={"5"}
                   as={MdFormatAlignLeft}
                 />
@@ -347,7 +365,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
               >
                 <Icon
                   border={"1px"}
-                  borderRadius={"4"}
+                  borderColor={"blackAlpha.400"}
+                  borderRadius={"3"}
                   boxSize={"5"}
                   as={MdFormatAlignCenter}
                 />
@@ -367,7 +386,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
               >
                 <Icon
                   border={"1px"}
-                  borderRadius={"4"}
+                  borderColor={"blackAlpha.400"}
+                  borderRadius={"3"}
                   boxSize={"5"}
                   as={MdFormatAlignRight}
                 />
@@ -387,7 +407,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
               >
                 <Icon
                   border={"1px"}
-                  borderRadius={"4"}
+                  borderColor={"blackAlpha.400"}
+                  borderRadius={"3"}
                   boxSize={"5"}
                   as={MdFormatAlignJustify}
                 />
@@ -417,11 +438,8 @@ const EditorBubbleMenu = ({ editor }: any) => {
           {/* bold */}
           <Tooltip label="Bold" placement="bottom">
             <IconButton
-              _hover={{ bgColor: "#f7f7f7" }}
-              justifySelf={"center"}
-              justifyContent={"center"}
-              justifyItems={"center"}
-              variant={"unstyled"}
+              // _hover={{ bgColor: "#f7f7f7" }}
+              variant="ghost"
               borderRadius={"0"}
               aria-label="bold"
               icon={<AiOutlineBold size={18} />}
