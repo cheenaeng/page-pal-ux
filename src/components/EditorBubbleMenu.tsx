@@ -71,7 +71,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
         borderRadius={"4px"}
         _dark={{ borderColor: "whiteAlpha.400" }}
       >
-        <Menu>
+        <Menu autoSelect={false}>
           <MenuButton
             variant="ghost"
             px={"2"}
@@ -87,12 +87,11 @@ const EditorBubbleMenu = ({ editor }: any) => {
              ***************/}
             <MenuGroup title="Text">
               {/* paragraph */}
-              <MenuItem>
-                <HStack
-                  aria-label="paragraph"
-                  onClick={() => editor.chain().focus().setParagraph().run()}
-                  className={editor.isActive("paragraph") ? "is-active" : ""}
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().setParagraph().run()}
+                className={editor.isActive("paragraph") ? "is-active" : ""}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderTopColor={"gra"}
@@ -105,16 +104,15 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 </HStack>
               </MenuItem>
               {/* h1 heading */}
-              <MenuItem>
-                <HStack
-                  aria-label="heading-h1"
-                  onClick={() =>
-                    editor.chain().focus().toggleHeading({ level: 1 }).run()
-                  }
-                  className={
-                    editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-                  }
-                >
+              <MenuItem
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 1 }).run()
+                }
+                className={
+                  editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+                }
+              >
+                <HStack>
                   <Text
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -128,16 +126,15 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 </HStack>
               </MenuItem>
               {/* h2 heading */}
-              <MenuItem>
-                <HStack
-                  aria-label="heading-h2"
-                  onClick={() =>
-                    editor.chain().focus().toggleHeading({ level: 2 }).run()
-                  }
-                  className={
-                    editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-                  }
-                >
+              <MenuItem
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 2 }).run()
+                }
+                className={
+                  editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+                }
+              >
+                <HStack>
                   <Text
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -151,16 +148,15 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 </HStack>
               </MenuItem>
               {/* h3 heading */}
-              <MenuItem>
-                <HStack
-                  aria-label="heading-h3"
-                  onClick={() =>
-                    editor.chain().focus().toggleHeading({ level: 2 }).run()
-                  }
-                  className={
-                    editor.isActive("heading", { level: 3 }) ? "is-active" : ""
-                  }
-                >
+              <MenuItem
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 3 }).run()
+                }
+                className={
+                  editor.isActive("heading", { level: 3 }) ? "is-active" : ""
+                }
+              >
+                <HStack>
                   <Text
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -174,16 +170,15 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 </HStack>
               </MenuItem>
               {/* h4 heading */}
-              <MenuItem>
-                <HStack
-                  aria-label="heading-h4"
-                  onClick={() =>
-                    editor.chain().focus().toggleHeading({ level: 2 }).run()
-                  }
-                  className={
-                    editor.isActive("heading", { level: 4 }) ? "is-active" : ""
-                  }
-                >
+              <MenuItem
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 4 }).run()
+                }
+                className={
+                  editor.isActive("heading", { level: 4 }) ? "is-active" : ""
+                }
+              >
+                <HStack>
                   <Text
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -198,14 +193,11 @@ const EditorBubbleMenu = ({ editor }: any) => {
               </MenuItem>
 
               {/* quote */}
-              <MenuItem>
-                <HStack
-                  aria-label="quote"
-                  onClick={() =>
-                    editor.chain().focus().toggleBlockquote().run()
-                  }
-                  className={editor.isActive("blockquote") ? "is-active" : ""}
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                className={editor.isActive("blockquote") ? "is-active" : ""}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -218,12 +210,11 @@ const EditorBubbleMenu = ({ editor }: any) => {
               </MenuItem>
 
               {/* code */}
-              <MenuItem>
-                <HStack
-                  aria-label="code-block"
-                  onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-                  className={editor.isActive("codeBlock") ? "is-active" : ""}
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+                className={editor.isActive("codeBlock") ? "is-active" : ""}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -242,12 +233,11 @@ const EditorBubbleMenu = ({ editor }: any) => {
             <MenuDivider />
             <MenuGroup title="List">
               {/* to do list */}
-              <MenuItem>
-                <HStack
-                  aria-label="to-do-list"
-                  onClick={() => editor.chain().focus().toggleTaskList().run()}
-                  className={editor.isActive("taskList") ? "is-active" : ""}
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().toggleTaskList().run()}
+                className={editor.isActive("taskList") ? "is-active" : ""}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -259,14 +249,11 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 </HStack>
               </MenuItem>
               {/* bullet */}
-              <MenuItem>
-                <HStack
-                  aria-label="bullet"
-                  onClick={() =>
-                    editor.chain().focus().toggleBulletList().run()
-                  }
-                  className={editor.isActive("bulletList") ? "is-active" : ""}
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+                className={editor.isActive("bulletList") ? "is-active" : ""}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -278,14 +265,11 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 </HStack>
               </MenuItem>
               {/* numbered */}
-              <MenuItem>
-                <HStack
-                  aria-label="numbered-list"
-                  onClick={() =>
-                    editor.chain().focus().toggleOrderedList().run()
-                  }
-                  className={editor.isActive("orderedList") ? "is-active" : ""}
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                className={editor.isActive("orderedList") ? "is-active" : ""}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -300,13 +284,10 @@ const EditorBubbleMenu = ({ editor }: any) => {
             <MenuDivider />
             <MenuGroup title="Others">
               {/* divider */}
-              <MenuItem>
-                <HStack
-                  aria-label="divider"
-                  onClick={() =>
-                    editor.chain().focus().setHorizontalRule().run()
-                  }
-                >
+              <MenuItem
+                onClick={() => editor.chain().focus().setHorizontalRule().run()}
+              >
+                <HStack>
                   <Icon
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
@@ -337,16 +318,13 @@ const EditorBubbleMenu = ({ editor }: any) => {
           </MenuButton>
           <MenuList>
             {/* align left */}
-            <MenuItem>
-              <HStack
-                aria-label="align-left"
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("left").run()
-                }
-                className={
-                  editor.isActive({ textAlign: "left" }) ? "is-active" : ""
-                }
-              >
+            <MenuItem
+              onClick={() => editor.chain().focus().setTextAlign("left").run()}
+              className={
+                editor.isActive({ textAlign: "left" }) ? "is-active" : ""
+              }
+            >
+              <HStack>
                 <Icon
                   border={"1px"}
                   borderColor={"blackAlpha.400"}
@@ -358,16 +336,15 @@ const EditorBubbleMenu = ({ editor }: any) => {
               </HStack>
             </MenuItem>
             {/* align center */}
-            <MenuItem>
-              <HStack
-                aria-label="align-center"
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("center").run()
-                }
-                className={
-                  editor.isActive({ textAlign: "center" }) ? "is-active" : ""
-                }
-              >
+            <MenuItem
+              onClick={() =>
+                editor.chain().focus().setTextAlign("center").run()
+              }
+              className={
+                editor.isActive({ textAlign: "center" }) ? "is-active" : ""
+              }
+            >
+              <HStack>
                 <Icon
                   border={"1px"}
                   borderColor={"blackAlpha.400"}
@@ -379,16 +356,13 @@ const EditorBubbleMenu = ({ editor }: any) => {
               </HStack>
             </MenuItem>
             {/* align right */}
-            <MenuItem>
-              <HStack
-                aria-label="align-center"
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("right").run()
-                }
-                className={
-                  editor.isActive({ textAlign: "right" }) ? "is-active" : ""
-                }
-              >
+            <MenuItem
+              onClick={() => editor.chain().focus().setTextAlign("right").run()}
+              className={
+                editor.isActive({ textAlign: "right" }) ? "is-active" : ""
+              }
+            >
+              <HStack>
                 <Icon
                   border={"1px"}
                   borderColor={"blackAlpha.400"}
@@ -400,16 +374,15 @@ const EditorBubbleMenu = ({ editor }: any) => {
               </HStack>
             </MenuItem>
             {/* justify */}
-            <MenuItem>
-              <HStack
-                aria-label="justify"
-                onClick={() =>
-                  editor.chain().focus().setTextAlign("justify").run()
-                }
-                className={
-                  editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
-                }
-              >
+            <MenuItem
+              onClick={() =>
+                editor.chain().focus().setTextAlign("justify").run()
+              }
+              className={
+                editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
+              }
+            >
+              <HStack>
                 <Icon
                   border={"1px"}
                   borderColor={"blackAlpha.400"}
@@ -443,15 +416,14 @@ const EditorBubbleMenu = ({ editor }: any) => {
           {/* bold */}
           <Tooltip label="Bold" placement="bottom">
             <IconButton
-              // _hover={{ bgColor: "#f7f7f7" }}
               variant="ghost"
               borderRadius={"0"}
               aria-label="bold"
               icon={<AiOutlineBold size={18} />}
               name="archive-action"
               onClick={() => editor.chain().focus().toggleBold().run()}
-              disabled={!editor.can().chain().focus().toggleBold().run()}
               className={editor.isActive("bold") ? "is-active" : ""}
+              disabled={!editor.can().chain().focus().toggleBold().run()}
             />
           </Tooltip>
           {/* italic */}

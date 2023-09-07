@@ -56,7 +56,7 @@ const EditorMenuBarDemo = ({ editor }: any) => {
           <Button
             width={"1"}
             variant="ghost"
-            aria-label="heading1"
+            aria-label="insert-demo-data"
             onClick={() => editor?.commands?.setContent(initialDataV2)}
           >
             Demo
