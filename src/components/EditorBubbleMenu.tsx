@@ -63,12 +63,16 @@ const EditorBubbleMenu = ({ editor }: any) => {
         theme: "light",
       }}
     >
-      <HStack shadow={"md"} className="menububble">
+      <HStack
+        shadow={"md"}
+        className="menububble"
+        border={"1px"}
+        borderColor={"gray.100"}
+        borderRadius={"4px"}
+        _dark={{ borderColor: "whiteAlpha.400" }}
+      >
         <Menu>
           <MenuButton
-            // _hover={{ bgColor: "gray" }}
-            // fontStyle={"normal"}
-            // variant={"unstyled"}
             variant="ghost"
             px={"2"}
             borderRadius={"0"}
@@ -91,6 +95,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                 >
                   <Icon
                     border={"1px"}
+                    borderTopColor={"gra"}
                     borderColor={"blackAlpha.400"}
                     borderRadius={"3"}
                     boxSize={"5"}

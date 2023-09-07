@@ -4,8 +4,7 @@ export const editorStyles = {
   global: (props: any) => ({
     body: {
       ".menububble": {
-        backgroundColor: "rgba(255,255,255, 1)",
-        border: "1px solid blackAlpha.900",
+        backgroundColor: mode("rgba(255,255,255, 1)", "#2d3748")(props),
       },
       color: mode("gray.700", "whiteAlpha.900")(props),
       fontFamily: "body",
