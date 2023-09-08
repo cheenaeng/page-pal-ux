@@ -128,7 +128,7 @@ export const editorStyles = {
           paddingLeft: '1rem',
           marginLeft: '1rem',
           borderLeft: '4px solid rgba(13, 13, 13, 0.3)',
-          borderLeftColor: mode('brand.light', 'brand.main')(props),
+          borderLeftColor: mode('#E2E8F0', '#718096')(props),
         },
         'span[data-spoiler]': {
           backgroundColor: mode('gray.900', 'gray.100')(props),
