@@ -6,11 +6,22 @@ import { BookmarkChangeContext } from '../api/context/bookmarkChangeContext'
 // import 'focus-visible'
 // import './styles.css'
 
+interface IPaginationProps {
+  page: number
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  pageSize: number
+  count: number
+}
+
 function Pagination(props: IPaginationProps) {
   const { bookmarkChange, setBookmarkChange } = useContext(
     BookmarkChangeContext,
   )
   const handlePageClick = (p: number) => {
+    // prevent re-render when same page is clicked
+    if (p === props.page) {
+      return
+    }
     props.setPage(p)
     setBookmarkChange(!bookmarkChange)
   }
@@ -37,13 +48,6 @@ function Pagination(props: IPaginationProps) {
       />
     </Stack>
   )
-}
-
-interface IPaginationProps {
-  page: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
-  pageSize: number
-  count: number
 }
 
 export default memo(Pagination)

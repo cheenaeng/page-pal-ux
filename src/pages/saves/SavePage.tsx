@@ -19,7 +19,7 @@ function SavePage() {
   const { bookmarkChange } = useContext(BookmarkChangeContext)
 
   // fetch data on first render
-  const { data: fetchedData } = useQuery({
+  const { data: fetchedData, isLoading } = useQuery({
     queryKey: ['getAllBookmark', page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllBookmark(
@@ -75,7 +75,7 @@ function SavePage() {
         {/* search bar here  */}
 
         {/* main card tiles */}
-        <CardTiles pages={bookmarkData?.data} />
+        <CardTiles pages={bookmarkData?.data} isLoading={isLoading} />
 
         {/* pagination at footer */}
         <Flex justifyContent={'center'}>
