@@ -17,9 +17,11 @@ export const editorStyles = {
         minHeight: '100vh',
       },
       a: {
-        color: 'blue.500',
+        color: mode('#718096', '#718096')(props),
+        'font-weight': 800,
+        textDecoration: 'underline',
         '&:hover': {
-          textDecoration: 'none',
+          cursor: 'pointer',
         },
       },
       '*, ::before, ::after': {
