@@ -344,15 +344,18 @@ const EditorBubbleMenu = ({ editor }: any) => {
            */}
           <Menu>
             <MenuButton
-              // _hover={{ bgColor: "gray" }}
-              // variant={"unstyled"}
               variant="ghost"
               px={"2"}
               borderRadius={"0"}
               as={Button}
               rightIcon={<ChevronDownIcon />}
             >
-              <Icon boxSize={"5"} as={MdFormatAlignJustify} />
+              <Icon
+                boxSize={"6"}
+                as={MdFormatAlignJustify}
+                pt={"5px"}
+                position={"relative"}
+              />
             </MenuButton>
             <MenuList>
               {/* align left */}
