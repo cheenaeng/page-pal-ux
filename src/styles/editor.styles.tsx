@@ -17,12 +17,7 @@ export const editorStyles = {
         minHeight: "100vh",
       },
       a: {
-        color: mode("#718096", "#CBD5E0")(props),
-        "font-weight": 800,
-        textDecoration: "underline",
-        "&:hover": {
-          cursor: "pointer",
-        },
+        textDecoration: "none",
       },
       "*, ::before, ::after": {
         borderColor: "#9fa3b114",
@@ -45,6 +40,14 @@ export const editorStyles = {
         },
         p: {
           margin: "1px 1px 1px 1px",
+        },
+        a: {
+          color: mode("#718096", "#CBD5E0")(props),
+          "font-weight": 800,
+          textDecoration: "underline",
+          "&:hover": {
+            cursor: "pointer",
+          },
         },
         "&:focus": {
           padding: "10px",
