@@ -19,6 +19,7 @@ import {
   FloatingMenu,
 } from '@tiptap/react'
 import BubbleMenu from '@tiptap/extension-bubble-menu'
+import Typography from '@tiptap/extension-typography'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import Link from '@tiptap/extension-link'
 import css from 'highlight.js/lib/languages/css'
@@ -66,6 +67,7 @@ const extensions = [
   Document,
   Underline,
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
+  Typography,
   TextStyle.configure({ types: [ListItem.name] }),
   TextAlign.configure({
     types: ['heading', 'paragraph'],
