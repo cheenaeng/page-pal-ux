@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import  { useCallback } from 'react'
+import * as linkify from "linkifyjs";
 
 import {
   Button,
@@ -21,7 +21,7 @@ import {
   Center,
   Stack,
   ButtonGroup,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
 // icons
 import {
@@ -32,7 +32,7 @@ import {
   AiOutlineUnderline,
   AiOutlineCheckSquare,
   AiOutlineLink,
-} from 'react-icons/ai'
+} from "react-icons/ai";
 import {
   MdFormatAlignLeft,
   MdFormatAlignRight,
@@ -41,63 +41,93 @@ import {
   MdFormatQuote,
   MdUndo,
   MdRedo,
-} from 'react-icons/md'
-import { GoListOrdered, GoListUnordered } from 'react-icons/go'
-import { BsFileEarmarkBreak } from 'react-icons/bs'
-import { HiOutlineCode } from 'react-icons/hi'
-import { BiParagraph } from 'react-icons/bi'
-import { BiCodeBlock } from 'react-icons/bi'
+} from "react-icons/md";
+import { GoListOrdered, GoListUnordered } from "react-icons/go";
+import { BsFileEarmarkBreak } from "react-icons/bs";
+import { HiOutlineCode } from "react-icons/hi";
+import { BiParagraph } from "react-icons/bi";
+import { BiCodeBlock } from "react-icons/bi";
 
-import { BubbleMenu } from '@tiptap/react'
+import { BubbleMenu } from "@tiptap/react";
 
 // custom
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from "@chakra-ui/icons";
+const EditorBubbleMenu = ({ editor }: any) => {
+  if (!editor) {
+    return null;
+  }
+
+  function setLink() {
+    const previousUrl = editor.getAttributes("link").href;
+    let url = window.prompt("URL", previousUrl);
+
+    // if cancelled
+    if (url === null) {
+      return;
+    }
+
+    // if empty
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+
+    // linkifyjs lib intercept to ensure url has protocol prefix
+    // TODO @sb: to allow editor navigate to link without protocol prefix
+    const parsedLink = linkify.find(url);
+    if (parsedLink.length > 0 && parsedLink[0].isLink === true) {
+      url = parsedLink[0].href;
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  }
 
   return (
     <BubbleMenu
       editor={editor}
       tippyOptions={{
         duration: 100,
-        maxWidth: 'none',
-        theme: 'light',
+        maxWidth: "none",
+        theme: "light",
       }}
     >
       <HStack
-        shadow={'md'}
-        className='menububble'
-        border={'1px'}
-        borderColor={'gray.100'}
-        borderRadius={'4px'}
-        _dark={{ borderColor: 'whiteAlpha.400' }}
+        shadow={"md"}
+        className="menububble"
+        border={"1px"}
+        borderColor={"gray.100"}
+        borderRadius={"4px"}
+        _dark={{ borderColor: "whiteAlpha.400" }}
       >
         <ButtonGroup isAttached>
           <Menu autoSelect={false}>
             <MenuButton
-              variant='ghost'
-              px={'2'}
-              borderRadius={'0'}
+              variant="ghost"
+              px={"2"}
+              borderRadius={"0"}
               as={Button}
               rightIcon={<ChevronDownIcon />}
             >
               Text
             </MenuButton>
-            <MenuList maxHeight={'sm'} overflowY={'scroll'}>
+            <MenuList maxHeight={"sm"} overflowY={"scroll"}>
               {/**************
                * TEXT
                ***************/}
-              <MenuGroup title='Text'>
+              <MenuGroup title="Text">
                 {/* paragraph */}
                 <MenuItem
                   onClick={() => editor.chain().focus().setParagraph().run()}
-                  className={editor.isActive('paragraph') ? 'is-active' : ''}
+                  className={editor.isActive("paragraph") ? "is-active" : ""}
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderTopColor={'gra'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderTopColor={"gra"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={BiParagraph}
                     />
                     <Text> Paragraph </Text>
@@ -109,16 +139,16 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                     editor.chain().focus().toggleHeading({ level: 1 }).run()
                   }
                   className={
-                    editor.isActive('heading', { level: 1 }) ? 'is-active' : ''
+                    editor.isActive("heading", { level: 1 }) ? "is-active" : ""
                   }
                 >
                   <HStack>
                     <Text
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
-                      fontSize={'sm'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
+                      fontSize={"sm"}
                     >
                       H1
                     </Text>
@@ -131,16 +161,16 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                     editor.chain().focus().toggleHeading({ level: 2 }).run()
                   }
                   className={
-                    editor.isActive('heading', { level: 2 }) ? 'is-active' : ''
+                    editor.isActive("heading", { level: 2 }) ? "is-active" : ""
                   }
                 >
                   <HStack>
                     <Text
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
-                      fontSize={'sm'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
+                      fontSize={"sm"}
                     >
                       H2
                     </Text>
@@ -153,16 +183,16 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                     editor.chain().focus().toggleHeading({ level: 3 }).run()
                   }
                   className={
-                    editor.isActive('heading', { level: 3 }) ? 'is-active' : ''
+                    editor.isActive("heading", { level: 3 }) ? "is-active" : ""
                   }
                 >
                   <HStack>
                     <Text
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
-                      fontSize={'sm'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
+                      fontSize={"sm"}
                     >
                       H3
                     </Text>
@@ -175,16 +205,16 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                     editor.chain().focus().toggleHeading({ level: 4 }).run()
                   }
                   className={
-                    editor.isActive('heading', { level: 4 }) ? 'is-active' : ''
+                    editor.isActive("heading", { level: 4 }) ? "is-active" : ""
                   }
                 >
                   <HStack>
                     <Text
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
-                      fontSize={'sm'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
+                      fontSize={"sm"}
                     >
                       H4
                     </Text>
@@ -197,14 +227,14 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                   onClick={() =>
                     editor.chain().focus().toggleBlockquote().run()
                   }
-                  className={editor.isActive('blockquote') ? 'is-active' : ''}
+                  className={editor.isActive("blockquote") ? "is-active" : ""}
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={MdFormatQuote}
                     />
                     <Text> Quote</Text>
@@ -214,14 +244,14 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                 {/* code */}
                 <MenuItem
                   onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-                  className={editor.isActive('codeBlock') ? 'is-active' : ''}
+                  className={editor.isActive("codeBlock") ? "is-active" : ""}
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={BiCodeBlock}
                     />
                     <Text> Code block</Text>
@@ -233,18 +263,18 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                  ***************/}
               </MenuGroup>
               <MenuDivider />
-              <MenuGroup title='List'>
+              <MenuGroup title="List">
                 {/* to do list */}
                 <MenuItem
                   onClick={() => editor.chain().focus().toggleTaskList().run()}
-                  className={editor.isActive('taskList') ? 'is-active' : ''}
+                  className={editor.isActive("taskList") ? "is-active" : ""}
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={AiOutlineCheckSquare}
                     />
                     <Text> To-do list</Text>
@@ -255,14 +285,14 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                   onClick={() =>
                     editor.chain().focus().toggleBulletList().run()
                   }
-                  className={editor.isActive('bulletList') ? 'is-active' : ''}
+                  className={editor.isActive("bulletList") ? "is-active" : ""}
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={GoListUnordered}
                     />
                     <Text> Bulleted list</Text>
@@ -273,14 +303,14 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                   onClick={() =>
                     editor.chain().focus().toggleOrderedList().run()
                   }
-                  className={editor.isActive('orderedList') ? 'is-active' : ''}
+                  className={editor.isActive("orderedList") ? "is-active" : ""}
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={GoListOrdered}
                     />
                     <Text>Numbered list</Text>
@@ -288,7 +318,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                 </MenuItem>
               </MenuGroup>
               <MenuDivider />
-              <MenuGroup title='Others'>
+              <MenuGroup title="Others">
                 {/* divider */}
                 <MenuItem
                   onClick={() =>
@@ -297,10 +327,10 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
                 >
                   <HStack>
                     <Icon
-                      border={'1px'}
-                      borderColor={'blackAlpha.400'}
-                      borderRadius={'3'}
-                      boxSize={'5'}
+                      border={"1px"}
+                      borderColor={"blackAlpha.400"}
+                      borderRadius={"3"}
+                      boxSize={"5"}
                       as={AiOutlineLine}
                     />
                     <Text> Divider</Text>
@@ -316,30 +346,30 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
             <MenuButton
               // _hover={{ bgColor: "gray" }}
               // variant={"unstyled"}
-              variant='ghost'
-              px={'2'}
-              borderRadius={'0'}
+              variant="ghost"
+              px={"2"}
+              borderRadius={"0"}
               as={Button}
               rightIcon={<ChevronDownIcon />}
             >
-              <Icon boxSize={'5'} as={MdFormatAlignJustify} />
+              <Icon boxSize={"5"} as={MdFormatAlignJustify} />
             </MenuButton>
             <MenuList>
               {/* align left */}
               <MenuItem
                 onClick={() =>
-                  editor.chain().focus().setTextAlign('left').run()
+                  editor.chain().focus().setTextAlign("left").run()
                 }
                 className={
-                  editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''
+                  editor.isActive({ textAlign: "left" }) ? "is-active" : ""
                 }
               >
                 <HStack>
                   <Icon
-                    border={'1px'}
-                    borderColor={'blackAlpha.400'}
-                    borderRadius={'3'}
-                    boxSize={'5'}
+                    border={"1px"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
+                    boxSize={"5"}
                     as={MdFormatAlignLeft}
                   />
                   <Text> Align left</Text>
@@ -348,18 +378,18 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
               {/* align center */}
               <MenuItem
                 onClick={() =>
-                  editor.chain().focus().setTextAlign('center').run()
+                  editor.chain().focus().setTextAlign("center").run()
                 }
                 className={
-                  editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''
+                  editor.isActive({ textAlign: "center" }) ? "is-active" : ""
                 }
               >
                 <HStack>
                   <Icon
-                    border={'1px'}
-                    borderColor={'blackAlpha.400'}
-                    borderRadius={'3'}
-                    boxSize={'5'}
+                    border={"1px"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
+                    boxSize={"5"}
                     as={MdFormatAlignCenter}
                   />
                   <Text> Align center</Text>
@@ -368,18 +398,18 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
               {/* align right */}
               <MenuItem
                 onClick={() =>
-                  editor.chain().focus().setTextAlign('right').run()
+                  editor.chain().focus().setTextAlign("right").run()
                 }
                 className={
-                  editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''
+                  editor.isActive({ textAlign: "right" }) ? "is-active" : ""
                 }
               >
                 <HStack>
                   <Icon
-                    border={'1px'}
-                    borderColor={'blackAlpha.400'}
-                    borderRadius={'3'}
-                    boxSize={'5'}
+                    border={"1px"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
+                    boxSize={"5"}
                     as={MdFormatAlignRight}
                   />
                   <Text> Align right</Text>
@@ -388,18 +418,18 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
               {/* justify */}
               <MenuItem
                 onClick={() =>
-                  editor.chain().focus().setTextAlign('justify').run()
+                  editor.chain().focus().setTextAlign("justify").run()
                 }
                 className={
-                  editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''
+                  editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
                 }
               >
                 <HStack>
                   <Icon
-                    border={'1px'}
-                    borderColor={'blackAlpha.400'}
-                    borderRadius={'3'}
-                    boxSize={'5'}
+                    border={"1px"}
+                    borderColor={"blackAlpha.400"}
+                    borderRadius={"3"}
+                    boxSize={"5"}
                     as={MdFormatAlignJustify}
                   />
                   <Text> Justify</Text>
@@ -412,15 +442,15 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
            * LINK
            */}
           <HStack
-            borderRadius={'0'}
-            onClick={() => editor.chain().focus().toggleli().run()}
-            className={editor.isActive('link') ? 'is-active' : ''}
+            borderRadius={"0"}
+            onClick={setLink}
+            className={editor.isActive("link") ? "is-active" : ""}
           >
             <Button
-              borderRadius={'0'}
-              variant='ghost'
+              borderRadius={"0"}
+              variant="ghost"
               leftIcon={<AiOutlineLink size={18} />}
-              disabled={!editor.can().chain().focus().toggleCode().run()}
+              disabled={!editor.isActive("link")}
             >
               Link
             </Button>
@@ -429,66 +459,66 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
           {/*
            * STYLE
            */}
-          <HStack borderRadius={'0'}>
+          <HStack borderRadius={"0"}>
             <ButtonGroup isAttached>
               {/* bold */}
-              <Tooltip label='Bold' placement='bottom'>
+              <Tooltip label="Bold" placement="bottom">
                 <IconButton
-                  variant='ghost'
-                  borderRadius={'0'}
-                  aria-label='bold'
+                  variant="ghost"
+                  borderRadius={"0"}
+                  aria-label="bold"
                   icon={<AiOutlineBold size={18} />}
-                  name='archive-action'
+                  name="archive-action"
                   onClick={() => editor.chain().focus().toggleBold().run()}
-                  className={editor.isActive('bold') ? 'is-active' : ''}
+                  className={editor.isActive("bold") ? "is-active" : ""}
                   disabled={!editor.can().chain().focus().toggleBold().run()}
                 />
               </Tooltip>
               {/* italic */}
-              <Tooltip label='Italic' placement='bottom'>
+              <Tooltip label="Italic" placement="bottom">
                 <IconButton
-                  borderRadius={'0'}
-                  variant='ghost'
-                  aria-label='italic'
+                  borderRadius={"0"}
+                  variant="ghost"
+                  aria-label="italic"
                   icon={<AiOutlineItalic size={18} />}
                   onClick={() => editor.chain().focus().toggleItalic().run()}
                   disabled={!editor.can().chain().focus().toggleItalic().run()}
-                  className={editor.isActive('italic') ? 'is-active' : ''}
+                  className={editor.isActive("italic") ? "is-active" : ""}
                 />
               </Tooltip>
               {/* underline */}
-              <Tooltip label='Underline' placement='bottom'>
+              <Tooltip label="Underline" placement="bottom">
                 <IconButton
-                  borderRadius={'0'}
-                  variant='ghost'
-                  aria-label='italic'
+                  borderRadius={"0"}
+                  variant="ghost"
+                  aria-label="italic"
                   icon={<AiOutlineUnderline size={18} />}
                   onClick={() => editor.chain().focus().toggleUnderline().run()}
-                  className={editor.isActive('underline') ? 'is-active' : ''}
+                  className={editor.isActive("underline") ? "is-active" : ""}
                 />
               </Tooltip>
               {/* strikethrough */}
-              <Tooltip label='Strike through' placement='bottom'>
+              <Tooltip label="Strike through" placement="bottom">
                 <IconButton
-                  borderRadius={'0'}
-                  variant='ghost'
-                  aria-label='italic'
+                  borderRadius={"0"}
+                  variant="ghost"
+                  aria-label="italic"
                   icon={<AiOutlineStrikethrough size={18} />}
                   onClick={() => editor.chain().focus().toggleStrike().run()}
                   disabled={!editor.can().chain().focus().toggleStrike().run()}
-                  className={editor.isActive('strike') ? 'is-active' : ''}
+                  className={editor.isActive("strike") ? "is-active" : ""}
                 />
               </Tooltip>
               {/* code */}
-              <Tooltip label='Code' placement='bottom'>
+              <Tooltip label="Code" placement="bottom">
                 <IconButton
-                  borderRadius={'0'}
-                  variant='ghost'
-                  aria-label='code'
+                  borderRadius={"0"}
+                  variant="ghost"
+                  aria-label="code"
                   icon={<HiOutlineCode size={18} />}
                   onClick={() => editor.chain().focus().toggleCode().run()}
                   disabled={!editor.can().chain().focus().toggleCode().run()}
-                  className={editor.isActive('code') ? 'is-active' : ''}
+                  className={editor.isActive("code") ? "is-active" : ""}
                 />
               </Tooltip>
             </ButtonGroup>
@@ -496,7 +526,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
         </ButtonGroup>
       </HStack>
     </BubbleMenu>
-  )
-}
+  );
+};
 
-export default EditorBubbleMenu
+export default EditorBubbleMenu;

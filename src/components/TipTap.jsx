@@ -111,7 +111,7 @@ const extensions = [
   // The Collaboration extension comes with its own history handling
   // history: false,
   Link.configure({
-    openOnClick: false,
+    openOnClick: true,
     protocols: [
       {
         scheme: 'tel',
@@ -121,6 +121,8 @@ const extensions = [
     autolink: true,
     openOnClick: true,
     linkOnPaste: true,
+    // inclusive: false, // (not working) prevent rendering of link to continue to text
+    HTMLAttributes:{rel: 'noopener noreferrer', target: '_blank'}
   }),
 ]
 
