@@ -20,6 +20,7 @@ import {
 } from '@tiptap/react'
 import BubbleMenu from '@tiptap/extension-bubble-menu'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import Link from '@tiptap/extension-link'
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
@@ -109,6 +110,20 @@ const extensions = [
   // }),
   // The Collaboration extension comes with its own history handling
   // history: false,
+  Link.configure({
+    openOnClick: true,
+    protocols: [
+      {
+        scheme: 'tel',
+        optionalSlashes: true,
+      },
+    ],
+    autolink: true,
+    openOnClick: true,
+    linkOnPaste: true,
+    // inclusive: false, // (not working) prevent rendering of link to continue to text
+    HTMLAttributes:{rel: 'noopener noreferrer', target: '_blank'}
+  }),
 ]
 
 // code block languages (alias)
@@ -295,7 +310,7 @@ export default ({ bookmarkId, bearerToken }) => {
           {/* when saving */}
           {isSaving ? (
             <Button variant='solid' width={'10%'} cursor='not-allowed'>
-              <Spinner color='brand.main'/>
+              <Spinner color='brand.main' />
             </Button>
           ) : isSaved ? (
             <Button variant='solid' width={'10%'} cursor='not-allowed'>
