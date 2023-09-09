@@ -29,11 +29,7 @@ function SavePage() {
   const { bookmarkChange } = useContext(BookmarkChangeContext);
 
   // fetch data on first render
-  const {
-    data: fetchedData,
-    isLoading,
-    isFetched,
-  } = useQuery({
+  const { data: fetchedData, isLoading } = useQuery({
     queryKey: ["getAllBookmark", page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllBookmark(
@@ -89,9 +85,11 @@ function SavePage() {
         {/* search bar here  */}
 
         {/* main card tiles */}
-        {bookmarkData && bookmarkData?.total_records > 0 ? (
+        {/*  show tiles when API is loading, or when records exist */}
+        {isLoading || (bookmarkData && bookmarkData.total_records > 0) ? (
           <CardTiles pages={bookmarkData?.data} isLoading={isLoading} />
         ) : (
+          // show 'blank' illustration when useQuery has settled and there are no records
           <VStack justifyContent={"center"} alignItems={"center"}>
             <Image
               mt={"10"}
@@ -115,7 +113,8 @@ function SavePage() {
         )}
 
         {/* pagination at footer */}
-        {isFetched && bookmarkData && bookmarkData?.total_records > 0 && (
+        {/* when useQuery has settled and records exist */}
+        {!isLoading && bookmarkData && bookmarkData?.total_records > 0 && (
           <Flex justifyContent={"center"}>
             <Pagination
               page={page}
