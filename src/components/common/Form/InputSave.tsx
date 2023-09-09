@@ -82,6 +82,7 @@ function InputSave({ setShowUrlInput }: InputSaveProps) {
           <InputLeftAddon> URL:</InputLeftAddon>
           <Input
             // samesit="None"
+            autoComplete="off"
             id="input"
             autoFocus={true}
             value={inputUrl}
