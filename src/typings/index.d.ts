@@ -1,1 +1,2 @@
-declare module '@hocuspocus/provider'
+declare module "@hocuspocus/provider";
+declare module "feeder-react-feedbac";
