@@ -92,9 +92,11 @@ function ArchivePage() {
         <Divider my={2} mx="auto" />
 
         {/* main card tiles */}
-        {bookmarkData && bookmarkData?.total_records > 0 ? (
+        {/*  show tiles when API is loading, or when records exist */}
+        {isLoading || (bookmarkData && bookmarkData.total_records > 0) ? (
           <CardTiles pages={bookmarkData?.data} isLoading={isLoading} />
         ) : (
+          // show 'blank' illustration when useQuery has settled and there are no records
           <VStack justifyContent={"center"} alignItems={"center"}>
             <Image
               mt={"10"}
@@ -116,7 +118,8 @@ function ArchivePage() {
         )}
 
         {/* pagination at footer */}
-        {isFetched && bookmarkData && bookmarkData?.total_records > 0 && (
+        {/* when useQuery has settled and records exist */}
+        {!isLoading && bookmarkData && bookmarkData?.total_records > 0 && (
           <Flex justifyContent={"center"}>
             <Pagination
               page={page}
