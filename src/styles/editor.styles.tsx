@@ -3,6 +3,8 @@ import { mode } from "@chakra-ui/theme-tools";
 export const editorStyles = {
   global: (props: any) => ({
     body: {
+      // feedback form
+      ".frf-water": { display: "none" },
       // bubble menu active text style
       ".is-active": {
         backgroundColor: mode("#E2E8F0", "#718096")(props),
