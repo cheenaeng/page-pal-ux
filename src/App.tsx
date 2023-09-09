@@ -59,10 +59,10 @@ export const App = () => {
   return (
     <>
       <Feedback
-        projectId="64dee21615f6530002911a88"
+        projectId={process.env.REACT_APP_FEEDBACK_PROJ_ID}
         email={true}
         emailRequired={false}
-        projectName={"PixelBook"}
+        projectName={process.env.REACT_APP_FEEDBACK_PROJ_NAME}
         primaryColor={"#7c70d2"}
       />
       <QueryClientProvider client={queryClient}>
