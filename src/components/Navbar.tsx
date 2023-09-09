@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext } from "react";
 import {
   Box,
   Button,
@@ -16,46 +16,46 @@ import {
   Flex,
   Spacer,
   Tooltip,
-} from '@chakra-ui/react'
-import { FiMenu } from 'react-icons/fi'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
-import { Link } from 'react-router-dom'
-import InputSave from './common/Form/InputSave'
-import { AddIcon, CloseIcon } from '@chakra-ui/icons'
-import { AuthContext } from '../api/context/authContext'
-import { useNavigate } from 'react-router-dom'
-import { ProfileManagementIcon } from './ProfileManagementIcon'
+} from "@chakra-ui/react";
+import { FiMenu } from "react-icons/fi";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { Link } from "react-router-dom";
+import InputSave from "./common/Form/InputSave";
+import { AddIcon, CloseIcon } from "@chakra-ui/icons";
+import { AuthContext } from "../api/context/authContext";
+import { useNavigate } from "react-router-dom";
+import { ProfileManagementIcon } from "./ProfileManagementIcon";
 
 const NavLinks = [
   {
     requireAuth: true,
-    name: 'Home',
-    path: '/home',
+    name: "Home",
+    path: "/home",
   },
   {
     requireAuth: true,
-    name: 'Saves',
-    path: '/saves',
+    name: "Saves",
+    path: "/saves",
   },
   {
     requireAuth: true,
-    name: 'Archives',
-    path: '/archives',
+    name: "Archives",
+    path: "/archives",
   },
   // {
   // requireAuth: true,
   //   name: "My Stats",
   //   path: "/stats",
   // },
-]
+];
 
 export const Navbar = () => {
-  const { authToken } = useContext(AuthContext)
-  const [showUrlInput, setShowUrlInput] = useState(false)
+  const { authToken } = useContext(AuthContext);
+  const [showUrlInput, setShowUrlInput] = useState(false);
 
   const toggleUrlInput = () => {
-    setShowUrlInput(!showUrlInput)
-  }
+    setShowUrlInput(!showUrlInput);
+  };
 
   const isDesktop = useBreakpointValue({
     base: false,
@@ -63,21 +63,21 @@ export const Navbar = () => {
     md: false,
     lg: true,
     xl: true,
-  })
+  });
 
   return (
-    <Box as='nav' py={{ base: '1', md: '1' }} boxShadow='sm'>
+    <Box as="nav" py={{ base: "1", md: "1" }} boxShadow="sm">
       {/* Desktop View */}
       {isDesktop ? (
-        <Flex width='80%' mx='auto'>
+        <Flex width="90%" mx="auto">
           {/* First button group: Menus */}
           <ButtonGroup
-            variant='text'
+            variant="text"
             spacing={{
               base: 2,
               lg: 2,
               xl: 4,
-              '2xl': 8,
+              "2xl": 8,
             }}
           >
             {/* hide nav menus if they require auth and user is not logged in */}
@@ -86,23 +86,23 @@ export const Navbar = () => {
                 <></>
               ) : (
                 <Button
-                  fontSize='md'
-                  fontWeight='bold'
+                  fontSize="md"
+                  fontWeight="bold"
                   key={item.name}
                   as={Link}
                   to={item.path}
-                  variant='ghost'
+                  variant="ghost"
                 >
                   {item.name}
                 </Button>
-              ),
+              )
             )}
           </ButtonGroup>
 
           <Spacer />
 
           {/* Second button group: add url/ log in buttons */}
-          <ButtonGroup variant='text' spacing={'4'}>
+          <ButtonGroup variant="text" spacing={"4"}>
             {/* add url input bar */}
             {authToken.accessToken && (
               <Box>
@@ -110,11 +110,11 @@ export const Navbar = () => {
                   <HStack>
                     <InputSave setShowUrlInput={setShowUrlInput} />
                     <IconButton
-                      variant='ghost'
+                      variant="ghost"
                       sx={{
-                        borderRadius: '50%',
+                        borderRadius: "50%",
                       }}
-                      aria-label='hide url input'
+                      aria-label="hide url input"
                       onClick={toggleUrlInput}
                       icon={<CloseIcon />}
                     />
@@ -123,7 +123,7 @@ export const Navbar = () => {
                   <Box>
                     <Button
                       onClick={toggleUrlInput}
-                      variant='fancy'
+                      variant="fancy"
                       rightIcon={<AddIcon />}
                     >
                       Add url
@@ -147,29 +147,29 @@ export const Navbar = () => {
           <Menu>
             <MenuButton
               as={IconButton}
-              variant='tertiary'
-              icon={<FiMenu fontSize='1.25rem' />}
-              aria-label='Open Menu'
+              variant="tertiary"
+              icon={<FiMenu fontSize="1.25rem" />}
+              aria-label="Open Menu"
             />
             <MenuList>
-              <MenuItem minH='48px' as={Link} to='/home'>
+              <MenuItem minH="48px" as={Link} to="/home">
                 Home
               </MenuItem>
-              <MenuItem minH='48px' as={Link} to='/saves'>
+              <MenuItem minH="48px" as={Link} to="/saves">
                 Saves
               </MenuItem>
-              <MenuItem minH='48px' as={Link} to='/archives'>
+              <MenuItem minH="48px" as={Link} to="/archives">
                 Archives
               </MenuItem>
-              <MenuItem minH='48px'>Login/Logout</MenuItem>
+              <MenuItem minH="48px">Login/Logout</MenuItem>
             </MenuList>
           </Menu>
-          <HStack justifyContent='flex-end'>
+          <HStack justifyContent="flex-end">
             <Popover>
               <PopoverTrigger>
                 <Button
                   onClick={toggleUrlInput}
-                  variant='fancy'
+                  variant="fancy"
                   rightIcon={<AddIcon />}
                 >
                   Add url
@@ -183,5 +183,5 @@ export const Navbar = () => {
         </HStack>
       )}
     </Box>
-  )
-}
+  );
+};
