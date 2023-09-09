@@ -15,6 +15,7 @@ import blobImage from "../../Assets/blob-bg.png";
 import astronautImg from "../../Assets/astronaut.png";
 import HeroSection from "../../components/HeroSection";
 import Highlight from "../../components/Highlight";
+import EditorDemo from "../../components/EditorDemo";
 
 // data
 import { highlights } from "../../data/highlights";
@@ -116,11 +117,12 @@ function HomePage() {
     //     </GridItem>
     //   </Grid>
     // </Box>
-    <Box bg="gray.50">
+    <Box bg="gray.50" _dark={{ bg: "#1a202c" }}>
       <Box pt={"6"}>
         <HeroSection />
       </Box>
 
+      <EditorDemo />
       <Highlight highlights={highlights} />
     </Box>
   );
