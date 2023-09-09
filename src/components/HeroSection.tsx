@@ -12,17 +12,16 @@ import LandingPagePreview from "../Assets/LandingPagePreview.svg";
 
 function HeroSection() {
   return (
-    <Container maxW="container.lg">
+    <Container maxW="container.xl">
       <Center p={4} minHeight="70vh">
         <VStack>
-          <Container maxW="container.md" textAlign="center">
+          <Container maxW="container.xl" textAlign="center">
             <Heading size="2xl" mb={6}>
-              PIXEL BOOK
+              Linkt
             </Heading>
             <Heading
               size="xl"
               mb={2}
-              // color="gray.700"
               bgGradient="linear(to-l, #7928CA, #FF0080)"
               bgClip="text"
             >
@@ -57,7 +56,7 @@ function HeroSection() {
           <Image
             mt={"8"}
             // height="30vh"
-            width="210vw"
+            // width="210vw"
             objectFit="contain"
             src={LandingPagePreview}
             alt={"image-depict-blank-slate"}
