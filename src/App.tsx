@@ -33,8 +33,8 @@ const theme = extendTheme({
   space: space,
   textStyles: textStyles,
   fonts: {
-    heading: `'Montserrat',sans-serif`,
-    body: `'Montserrat',sans-serif`,
+    heading: `'Inter', sans-serif`,
+    body: `'Inter', sans-serif`,
   },
   components: {
     Input: inputTheme,

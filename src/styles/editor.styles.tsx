@@ -4,7 +4,10 @@ export const editorStyles = {
   global: (props: any) => ({
     body: {
       // feedback form
-      ".frf-water": { display: "none" },
+      ".frf-water": { display: "none", borderRadius: "100px" },
+      ".frf-trigger-button": {
+        borderRadius: "100px",
+      },
       // bubble menu active text style
       ".is-active": {
         backgroundColor: mode("#E2E8F0", "#718096")(props),
@@ -12,9 +15,6 @@ export const editorStyles = {
       ".menububble": {
         backgroundColor: mode("rgba(255,255,255, 1)", "#2d3748")(props),
       },
-      color: mode("gray.700", "whiteAlpha.900")(props),
-      fontFamily: "body",
-      fontSize: "md",
       ".main-container": {
         minHeight: "100vh",
       },
@@ -27,6 +27,7 @@ export const editorStyles = {
       ".clear": {
         clear: "both",
       },
+      // editor
       ".ProseMirror": {
         "box-sizing": "border-box",
         padding: "10px",
