@@ -29,7 +29,11 @@ function SavePage() {
   const { bookmarkChange } = useContext(BookmarkChangeContext);
 
   // fetch data on first render
-  const { data: fetchedData, isLoading } = useQuery({
+  const {
+    data: fetchedData,
+    isLoading,
+    isFetched,
+  } = useQuery({
     queryKey: ["getAllBookmark", page, pageSize, bookmarkChange],
     queryFn: (): Promise<GenericResponseBookmark> => {
       return BookmarkAPI.getAllBookmark(
@@ -93,7 +97,7 @@ function SavePage() {
               mt={"10"}
               height="30vh"
               width="45vh"
-              objectFit="cover"
+              objectFit="contain"
               src={blankSlateContent}
               alt={"image-depict-blank-slate"}
               borderRadius="lg"
@@ -111,7 +115,7 @@ function SavePage() {
         )}
 
         {/* pagination at footer */}
-        {bookmarkData && bookmarkData?.total_records > 0 && (
+        {isFetched && bookmarkData && bookmarkData?.total_records > 0 && (
           <Flex justifyContent={"center"}>
             <Pagination
               page={page}
