@@ -71,7 +71,7 @@ const EditorDemoSection: React.FC = () => {
             my={[2, 2]}
             py={[2, 2]}
             _dark={{ bg: "#000" }}
-            maxW={"50%"}
+            maxW={[null, null, "50%"]}
             w={["90%", "90%", "90%"]}
           >
             <Heading py={"2"} size="xl" textAlign={"center"}>
@@ -108,6 +108,7 @@ const EditorDemoSection: React.FC = () => {
                   _hover: { bgGradient: "linear(to-l, #6622aa, #d6006c)" },
                 }}
                 onClick={demo}
+                mt={"4"}
               >
                 Try it!
               </Button>
