@@ -16,12 +16,12 @@ interface HighlightProps {
   highlights: IHighlightType[];
 }
 
-const Highlight: React.FC<HighlightProps> = ({
+const HighlightSection: React.FC<HighlightProps> = ({
   highlights,
 }: HighlightProps) => {
   return (
     <Box>
-      <Container maxW="container.md" centerContent py={[8, 14]}>
+      <Container maxW="container.md" centerContent py={[8, 8]}>
         <SimpleGrid spacingX={10} spacingY={4} minChildWidth="300px">
           {highlights.map(({ title, description, icon }, i: number) => (
             <Box p={4} rounded="md" key={`highlight_${i}`}>
@@ -40,4 +40,4 @@ const Highlight: React.FC<HighlightProps> = ({
   );
 };
 
-export default Highlight;
+export default HighlightSection;

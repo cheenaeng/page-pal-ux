@@ -11,7 +11,7 @@ export const highlights: IHighlightType[] = [
     icon: "🎉",
     title: "Beta Bliss",
     description:
-      "Enjoy the beta version of Linkt for free, giving you a sneak peek into the future of web bookmarking.",
+      "Enjoy the core features of Linkt for free, forever, with the option to unlock premium features as we grow",
   },
   {
     icon: "🌱",
