@@ -14,8 +14,9 @@ import {
 import blobImage from "../../Assets/blob-bg.png";
 import astronautImg from "../../Assets/astronaut.png";
 import HeroSection from "../../components/HeroSection";
-import Highlight from "../../components/Highlight";
-import EditorDemo from "../../components/EditorDemo";
+import HighlightSection from "../../components/HighlightSection";
+import EditorDemoSection from "../../components/EditorDemoSection";
+import FeatureSection from "../../components/FeatureSection";
 
 // data
 import { highlights } from "../../data/highlights";
@@ -118,12 +119,10 @@ function HomePage() {
     //   </Grid>
     // </Box>
     <Box bg="gray.50" _dark={{ bg: "#1a202c" }}>
-      <Box pt={"6"}>
-        <HeroSection />
-      </Box>
+      <HeroSection />
+      <EditorDemoSection />
 
-      <EditorDemo />
-      <Highlight highlights={highlights} />
+      <HighlightSection highlights={highlights} />
     </Box>
   );
 }

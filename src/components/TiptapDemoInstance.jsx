@@ -153,7 +153,7 @@ export default () => {
               "content": [
                   {
                       "type": "text",
-                      "text": "I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around."
+                      "text": "It’s only the tip of the iceberg though. Give it a try and click a little bit around."
                   }
               ]
           },
@@ -189,10 +189,17 @@ export default () => {
           }
       ]
   },
-  onUpdate({editor}){updateLocalStorage()} // temp removed
+  autofocus: true,
+  
+  onFocus({editor}){defaultFocus()}
+  // onUpdate({editor}){updateLocalStorage()} // temp removed
   
   })
 
+  function defaultFocus() {
+    editor.commands.setTextSelection({ from: 0, to: 5 })
+  }
+  
   function updateLocalStorage() {
     const data = editor.getJSON()
     // console.log("🚀 data:", data)
@@ -203,6 +210,7 @@ export default () => {
   if (!editor) {
     return null;
   }
+
 
   return (
     <Box border={"1px"} borderColor={""} borderRadius={"md"}>

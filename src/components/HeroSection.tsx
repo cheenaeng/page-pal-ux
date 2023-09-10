@@ -12,7 +12,7 @@ import LandingPagePreview from "../Assets/LandingPagePreview.svg";
 
 function HeroSection() {
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.xl" py={"3"}>
       <Center p={4} minHeight="70vh">
         <VStack>
           <Container maxW="container.xl" textAlign="center">
