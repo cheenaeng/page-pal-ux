@@ -37,7 +37,7 @@ const EditorDemoSection: React.FC = () => {
 
   return (
     // becomes row beyond 3rd breakpoint
-    <Flex justifyContent={"center"}>
+    <Flex justifyContent={"center"} py={"2"}>
       <Center
         w="100%"
         minH={[null, "60vh"]}
@@ -74,7 +74,7 @@ const EditorDemoSection: React.FC = () => {
             maxW={[null, null, "50%"]}
             w={["90%", "90%", "90%"]}
           >
-            <Heading py={"2"} size="xl" textAlign={"center"}>
+            <Heading size="xl" textAlign={"center"}>
               Notion-Style <br />
               Rich Text Editor
             </Heading>
