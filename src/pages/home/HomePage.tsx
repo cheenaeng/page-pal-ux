@@ -10,6 +10,7 @@ import {
   Flex,
   Container,
   SimpleGrid,
+  Stack,
 } from "@chakra-ui/react";
 import blobImage from "../../Assets/blob-bg.png";
 import astronautImg from "../../Assets/astronaut.png";
@@ -118,10 +119,9 @@ function HomePage() {
     //     </GridItem>
     //   </Grid>
     // </Box>
-    <Box bg="gray.50" _dark={{ bg: "#1a202c" }}>
+    <Box bg="gray.50" _dark={{ bg: "#1a202c" }} justifyContent={"flex-end"}>
       <HeroSection />
       <EditorDemoSection />
-
       <HighlightSection highlights={highlights} />
     </Box>
   );
