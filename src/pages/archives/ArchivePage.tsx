@@ -69,7 +69,8 @@ function ArchivePage() {
           <Text textStyle="headerBold" color="brand.main">
             Articles ({bookmarkData?.total_records || 0})
           </Text>
-          <Box>
+          {/* temp commented out sort till its implemented */}
+          {/* <Box>
             <Menu>
               <MenuButton
                 as={Button}
@@ -84,7 +85,7 @@ function ArchivePage() {
                 <MenuItem>By date</MenuItem>
               </MenuList>
             </Menu>
-          </Box>
+          </Box> */}
         </Flex>
 
         {/* search bar here  */}
