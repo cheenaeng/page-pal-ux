@@ -15,17 +15,15 @@ import LandingPagePreview from "../Assets/LandingPagePreview.svg";
 function HeroSection() {
   return (
     <VStack minHeight="70vh" textAlign={"center"} py={"3"}>
-      <Heading size="2xl" mb={2}>
-        Linkt
-      </Heading>
       <Heading
-        size="xl"
-        mb={2}
+        size="3xl"
         bgGradient="linear(to-l, #7928CA, #FF0080)"
         bgClip="text"
+        my={2}
       >
-        Elevate Your Web Experience
+        Linkt
       </Heading>
+      <Heading size="xl">Elevate Your Web Experience</Heading>
 
       <Text fontSize="lg" color="gray.500" mb={2}>
         {/* v1 */}
@@ -62,7 +60,7 @@ function HeroSection() {
         src={LandingPagePreview}
         alt={"preview"}
         borderRadius="lg"
-        boxShadow={"lg"}
+        boxShadow={"xl"}
       />
     </VStack>
   );

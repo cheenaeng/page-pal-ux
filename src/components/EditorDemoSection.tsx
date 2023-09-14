@@ -110,7 +110,7 @@ const EditorDemoSection: React.FC = () => {
                 onClick={demo}
                 mt={"4"}
               >
-                Try it!
+                Try live demo!
               </Button>
             )}
 
