@@ -16,8 +16,12 @@ import {
   Flex,
   Spacer,
   Tooltip,
+  MenuGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
+import { AiOutlineHome } from "react-icons/ai";
+import { BsBookmarkCheck, BsArchive } from "react-icons/bs";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { Link } from "react-router-dom";
 import InputSave from "./common/Form/InputSave";
@@ -31,16 +35,19 @@ const NavLinks = [
     requireAuth: true,
     name: "Home",
     path: "/home",
+    icon: <AiOutlineHome />,
   },
   {
     requireAuth: true,
     name: "Saves",
     path: "/saves",
+    icon: <BsBookmarkCheck />,
   },
   {
     requireAuth: true,
     name: "Archives",
     path: "/archives",
+    icon: <BsArchive />,
   },
   // {
   // requireAuth: true,
@@ -134,7 +141,6 @@ export const Navbar = () => {
             )}
 
             {/* Sign in/ out */}
-
             <ProfileManagementIcon />
 
             {/* Light/dark mode */}
@@ -144,6 +150,7 @@ export const Navbar = () => {
       ) : (
         // Mobile View
         <HStack>
+          {/* menu */}
           <Menu>
             <MenuButton
               as={IconButton}
@@ -151,35 +158,76 @@ export const Navbar = () => {
               icon={<FiMenu fontSize="1.25rem" />}
               aria-label="Open Menu"
             />
-            <MenuList>
-              <MenuItem minH="48px" as={Link} to="/home">
-                Home
-              </MenuItem>
-              <MenuItem minH="48px" as={Link} to="/saves">
-                Saves
-              </MenuItem>
-              <MenuItem minH="48px" as={Link} to="/archives">
-                Archives
-              </MenuItem>
-              <MenuItem minH="48px">Login/Logout</MenuItem>
-            </MenuList>
+            {/* if auth */}
+            {authToken.accessToken ? (
+              <MenuList>
+                {/* hide nav menus if they require auth and user is not logged in */}
+                {NavLinks.map((item) =>
+                  item.requireAuth && !authToken.accessToken ? (
+                    <></>
+                  ) : (
+                    <MenuItem
+                      minH="48px"
+                      as={Link}
+                      to={item.path}
+                      icon={item.icon}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  )
+                )}
+
+                <MenuDivider />
+                <MenuGroup title="Profile">
+                  <HStack ml={"2"}>
+                    {/* Sign in/ out */}
+                    <ProfileManagementIcon />
+                    {/* Light/dark mode */}
+                    <ColorModeSwitcher />
+                  </HStack>
+                </MenuGroup>
+              </MenuList>
+            ) : (
+              <MenuList>
+                <HStack ml={"2"}>
+                  {/* Sign in/ out */}
+                  <ProfileManagementIcon />
+                  {/* Light/dark mode */}
+                  <ColorModeSwitcher />
+                </HStack>
+              </MenuList>
+            )}
           </Menu>
-          <HStack justifyContent="flex-end">
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  onClick={toggleUrlInput}
-                  variant="fancy"
-                  rightIcon={<AddIcon />}
-                >
-                  Add url
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <InputSave setShowUrlInput={setShowUrlInput} />
-              </PopoverContent>
-            </Popover>
-          </HStack>
+
+          {/* add url input bar */}
+          {authToken.accessToken && (
+            <Box>
+              {showUrlInput ? (
+                <HStack>
+                  <InputSave setShowUrlInput={setShowUrlInput} />
+                  <IconButton
+                    variant="ghost"
+                    sx={{
+                      borderRadius: "50%",
+                    }}
+                    aria-label="hide url input"
+                    onClick={toggleUrlInput}
+                    icon={<CloseIcon />}
+                  />
+                </HStack>
+              ) : (
+                <Box>
+                  <Button
+                    onClick={toggleUrlInput}
+                    variant="fancy"
+                    rightIcon={<AddIcon />}
+                  >
+                    Add url
+                  </Button>
+                </Box>
+              )}
+            </Box>
+          )}
         </HStack>
       )}
     </Box>
