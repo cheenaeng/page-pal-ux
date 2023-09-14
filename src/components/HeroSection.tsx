@@ -12,7 +12,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import LandingPagePreview from "../Assets/LandingPagePreview.svg";
-import ReserveUsernameModal from "./ReserveUsernameModal";
 import { SignInButton } from "./SignInButton";
 
 function HeroSection() {
