@@ -96,6 +96,7 @@ export const editorStyles = {
           background: mode("gray.900", "gray.900")(props),
           color: mode("white", "white")(props),
           padding: "0.75rem 1rem",
+          margin: "15px 0px",
           borderRadius: "lg",
           whiteSpace: "pre-wrap",
           // code in codeblock
