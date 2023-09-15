@@ -32,6 +32,7 @@
     "@tiptap/pm": "^2.0.4",
     "@tiptap/react": "^2.0.4",
     "@tiptap/starter-kit": "^2.0.4",
+    "@tiptap/suggestion": "^2.1.9",
     "@types/jest": "^28.1.8",
     "@types/node": "^12.20.55",
     "@types/react": "^18.2.11",

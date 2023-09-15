@@ -1,38 +1,38 @@
 /* eslint-disable import/no-anonymous-default-export */
 // tiptap
-import StarterKit from '@tiptap/starter-kit'
-import { Color } from '@tiptap/extension-color'
-import ListItem from '@tiptap/extension-list-item'
-import TextStyle from '@tiptap/extension-text-style'
-import TextAlign from '@tiptap/extension-text-align'
-import Underline from '@tiptap/extension-underline'
-import Document from '@tiptap/extension-document'
-import TaskItem from '@tiptap/extension-task-item'
-import TaskList from '@tiptap/extension-task-list'
-import CharacterCount from '@tiptap/extension-character-count'
-import Placeholder from '@tiptap/extension-placeholder'
+import StarterKit from "@tiptap/starter-kit";
+import { Color } from "@tiptap/extension-color";
+import ListItem from "@tiptap/extension-list-item";
+import TextStyle from "@tiptap/extension-text-style";
+import TextAlign from "@tiptap/extension-text-align";
+import Underline from "@tiptap/extension-underline";
+import Document from "@tiptap/extension-document";
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
+import CharacterCount from "@tiptap/extension-character-count";
+import Placeholder from "@tiptap/extension-placeholder";
 import {
   EditorContent,
   ReactNodeViewRenderer,
   useEditor,
   EditorProvider,
   FloatingMenu,
-} from '@tiptap/react'
-import BubbleMenu from '@tiptap/extension-bubble-menu'
-import Typography from '@tiptap/extension-typography'
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import Link from '@tiptap/extension-link'
-import css from 'highlight.js/lib/languages/css'
-import js from 'highlight.js/lib/languages/javascript'
-import ts from 'highlight.js/lib/languages/typescript'
-import html from 'highlight.js/lib/languages/xml'
+} from "@tiptap/react";
+import BubbleMenu from "@tiptap/extension-bubble-menu";
+import Typography from "@tiptap/extension-typography";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import Link from "@tiptap/extension-link";
+import css from "highlight.js/lib/languages/css";
+import js from "highlight.js/lib/languages/javascript";
+import ts from "highlight.js/lib/languages/typescript";
+import html from "highlight.js/lib/languages/xml";
 
 // TODO @sb: implement collab with tiptap
 // import Collaboration from '@tiptap/extension-collaboration'
 // import { HocuspocusProvider } from '@hocuspocus/provider'
 
 // react
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useContext, useState } from "react";
 import {
   Button,
   Box,
@@ -42,25 +42,26 @@ import {
   Spacer,
   SkeletonCircle,
   SkeletonText,
-} from '@chakra-ui/react'
-import { useMutation } from '@tanstack/react-query'
-import { useQuery } from '@tanstack/react-query'
+} from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 // packages
-import { lowlight } from 'lowlight'
-import { useDebounce } from 'use-debounce'
-import toast from 'react-hot-toast'
-import { Spinner } from '@chakra-ui/react'
+import { lowlight } from "lowlight";
+import { useDebounce } from "use-debounce";
+import toast from "react-hot-toast";
+import { Spinner } from "@chakra-ui/react";
 
 // custom
-import { IBookmark } from '../types/saves'
-import CodeBlockComponent from './CodeBlockComponent'
-import EditorMenuBarDemo from './EditorMenuBarDemo'
-import EditorBubbleMenu from './EditorBubbleMenu'
-import BookmarkAPI from '../api/BookmarkAPI'
+import { IBookmark } from "../types/saves";
+import CodeBlockComponent from "./CodeBlockComponent";
+import EditorMenuBarDemo from "./EditorMenuBarDemo";
+import EditorBubbleMenu from "./EditorBubbleMenu";
+import BookmarkAPI from "../api/BookmarkAPI";
+import SlashCommand from "./SlashCommand";
 
 // config
-const charLimit = 5000
+const charLimit = 5000;
 
 // define tiptap extension array
 const extensions = [
@@ -70,7 +71,7 @@ const extensions = [
   Typography,
   TextStyle.configure({ types: [ListItem.name] }),
   TextAlign.configure({
-    types: ['heading', 'paragraph'],
+    types: ["heading", "paragraph"],
   }),
   TaskList,
   TaskItem.configure({
@@ -91,19 +92,19 @@ const extensions = [
   }),
   Placeholder.configure({
     // Use a placeholder
-    placeholder: 'Write something, or select text for menu',
+    placeholder: "Write something, or select text for menu",
   }),
   // CodeBlockLowlight.configure({
   //   languageClassPrefix: 'language-',
   // }),
   CodeBlockLowlight.extend({
     addNodeView() {
-      return ReactNodeViewRenderer(CodeBlockComponent)
+      return ReactNodeViewRenderer(CodeBlockComponent);
     },
   }).configure({ lowlight }),
   // Bubble Menu
   BubbleMenu.configure({
-    element: document.querySelector('.menu'),
+    element: document.querySelector(".menu"),
   }),
 
   // TODO @sb: Set up collab
@@ -116,7 +117,7 @@ const extensions = [
     openOnClick: true,
     protocols: [
       {
-        scheme: 'tel',
+        scheme: "tel",
         optionalSlashes: true,
       },
     ],
@@ -124,28 +125,29 @@ const extensions = [
     openOnClick: true,
     linkOnPaste: true,
     // inclusive: false, // (not working) prevent rendering of link to continue to text
-    HTMLAttributes:{rel: 'noopener noreferrer', target: '_blank'}
+    HTMLAttributes: { rel: "noopener noreferrer", target: "_blank" },
   }),
-]
+  SlashCommand,
+];
 
 // code block languages (alias)
-lowlight.registerLanguage('html', html)
-lowlight.registerLanguage('css', css)
-lowlight.registerLanguage('javascript', js)
-lowlight.registerLanguage('typescript', ts)
+lowlight.registerLanguage("html", html);
+lowlight.registerLanguage("css", css);
+lowlight.registerLanguage("javascript", js);
+lowlight.registerLanguage("typescript", ts);
 
 export default ({ bookmarkId, bearerToken }) => {
   // render skeleton if either bookmarkId or token not avail
   if (!bookmarkId || !bearerToken) {
     return (
-      <Box padding='6' boxShadow='md' bg='white'>
-        <SkeletonCircle size='20' />
-        <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' />
+      <Box padding="6" boxShadow="md" bg="white">
+        <SkeletonCircle size="20" />
+        <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
       </Box>
-    )
+    );
   }
 
-  let editor
+  let editor;
   if (bookmarkId) {
     // TODO @sb: Set up the Hocuspocus WebSocket provider
     // const provider = new HocuspocusProvider({
@@ -161,62 +163,62 @@ export default ({ bookmarkId, bearerToken }) => {
       onUpdate({ editor }) {
         // The content has changed
         // will show 'save' button
-        setIsSaved(false)
+        setIsSaved(false);
       },
-    })
+    });
   }
 
   const { mutate: updateBookmarkNotes } = useMutation(
-    BookmarkAPI.updateBookMarkNotes,
-  )
+    BookmarkAPI.updateBookMarkNotes
+  );
   // to debounce editor's change and save interval
-  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000)
-  const [content, setContent] = useState({})
-  const [isFetchedDocLoaded, setIsFetchedDocLoaded] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
-  const [isSaved, setIsSaved] = useState(false)
+  const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000);
+  const [content, setContent] = useState({});
+  const [isFetchedDocLoaded, setIsFetchedDocLoaded] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   // checks if editor is empty
   function isEditorEmpty() {
-    const isEmpty = !editor.state.doc.textContent.trim().length
-    return isEmpty
+    const isEmpty = !editor.state.doc.textContent.trim().length;
+    return isEmpty;
   }
 
   // fetch bookmark data query
   const { data: bookmarkData } = useQuery({
     queryKey: [bookmarkId], // caching based on key
     queryFn: () => {
-      console.log('🚀 fetchContent')
+      console.log("🚀 fetchContent");
       return BookmarkAPI.getBookmarkById({
         id: bookmarkId,
         token: bearerToken,
-      })
+      });
     },
     enabled: !!bookmarkId, // only when bkmarkId exist
-  })
+  });
 
   // set 'content' react state (if any)
   useEffect(() => {
     // return early if bookmark's content is empty string (i.e. not initialized)
     // flow terminates here
-    if (!bookmarkData || bookmarkData.note === '') {
-      return
+    if (!bookmarkData || bookmarkData.note === "") {
+      return;
     }
 
     // if data is present, set 'content' state
-    const content = JSON.parse(bookmarkData.note)
-    setContent(content)
-  }, [bookmarkData])
+    const content = JSON.parse(bookmarkData.note);
+    setContent(content);
+  }, [bookmarkData]);
 
   // load fetched bookmark content (if any) into editor
   useEffect(() => {
     if (editor && Object.keys(content).length !== 0) {
-      console.log('🚀 loadContent')
+      console.log("🚀 loadContent");
       // note: content may represent an empty node too
-      editor?.commands?.setContent(content)
-      setIsFetchedDocLoaded(true)
+      editor?.commands?.setContent(content);
+      setIsFetchedDocLoaded(true);
     }
-  }, [editor, content])
+  }, [editor, content]);
 
   // auto-save according to interval defined in useDebounce (i.e. 3 seconds)
   useEffect(() => {
@@ -226,30 +228,30 @@ export default ({ bookmarkId, bearerToken }) => {
     // localStorage.setItem('tiptap', JSON.stringify(data))
     // // fetch
     // editor?.commands?.setContent(JSON.parse(localStorage.getItem('tiptap')))
-    console.log('🚀 debouncedEditor useEffect')
+    console.log("🚀 debouncedEditor useEffect");
 
     if (editor) {
       // prevent save before content is fetched and loaded
       if (!isFetchedDocLoaded) {
-        return
+        return;
       } else {
         // TODO @sb: prevent repeated save when content is first loaded
-        saveContent()
+        saveContent();
       }
     }
-  }, [debouncedEditor])
+  }, [debouncedEditor]);
 
   const saveContent = () => {
     // get content from editor
-    const stringifiedContent = JSON.stringify(editor?.getJSON())
+    const stringifiedContent = JSON.stringify(editor?.getJSON());
 
     // return early if nil
-    if (stringifiedContent === '') {
-      return
+    if (stringifiedContent === "") {
+      return;
     }
 
-    console.log('🚀 saveContent')
-    setIsSaving(true)
+    console.log("🚀 saveContent");
+    setIsSaving(true);
 
     // call update API
     updateBookmarkNotes(
@@ -260,50 +262,50 @@ export default ({ bookmarkId, bearerToken }) => {
       },
       {
         onSuccess: () => {
-          setIsSaved(true)
+          setIsSaved(true);
         },
         onError: () => {
-          toast.error('Error saving')
-          setIsSaved(false)
+          toast.error("Error saving");
+          setIsSaved(false);
         },
         onSettled: async () => {
           // mock delay to show spinner
-          await new Promise((resolve) => setTimeout(resolve, 1000))
-          setIsSaving(false)
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          setIsSaving(false);
         },
-      },
-    )
-  }
+      }
+    );
+  };
 
   if (!editor) {
-    return null
+    return null;
   }
 
   return (
-    <Box padding={'5'}>
-      <Flex justifyContent={'flex-start'}>
+    <Box padding={"5"}>
+      <Flex justifyContent={"flex-start"}>
         {/* EDITOR */}
         <EditorMenuBarDemo editor={editor} />
         <EditorBubbleMenu editor={editor} />
       </Flex>
-      <Box my={'2'}>
+      <Box my={"2"}>
         <EditorContent editor={editor} />
       </Box>
 
       {/* FOOTER */}
       {editor && (
-        <Wrap spacing='5'>
-          <Flex alignItems={'center'}>
-            Characters:{' '}
-            <Text ml='2' fontWeight='bold'>
+        <Wrap spacing="5">
+          <Flex alignItems={"center"}>
+            Characters:{" "}
+            <Text ml="2" fontWeight="bold">
               {editor.storage.characterCount.characters().toLocaleString()} /
               {charLimit.toLocaleString()}
             </Text>
           </Flex>
-          <Flex ml='4' alignItems={'center'}>
-            Words:{' '}
-            <Text ml='2' fontWeight='bold'>
-              {editor.storage.characterCount.words().toLocaleString()}{' '}
+          <Flex ml="4" alignItems={"center"}>
+            Words:{" "}
+            <Text ml="2" fontWeight="bold">
+              {editor.storage.characterCount.words().toLocaleString()}{" "}
             </Text>
           </Flex>
 
@@ -311,20 +313,20 @@ export default ({ bookmarkId, bearerToken }) => {
 
           {/* when saving */}
           {isSaving ? (
-            <Button variant='solid' width={'10%'} cursor='not-allowed'>
-              <Spinner color='brand.main' />
+            <Button variant="solid" width={"10%"} cursor="not-allowed">
+              <Spinner color="brand.main" />
             </Button>
           ) : isSaved ? (
-            <Button variant='solid' width={'10%'} cursor='not-allowed'>
+            <Button variant="solid" width={"10%"} cursor="not-allowed">
               Saved
             </Button>
           ) : (
-            <Button variant='primary' width={'10%'} onClick={saveContent}>
+            <Button variant="primary" width={"10%"} onClick={saveContent}>
               Save
             </Button>
           )}
         </Wrap>
       )}
     </Box>
-  )
-}
+  );
+};
