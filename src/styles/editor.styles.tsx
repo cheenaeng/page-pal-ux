@@ -3,6 +3,10 @@ import { mode } from "@chakra-ui/theme-tools";
 export const editorStyles = {
   global: (props: any) => ({
     body: {
+      // suggestions slash command
+      ".suggestion-selected": {
+        bg: "gray.100",
+      },
       // feedback form
       ".frf-water": { display: "none", borderRadius: "100px" },
       ".frf-trigger-button": {
@@ -35,6 +39,13 @@ export const editorStyles = {
           marginTop: "0.75em",
         },
         "p.is-editor-empty:first-child::before": {
+          content: "attr(data-placeholder)",
+          color: "black.500",
+          float: "left",
+          pointerEvents: "none",
+          height: 0,
+        },
+        "p.is-empty::before": {
           content: "attr(data-placeholder)",
           color: "black.500",
           float: "left",
@@ -96,6 +107,7 @@ export const editorStyles = {
           background: mode("gray.900", "gray.900")(props),
           color: mode("white", "white")(props),
           padding: "0.75rem 1rem",
+          margin: "15px 0px",
           borderRadius: "lg",
           whiteSpace: "pre-wrap",
           // code in codeblock

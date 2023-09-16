@@ -127,7 +127,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       borderTopColor={"gra"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={BiParagraph}
                     />
                     <Text> Paragraph </Text>
@@ -147,8 +147,9 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       fontSize={"sm"}
+                      textAlign={"center"}
                     >
                       H1
                     </Text>
@@ -169,8 +170,9 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       fontSize={"sm"}
+                      textAlign={"center"}
                     >
                       H2
                     </Text>
@@ -191,8 +193,9 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       fontSize={"sm"}
+                      textAlign={"center"}
                     >
                       H3
                     </Text>
@@ -213,8 +216,9 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       fontSize={"sm"}
+                      textAlign={"center"}
                     >
                       H4
                     </Text>
@@ -234,7 +238,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={MdFormatQuote}
                     />
                     <Text> Quote</Text>
@@ -251,7 +255,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={BiCodeBlock}
                     />
                     <Text> Code block</Text>
@@ -274,7 +278,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={AiOutlineCheckSquare}
                     />
                     <Text> To-do list</Text>
@@ -292,7 +296,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={GoListUnordered}
                     />
                     <Text> Bulleted list</Text>
@@ -310,7 +314,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={GoListOrdered}
                     />
                     <Text>Numbered list</Text>
@@ -330,7 +334,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                       border={"1px"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
-                      boxSize={"5"}
+                      boxSize={"6"}
                       as={AiOutlineLine}
                     />
                     <Text> Divider</Text>
@@ -372,7 +376,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
                     borderRadius={"3"}
-                    boxSize={"5"}
+                    boxSize={"6"}
                     as={MdFormatAlignLeft}
                   />
                   <Text> Align left</Text>
@@ -392,7 +396,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
                     borderRadius={"3"}
-                    boxSize={"5"}
+                    boxSize={"6"}
                     as={MdFormatAlignCenter}
                   />
                   <Text> Align center</Text>
@@ -412,7 +416,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
                     borderRadius={"3"}
-                    boxSize={"5"}
+                    boxSize={"6"}
                     as={MdFormatAlignRight}
                   />
                   <Text> Align right</Text>
@@ -432,7 +436,7 @@ const EditorBubbleMenu = ({ editor }: any) => {
                     border={"1px"}
                     borderColor={"blackAlpha.400"}
                     borderRadius={"3"}
-                    boxSize={"5"}
+                    boxSize={"6"}
                     as={MdFormatAlignJustify}
                   />
                   <Text> Justify</Text>
