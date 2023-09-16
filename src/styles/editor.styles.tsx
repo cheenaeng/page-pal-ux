@@ -45,6 +45,13 @@ export const editorStyles = {
           pointerEvents: "none",
           height: 0,
         },
+        "p.is-empty::before": {
+          content: "attr(data-placeholder)",
+          color: "black.500",
+          float: "left",
+          pointerEvents: "none",
+          height: 0,
+        },
         p: {
           margin: "1px 1px 1px 1px",
         },
