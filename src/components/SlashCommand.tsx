@@ -33,7 +33,7 @@ interface CommandProps {
   range: Range;
 }
 
-const suggestionList = () => {
+const suggestionList = ({ query }: { query: string }) => {
   return [
     {
       title: "Text",
@@ -59,12 +59,25 @@ const suggestionList = () => {
           .chain()
           .focus()
           .deleteRange(range)
-          .toggleNode("paragraph", "paragraph")
+          .setNode("heading", { level: 1 })
           .run();
       },
     },
-  ];
+  ].filter((item) => {
+    if (typeof query === "string" && query.length > 0) {
+      const search = query.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(search) ||
+        item.description.toLowerCase().includes(search) ||
+        (item.searchTerms &&
+          item.searchTerms.some((term: string) => term.includes(search)))
+      );
+    }
+    // default return all
+    return true;
+  });
 };
+
 // https://tiptap.dev/experiments/commands
 const Command = Extension.create({
   name: "slash-command",
@@ -96,6 +109,20 @@ const Command = Extension.create({
   },
 });
 
+export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
+  const containerHeight = container.offsetHeight;
+  const itemHeight = item ? item.offsetHeight : 0;
+
+  const top = item.offsetTop;
+  const bottom = top + itemHeight;
+
+  if (top < container.scrollTop) {
+    container.scrollTop -= container.scrollTop - top + 5;
+  } else if (bottom > containerHeight + container.scrollTop) {
+    container.scrollTop += bottom - containerHeight - container.scrollTop + 5;
+  }
+};
+
 const CommandList = ({
   items,
   command,
@@ -109,6 +136,7 @@ const CommandList = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  // apply command
   const selectItem = useCallback(
     (index: number) => {
       const item = items[index];
@@ -119,10 +147,13 @@ const CommandList = ({
     [command, editor, items]
   );
 
+  // event listener for navigating suggestion using keyboard
   useEffect(() => {
-    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
+    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter", "ArrowRight"];
     const onKeyDown = (e: KeyboardEvent) => {
       if (navigationKeys.includes(e.key)) {
+        console.log("🚀 ~ prevent default");
+
         e.preventDefault();
         if (e.key === "ArrowUp") {
           setSelectedIndex((selectedIndex + items.length - 1) % items.length);
@@ -132,7 +163,9 @@ const CommandList = ({
           setSelectedIndex((selectedIndex + 1) % items.length);
           return true;
         }
-        if (e.key === "Enter") {
+        if (e.key == "ArrowRight" || e.key == "Enter") {
+          console.log("🚀 onKeyDown 'enter'");
+          e.preventDefault();
           selectItem(selectedIndex);
           return true;
         }
@@ -145,19 +178,20 @@ const CommandList = ({
     };
   }, [items, selectedIndex, setSelectedIndex, selectItem]);
 
+  // default selected suggestion
   useEffect(() => {
     setSelectedIndex(0);
   }, [items]);
 
   const commandListContainer = useRef<HTMLDivElement>(null);
 
-  //   useLayoutEffect(() => {
-  //     const container = commandListContainer?.current;
+  useLayoutEffect(() => {
+    const container = commandListContainer?.current;
 
-  //     const item = container?.children[selectedIndex] as HTMLElement;
+    const item = container?.children[selectedIndex] as HTMLElement;
 
-  //     if (item && container) updateScrollView(container, item);
-  //   }, [selectedIndex]);
+    if (item && container) updateScrollView(container, item);
+  }, [selectedIndex]);
 
   return items.length > 0 ? (
     <Box
@@ -171,6 +205,8 @@ const CommandList = ({
       _dark={{ borderColor: "whiteAlpha.400" }}
       px={"1"}
       py={"1"}
+      maxHeight={"sm"}
+      overflowY={"scroll"}
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (
@@ -182,6 +218,9 @@ const CommandList = ({
             _hover={{ bg: "gray.100" }}
             px={"1"}
             py={"5"}
+            className={`${
+              index === selectedIndex ? "suggestion-selected" : ""
+            }`}
           >
             <Center
               border={"1px"}
@@ -210,9 +249,6 @@ const renderList = () => {
   return {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
       component = new ReactRenderer(CommandList, {
-        // using vue 2:
-        // parent: this,
-        // propsData: props,
         props,
         editor: props.editor,
       });
@@ -222,6 +258,7 @@ const renderList = () => {
       }
 
       // @ts-ignore
+      // tooltip
       popup = tippy("body", {
         getReferenceClientRect: props.clientRect,
         appendTo: () => document.body,

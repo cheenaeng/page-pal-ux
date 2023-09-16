@@ -3,6 +3,10 @@ import { mode } from "@chakra-ui/theme-tools";
 export const editorStyles = {
   global: (props: any) => ({
     body: {
+      // suggestions slash command
+      ".suggestion-selected": {
+        bg: "gray.100",
+      },
       // feedback form
       ".frf-water": { display: "none", borderRadius: "100px" },
       ".frf-trigger-button": {

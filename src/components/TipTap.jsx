@@ -63,6 +63,21 @@ import SlashCommand from "./SlashCommand";
 // config
 const charLimit = 5000;
 
+// define editor props
+const editorProps = {
+  handleDOMEvents: {
+    keydown: (_view, event) => {
+      // prevent default event listeners from firing when slash command is active
+      if (["ArrowUp", "ArrowDown", "ArrowRight", "Enter"].includes(event.key)) {
+        const slashCommand = document.querySelector("#slash-command");
+        if (slashCommand) {
+          return true;
+        }
+      }
+    },
+  },
+};
+
 // define tiptap extension array
 const extensions = [
   Document,
@@ -92,7 +107,7 @@ const extensions = [
   }),
   Placeholder.configure({
     // Use a placeholder
-    placeholder: "Write something, or select text for menu",
+    placeholder: "'/' for commands...",
   }),
   // CodeBlockLowlight.configure({
   //   languageClassPrefix: 'language-',
@@ -127,6 +142,7 @@ const extensions = [
     // inclusive: false, // (not working) prevent rendering of link to continue to text
     HTMLAttributes: { rel: "noopener noreferrer", target: "_blank" },
   }),
+
   SlashCommand,
 ];
 
@@ -158,6 +174,7 @@ export default ({ bookmarkId, bearerToken }) => {
 
     editor = useEditor({
       extensions: extensions,
+      editorProps: editorProps,
       autofocus: true,
       injectCSS: false,
       onUpdate({ editor }) {
