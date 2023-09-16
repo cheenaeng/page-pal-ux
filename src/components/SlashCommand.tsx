@@ -19,19 +19,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { BiParagraph } from "react-icons/bi";
+import { BiCodeBlock, BiParagraph } from "react-icons/bi";
 import tippy from "tippy.js";
 
-interface CommandItemProps {
-  title: string;
-  description: string;
-  icon: ReactNode;
-}
-
-interface CommandProps {
-  editor: Editor;
-  range: Range;
-}
+import { CommandProps, CommandItemProps } from "../types";
+import { AiOutlineCheckSquare, AiOutlineLine } from "react-icons/ai";
+import { GoListOrdered, GoListUnordered } from "react-icons/go";
+import { MdFormatQuote } from "react-icons/md";
 
 const suggestionList = ({ query }: { query: string }) => {
   return [
@@ -50,6 +44,15 @@ const suggestionList = ({ query }: { query: string }) => {
       },
     },
     {
+      title: "To-do list",
+      description: "Track tasks with a to-do list.",
+      searchTerms: ["list", "todo", "check", "checkbox", "box", "[]"],
+      icon: <Icon boxSize={"6"} as={AiOutlineCheckSquare} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
+      },
+    },
+    {
       title: "Heading 1",
       description: "Big section heading.",
       searchTerms: ["h1", "heading1"],
@@ -61,6 +64,79 @@ const suggestionList = ({ query }: { query: string }) => {
           .deleteRange(range)
           .setNode("heading", { level: 1 })
           .run();
+      },
+    },
+    {
+      title: "Heading 2",
+      description: "Medium section heading.",
+      searchTerms: ["h2", "heading2"],
+      icon: <Text fontSize={"lg"}>H2</Text>,
+      command: ({ editor, range }: CommandProps) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 2 })
+          .run();
+      },
+    },
+    {
+      title: "Heading 3",
+      description: "Small section heading.",
+      searchTerms: ["h3", "heading3"],
+      icon: <Text fontSize={"lg"}>H3</Text>,
+      command: ({ editor, range }: CommandProps) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 3 })
+          .run();
+      },
+    },
+    {
+      title: "Bulleted list",
+      description: "Create a simple bulleted list.",
+      searchTerms: ["bullet", "bulleted", "unordered", "point", "*"],
+      icon: <Icon boxSize={"6"} as={GoListUnordered} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleBulletList().run();
+      },
+    },
+    {
+      title: "Numbered list",
+      description: "Create a list with numbering.",
+      searchTerms: ["number", "numbered", "ordered", "1."],
+      icon: <Icon boxSize={"6"} as={GoListOrdered} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      },
+    },
+    {
+      title: "Quote",
+      description: "Capture a quote.",
+      searchTerms: ["blockquote"],
+      icon: <Icon boxSize={"6"} as={MdFormatQuote} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleBlockquote().run();
+      },
+    },
+    {
+      title: "Divider",
+      description: "Visually divide blocks.",
+      searchTerms: ["divide"],
+      icon: <Icon boxSize={"6"} as={AiOutlineLine} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).setHorizontalRule().run();
+      },
+    },
+    {
+      title: "Code block",
+      description: "Code with syntax highlighting.",
+      searchTerms: ["codeblock", "code"],
+      icon: <Icon boxSize={"6"} as={BiCodeBlock} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
       },
     },
   ].filter((item) => {
@@ -152,8 +228,6 @@ const CommandList = ({
     const navigationKeys = ["ArrowUp", "ArrowDown", "Enter", "ArrowRight"];
     const onKeyDown = (e: KeyboardEvent) => {
       if (navigationKeys.includes(e.key)) {
-        console.log("🚀 ~ prevent default");
-
         e.preventDefault();
         if (e.key === "ArrowUp") {
           setSelectedIndex((selectedIndex + items.length - 1) % items.length);
@@ -164,7 +238,6 @@ const CommandList = ({
           return true;
         }
         if (e.key == "ArrowRight" || e.key == "Enter") {
-          console.log("🚀 onKeyDown 'enter'");
           e.preventDefault();
           selectItem(selectedIndex);
           return true;
@@ -231,7 +304,7 @@ const CommandList = ({
             >
               {item.icon}
             </Center>
-            <VStack align="flex-start" justify={"center"} py={"3"}>
+            <VStack align="flex-start" justify={"center"} py={"3"} spacing={0}>
               <Text as="b">{item.title}</Text>
               <Text> {item.description} </Text>
             </VStack>
