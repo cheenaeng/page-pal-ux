@@ -266,16 +266,17 @@ const CommandList = ({
     if (item && container) updateScrollView(container, item);
   }, [selectedIndex]);
 
+  // UI
   return items.length > 0 ? (
     <Box
-      id="slash-command"
+      className="slashCommand"
       ref={commandListContainer}
       shadow={"md"}
       border={"1px"}
       borderColor={"gray.100"}
       borderRadius={"4px"}
       bg={"white"}
-      _dark={{ borderColor: "whiteAlpha.400" }}
+      _dark={{ borderColor: "whiteAlpha.400", bg: "#2d3748" }}
       px={"1"}
       py={"1"}
       maxHeight={"sm"}
@@ -294,6 +295,7 @@ const CommandList = ({
             className={`${
               index === selectedIndex ? "suggestion-selected" : ""
             }`}
+            _dark={{ _hover: { bg: "#718096" } }}
           >
             <Center
               border={"1px"}

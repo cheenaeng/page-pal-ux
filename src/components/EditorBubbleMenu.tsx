@@ -124,7 +124,6 @@ const EditorBubbleMenu = ({ editor }: any) => {
                   <HStack>
                     <Icon
                       border={"1px"}
-                      borderTopColor={"gra"}
                       borderColor={"blackAlpha.400"}
                       borderRadius={"3"}
                       boxSize={"6"}
