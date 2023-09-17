@@ -8,6 +8,7 @@ import {
   Image,
   VStack,
   HStack,
+  Spacer,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -20,6 +21,7 @@ import { AuthContext } from "../../api/context/authContext";
 import { BookmarkChangeContext } from "../../api/context/bookmarkChangeContext";
 import blankSlateContent from "../../Assets/blankSlateContent.svg";
 import InputSave from "../../components/common/Form/InputSave";
+import { ListTiles } from "../../components/ListTiles";
 
 function SavePage() {
   const [page, setPage] = useState(0);
@@ -54,7 +56,7 @@ function SavePage() {
         mx="auto"
         maxWidth={{
           base: "100%",
-          "2xl": "80%",
+          "2xl": "75%",
         }}
       >
         <Flex justifyContent={"space-between"} alignItems={"center"}>
@@ -87,7 +89,10 @@ function SavePage() {
         {/* main card tiles */}
         {/*  show tiles when API is loading, or when records exist */}
         {isLoading || (bookmarkData && bookmarkData.total_records > 0) ? (
-          <CardTiles pages={bookmarkData?.data} isLoading={isLoading} />
+          <>
+            <CardTiles pages={bookmarkData?.data} isLoading={isLoading} />
+            <ListTiles pages={bookmarkData?.data} isLoading={isLoading} />
+          </>
         ) : (
           // show 'blank' illustration when useQuery has settled and there are no records
           <VStack justifyContent={"center"} alignItems={"center"}>

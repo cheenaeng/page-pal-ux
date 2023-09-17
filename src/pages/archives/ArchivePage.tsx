@@ -62,7 +62,7 @@ function ArchivePage() {
         mx="auto"
         maxWidth={{
           base: "100%",
-          "2xl": "80%",
+          "2xl": "75%",
         }}
       >
         <Flex justifyContent={"space-between"} alignItems={"center"}>
