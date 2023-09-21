@@ -10,10 +10,10 @@ class BackendPath implements BackendPathI {
   getEnvironment() {
     if (window.location.host.includes("localhost")) {
       this.environment = "development";
-    } else if (window.location.host === "stg-linkt.onrender.com") {
+    } else if (window.location.host === "stg-page-pal-ux.vercel.app") {
       this.environment = "staging";
     } else {
-      this.environment = "staging";
+      this.environment = "production";
     }
   }
 
@@ -24,7 +24,7 @@ class BackendPath implements BackendPathI {
     } else if (this.environment === "staging") {
       return "https://stg-linkt.onrender.com";
     } else {
-      return "https://stg-linkt.onrender.com";
+      return "https://charming-buckle-fawn.cyclic.app";
     }
   }
 }
