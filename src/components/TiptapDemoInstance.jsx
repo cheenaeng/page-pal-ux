@@ -39,7 +39,7 @@ const editorProps = {
     keydown: (_view, event) => {
       // prevent default event listeners from firing when slash command is active
       if (["ArrowUp", "ArrowDown", "ArrowRight", "Enter"].includes(event.key)) {
-        const slashCommand = document.querySelector("#slash-command");
+        const slashCommand = document.querySelector(".slashCommand");
         if (slashCommand) {
           return true;
         }
@@ -189,6 +189,12 @@ export default () => {
               ],
             },
           ],
+        },
+        {
+          type: "paragraph",
+          attrs: {
+            textAlign: "left",
+          },
         },
         {
           type: "paragraph",

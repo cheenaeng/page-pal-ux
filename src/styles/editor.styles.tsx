@@ -5,7 +5,7 @@ export const editorStyles = {
     body: {
       // suggestions slash command
       ".suggestion-selected": {
-        bg: "gray.100",
+        bg: mode("#E2E8F0", "#718096")(props), // or  "gray.100"
       },
       // feedback form
       ".frf-water": { display: "none", borderRadius: "100px" },
