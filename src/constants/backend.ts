@@ -1,32 +1,32 @@
 export interface BackendPathI {
-  environment: string
-  getEnvironment: () => void
-  getBackendPath: () => string
+  environment: string;
+  getEnvironment: () => void;
+  getBackendPath: () => string;
 }
 
 class BackendPath implements BackendPathI {
-  environment!: string
+  environment!: string;
 
   getEnvironment() {
-    if (window.location.host.includes('localhost')) {
-      this.environment = 'development'
-    } else if (window.location.host === 'stg-page-pal-ux.vercel.app') {
-      this.environment = 'staging'
+    if (window.location.host.includes("localhost")) {
+      this.environment = "development";
+    } else if (window.location.host === "stg-page-pal-ux.vercel.app") {
+      this.environment = "staging";
     } else {
-      this.environment = 'staging'
+      this.environment = "production";
     }
   }
 
   getBackendPath(): string {
-    this.getEnvironment()
-    if (this.environment === 'development') {
-      return 'http://localhost:3000'
-    } else if (this.environment === 'staging') {
-      return 'https://charming-buckle-fawn.cyclic.app'
+    this.getEnvironment();
+    if (this.environment === "development") {
+      return "http://localhost:3005";
+    } else if (this.environment === "staging") {
+      return "https://stg-linkt.onrender.com";
     } else {
-      return 'https://charming-buckle-fawn.cyclic.app'
+      return "https://charming-buckle-fawn.cyclic.app";
     }
   }
 }
 
-export default BackendPath
+export default BackendPath;
